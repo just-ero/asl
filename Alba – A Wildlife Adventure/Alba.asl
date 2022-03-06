@@ -145,17 +145,19 @@ init
 		var qt = helper.GetClass("Assembly-CSharp", "QuestTask");
 
 		var quests = vars.Unity.MakeList<IntPtr>(qgm.Static, singleton["_instance"], qgm["_container"], qgc["quests"]);
+		quests.Update(game);
 
 		vars.TaskValue = new MemoryWatcherList();
 		vars.RequiredValue = new Dictionary<string, int>();
 
-		for (int questId = 0; questId < quests.Count; ++questId)
+		for (int questId = 0; questId < quests.Current.Count; ++questId)
 		{
-			var tasks = vars.Unity.MakeList<IntPtr>(quests[questId], qg["_tasks"]);
+			var tasks = vars.Unity.MakeList<IntPtr>(quests.Current[questId], qg["_tasks"]);
+			tasks.Update(game);
 
-			for (int taskId = 0; taskId < tasks.Count; ++taskId)
+			for (int taskId = 0; taskId < tasks.Current.Count; ++taskId)
 			{
-				IntPtr task = tasks[taskId];
+				IntPtr task = tasks.Current[taskId];
 				var name = new DeepPointer(task + qt["displayName"], str["m_firstChar"]).DerefString(game, 128);
 				var max = game.ReadValue<int>(task + (int)(qt["maxValue"]));
 

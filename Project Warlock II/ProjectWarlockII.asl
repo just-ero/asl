@@ -47,7 +47,7 @@ update
 	current.DemoEnd = vars.Unity["demoEnd"].Current;
 	current.GameState = vars.Unity["gamestate"].Current;
 	current.Started = vars.Unity["started"].Current;
-	current.Keys = new bool[] { vars.Unity["keys"][0], vars.Unity["keys"][1], vars.Unity["keys"][2] };
+	current.Keys = vars.Unity["keys"].Current;
 	current.GameTime = new TimeSpan(vars.Unity["hours"].Current, vars.Unity["minutes"].Current, vars.Unity["seconds"].Current);
 }
 

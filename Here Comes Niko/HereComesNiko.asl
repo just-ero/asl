@@ -346,13 +346,13 @@ update
 	current.GameStart = vars.SpeedrunData["onStartGame"].Current;
 	current.LevelStart = vars.SpeedrunData["onLevelStart"].Current;
 
-	current.Counts = new int[]
+	current.Counts = new[]
 	{
-		vars.Unity["coinFlags"].Count,
-		vars.Unity["cassetteFlags"].Count,
-		vars.Unity["fishFlags"].Count,
-		vars.Unity["letterFlags"].Count,
-		vars.Unity["miscFlags"].Count
+		vars.Unity["coinFlags"].Current.Count,
+		vars.Unity["cassetteFlags"].Current.Count,
+		vars.Unity["fishFlags"].Current.Count,
+		vars.Unity["letterFlags"].Current.Count,
+		vars.Unity["miscFlags"].Current.Count
 	};
 }
 

@@ -80,7 +80,7 @@ update
 
 	vars.Unity.Update();
 
-	current.Scene = vars.Unity["nextLevel"].Value;
+	current.Scene = vars.Unity["nextLevel"].Current;
 	current.Loading = vars.Unity["loading"].Current;
 	current.LoadingScene = vars.Unity["loadingScene"].Current;
 	current.LevelIndex = vars.Unity["levelIndex"].Current;
