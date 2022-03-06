@@ -1,5 +1,5 @@
 # LiveSplit Auto Splitters *(by Ero)*
-## How do I activate an auto splitter?
+## [How do I activate an auto splitter?](#activate)
 All of my auto splitters are available through LiveSplit's [`LiveSplit.AutoSplitters.xml`](https://github.com/LiveSplit/LiveSplit.AutoSplitters/blob/master/LiveSplit.AutoSplitters.xml).
 To activate them, simply follow these steps:
 * open any split file
