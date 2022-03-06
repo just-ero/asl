@@ -2,12 +2,12 @@
 name: Need a new auto splitter or some new features?
 about: Commission some work here!
 title: "[Feature request, Commission] for [Game Name]"
-labels: ''
-assignees: ''
+labels: feature request
+assignees: just-ero
 
 ---
 
-For rates and other information, please refer to my commission info [here](././asl#commission-information).  
+For rates and other information, please refer to my commission info [here](https://github.com/just-ero/asl#commissions).  
 - [ ] I have read and understood these terms.
 
 ---
