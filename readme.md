@@ -1,5 +1,6 @@
 # LiveSplit Auto Splitters *(by Ero)*
-## [How do I activate an auto splitter?](#activate)
+## <a id="pookie"/>How do I activate an auto splitter?
+
 All of my auto splitters are available through LiveSplit's [`LiveSplit.AutoSplitters.xml`](https://github.com/LiveSplit/LiveSplit.AutoSplitters/blob/master/LiveSplit.AutoSplitters.xml).
 To activate them, simply follow these steps:
 * open any split file
@@ -28,6 +29,7 @@ This can happen if you're on a LiveSplit version before 1.8.18. This version int
 
 This occasionally happens and does not have a fix. Attempt launching LiveSplit as administrator. If the issue persists, the bug is on LiveSplit's side.  
 <br/>
+[pookie](#pookie)
 
 Your issue isn't listed? Please [create an issue here on GitHub](https://github.com/just-ero/asl/issues/new/choose).  
 Want to try and help me out with the fixes? Set up [Trace Spy](https://gist.github.com/just-ero/1e3b784fa63059f04f8dd2810dfa8f13) and add any error messages you see to the GitHub issue!
