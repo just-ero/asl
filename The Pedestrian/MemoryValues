@@ -1,0 +1,239 @@
+GENERAL
+
+Player
+Audio trigger: Music_PuzzleMode
+
+
+INTRO
+
+Load Area 129 False
+Load Initial Scene
+Load Audio
+Load Lobby_Warehouse
+Load LobbyElevator
+
+
+WAREHOUSE
+
+Choose
+No savable object assigned to LobbySpawn
+Audio trigger: LobbyFactory_Music_EnterMaintenance
+(Audio trigger: LobbyFactory_Music_Progress)
+Audio trigger: LobbyFactory_Music_Gap
+Unlock Achievement: Warehouse
+Plug
+Unlock Achievement: Warehouse
+
+
+ELEVATOR
+
+Load Area 111 True
+On destroy Link
+Load Audio
+Load Subway
+Load LobbyElevator
+Load Train
+Hub after start
+Plug
+Load Area finished 111 True
+DONE
+
+
+SUBWAY
+
+(Audio trigger: Subway_Music_Progress)
+(1)
+Crate
+ComponentPiece
+Plug
+Unlock Achievement: Subway
+
+
+ENTER TRAIN
+
+(Audio trigger: Subway_Music_Progress)
+Prep area: 199
+Load Area 199 True
+(On destroy Link)
+Load Audio
+Load Downtown
+Load Train
+Generic save
+sequence save
+(Hub after start)
+(Initialize send audio event)
+Crate
+Plug
+Plug
+Load Area finished 199 True
+DONE
+
+
+DOWNTOWN
+
+Audio trigger: Downtown_Music_EndOfIntro
+Unlock Achievement: Downtown
+WireSign
+Audio trigger: Downtown_Music_EndOfSewer
+Audio trigger: Downtown_Music_Manhole
+Crate
+(Audio trigger: Downtown_Music_Progress)
+(Key)
+WireSign
+Plug
+
+
+TRAIN
+
+Prep area: 748
+Load Area 748 True
+(On destroy Link)
+Load Audio
+Load University
+Load Train
+Generic save
+Hub after start
+(Initialize send audio event)
+Plug
+Plug
+Plug
+Load Area finished 748 True
+DONE
+
+
+UNIVERSITY
+
+(Audio trigger: University_Music_Progress)
+Unlock Achievement: University
+Crate
+Unlock Achievement: University
+WireSign
+Unlock Achievement: University
+ComponentPiece
+Plug
+
+
+TRAIN
+
+Prep area: 274
+Load Area 274 True
+(On destroy Link)
+Load Audio
+Load Innercity
+Load Train
+Generic save
+(sequence save)
+(Hub after start)
+(Initialize send audio event)
+Plug
+Plug
+Plug
+Plug
+Load Area finished 274 True
+DONE
+
+
+INNERCITY
+
+(Audio trigger: Innercity_Music_Progress)
+Key
+WireSign
+Plug
+Unlock Achievement: InnerCity
+
+
+TRAIN
+
+Prep area: 772
+Load Area 772 True
+(On destroy Link)
+Load Audio
+Load RooftopsTrainStation
+Load Train
+Load Area finished 772 True
+DONE
+
+
+ROOFTOPS1
+
+Unlock Achievement: Rooftops_1
+
+
+ELEVATOR
+
+Load Area 399 True
+(On destroy Link)
+Load Audio
+Load Rooftops
+Load MasterElevator
+(sequence save)
+(Hub after start)
+(Initialize send audio event)
+Plug
+Plug
+Plug
+Plug
+Plug
+Load Area finished 399 True
+DONE
+
+
+ROOFTOPS
+
+(Crate)
+(Key)
+(Audio trigger: Rooftops_Music_Progress)
+(Unlock Achievement: Rooftops_3)
+WireSign
+(Unlock Achievement: Rooftops_2)
+Plug
+
+
+ELEVATOR
+
+Load Area 444 True
+(On destroy Link)
+Load Audio
+Load Finale
+Load Finale_Stairwell
+LevelName MainElevator
+Load MasterElevator
+Plug
+Plug
+Plug
+Plug
+Plug
+Plug
+Load Area finished 444 True
+DONE
+
+
+ROOF
+
+Unlock Achievement: Finale_1
+Plug
+(Load 16)
+(Bridge is now Used)
+(On destroy Link)
+(drop)
+
+
+APARTMENTS
+
+Load Area 184 True
+Load Audio
+Load Apartments
+Load Finale_Stairwell
+Generic save
+Initialize send audio event
+Load Area finished 184 True
+(Audio trigger: Apartment_Music_Progress)
+DONE
+
+Machine Lever!
+Power on
+Computer signal!
+Machine Button!
+Audio trigger: Apartment_Music_Progress
+Unlock Achievement: Apartment_1
+Overwrite save

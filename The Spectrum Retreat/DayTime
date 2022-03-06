@@ -1,0 +1,44 @@
+day 1
+    open door           time 8
+    enter code          time 12
+    exit level elevator time 22
+
+day 2
+    wake up             time 7
+    open door           time 8
+    meal done           time 9
+    enter floor 2       time 10
+    enter code          time 13
+    exit level elevator time 22
+
+day 3
+    wake up             time 7
+    open door           time 8
+    meal done           time 9
+    enter floor 3       time 10
+    enter code          time 13
+    exit level elevator time 22
+
+day 4
+    wake up             time 7
+    open door           time 8
+    meal done           time 9
+    enter floor 4       time 10
+    enter code          time 14
+    exit level elevator time 22
+
+day 5
+    wake up             time 7
+    open door           time 8
+    meal done           time 9
+    enter floor 5       time 10
+    enter code          time 13
+    exit level elevator time 22
+
+day 6
+    wake up             time 7
+    walk out            time 9
+    enter roof          time 10
+
+day 7
+    credits             time 8
