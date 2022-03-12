@@ -40,12 +40,13 @@ update
 	vars.Unity.Update();
 
 	current.Scene = vars.Unity.Scenes.Active.Index;
-	if (old.Scene != current.Scene)
-		game.WriteValue<int>((IntPtr)(vars.LevelBeatenAddr), 0);
 
 	current.IGT = vars.Unity["inGameTime"].Current;
 	current.Level = vars.Unity["levelID"].Current;
 	current.LevelBeaten = vars.Unity["levelBeaten"].Current == 1;
+
+	if (!old.LevelBeaten && current.LevelBeaten)
+		game.WriteValue<int>((IntPtr)(vars.LevelBeatenAddr), 0);
 }
 
 start
