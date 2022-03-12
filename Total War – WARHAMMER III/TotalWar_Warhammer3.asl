@@ -9,11 +9,13 @@ startup
 
 	vars.Targets = new SigScanTarget[]
 	{
-		new SigScanTarget(6, "48 83 EC 28 80 3D ???????? 00 74 ?? E8") // Loading
+		new SigScanTarget(6, "48 83 EC 28 80 3D ???????? 00 74 ?? E8"), // Loading
+		new SigScanTarget(3, "40 38 3D ???????? 0F 84 ???????? FF 15"), // IsPlayersTurn
+		new SigScanTarget(8, "40 53 48 83 EC 50 8B 05 ???????? 85 C0") // HasTradeOffer
 	};
 
 	foreach (var target in (SigScanTarget[])(vars.Targets))
-		target.OnFound = (p, _, addr) => addr + 0x5 + p.ReadValue<int>(addr);
+		target.OnFound = (p, _, addr) => addr + 0x4 + p.ReadValue<int>(addr);
 }
 
 init
@@ -48,7 +50,12 @@ init
 			await System.Threading.Tasks.Task.Delay(3000, vars.CancelSource.Token);
 		}
 
-		vars.Loading = new MemoryWatcher<bool>(addresses[0]);
+		vars.Watchers = new MemoryWatcherList
+		{
+			new MemoryWatcher<bool>(addresses[0] + 0x1) { Name = "Loading" },
+			new MemoryWatcher<bool>(addresses[1]) { Name = "IsPlayersTurn" },
+			new MemoryWatcher<bool>(addresses[2]) { Name = "HasTradeOffer" }
+		};
 
 		vars.AddressesFound = true;
 		vars.Log("Task finished.");
@@ -59,12 +66,13 @@ update
 {
 	if (!vars.AddressesFound) return false;
 
-	vars.Loading.Update(game);
+	vars.Watchers.UpdateAll(game);
 }
 
 isLoading
 {
-	return vars.Loading.Current;
+	return vars.Watchers["Loading"].Current ||
+	       !vars.Watchers["IsPlayersTurn"].Current && !vars.Watchers["HasTradeOffer"].Current;
 }
 
 exit
