@@ -18,10 +18,9 @@ init
 {
 	vars.Unity.TryOnLoad = (Func<dynamic, bool>)(helper =>
 	{
-		var _timer = helper.GetClass("Assembly-CSharp", "Timer");
 		var asd = helper.GetClass("Assembly-CSharp", "AutoSplitterData");
 
-		vars.Unity.Make<float>(_timer.Static, _timer["Instance"], _timer["timer"]).Name = "inGameTime";
+		vars.Unity.Make<double>(asd.Static, asd["inGameTime"]).Name = "inGameTime";
 		vars.Unity.Make<int>(asd.Static, asd["levelID"]).Name = "levelID";
 		vars.Unity.Make<int>(asd.Static, asd["levelBeaten"]).Name = "levelBeaten";
 
