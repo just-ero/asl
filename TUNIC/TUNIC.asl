@@ -17,10 +17,17 @@ startup
 		if (mbox == DialogResult.Yes)
 			timer.CurrentTimingMethod = TimingMethod.GameTime;
 	}
+
+	vars.StartTime = 0f;
 }
 
 onStart
-{}
+{
+	// For NG+ runs. Set the StartTime to the save file's current in-game time.
+	// If the in-game time at start is below 1 second (not sure to be exactly 0), assume normal NG.
+	var igt = current.IGT;
+	vars.StartTime = igt < 1f ? 0f : igt;
+}
 
 onSplit
 {}
@@ -79,7 +86,7 @@ reset
 
 gameTime
 {
-	return TimeSpan.FromSeconds(vars.Unity["inGameTime"].Current);
+	return TimeSpan.FromSeconds(current.IGT - vars.StartTime);
 }
 
 isLoading
