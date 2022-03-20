@@ -1,4 +1,5 @@
 state("TUNIC") {}
+state("Secret Legend") {}
 
 startup
 {
