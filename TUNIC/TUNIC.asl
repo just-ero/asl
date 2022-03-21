@@ -17,10 +17,15 @@ startup
 		if (mbox == DialogResult.Yes)
 			timer.CurrentTimingMethod = TimingMethod.GameTime;
 	}
+
+	vars.StartTime = 0f;
 }
 
 onStart
-{}
+{
+	var igt = current.IGT;
+	vars.StartTime = igt < 1f ? 0f : igt;
+}
 
 onSplit
 {}
@@ -80,7 +85,7 @@ reset
 gameTime
 {
 	if (current.TimerRunning)
-		return TimeSpan.FromSeconds(current.IGT);
+		return TimeSpan.FromSeconds(current.IGT - vars.StartTime);
 }
 
 isLoading
