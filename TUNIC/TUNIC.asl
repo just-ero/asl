@@ -19,12 +19,19 @@ startup
 	}
 
 	vars.StartTime = 0f;
+	vars.TempInts = new Dictionary<string, int>();
+	vars.TempFloats = new Dictionary<string, float>();
+	vars.TempStrings = new Dictionary<string, string>();
 }
 
 onStart
 {
 	var igt = current.IGT;
 	vars.StartTime = igt < 1f ? 0f : igt;
+
+	vars.TempInts.Clear();
+	vars.TempFloats.Clear();
+	vars.TempStrings.Clear();
 }
 
 onSplit
@@ -46,6 +53,77 @@ init
 		vars.Unity.Make<int>(srd.Static, srd["lastLoadedSceneIndex"]).Name = "lastLoadedSceneIndex";
 		vars.Unity.Make<bool>(srd.Static, srd["gameComplete"]).Name = "gameComplete";
 
+		#region Save File
+		var sf = helper.GetClass("Assembly-CSharp", "SaveFile");
+
+		vars.Unity.Make<int>(sf.Static, sf["intStore"], 0x20).Name = "ints";
+		vars.Unity.Make<int>(sf.Static, sf["floatStore"], 0x20).Name = "floats";
+		vars.Unity.Make<int>(sf.Static, sf["stringStore"], 0x20).Name = "strings";
+
+		vars.UpdateDicts = (Func<List<string>>)(() =>
+		{
+			var ret = new List<string>();
+
+			for (int i = 0; i < vars.Unity["ints"].Current; ++i)
+			{
+				var key = new DeepPointer(sf.Static + sf["intStore"], 0x18, 0x28 + 0x18 * i, 0x14).DerefString(game, 128);
+				var value = new DeepPointer(sf.Static + sf["intStore"], 0x18, 0x30 + 0x18 * i).Deref<int>(game);
+
+				int temp;
+				if (vars.TempInts.TryGetValue(key, out temp))
+				{
+					if (temp != value) vars.Log("Int item changed: " + key + " | " + temp + " -> " + value);
+				}
+				else
+				{
+					vars.Log("Int item added: " + key + " | " + value);
+				}
+
+				vars.TempInts[key] = value;
+			}
+
+			for (int i = 0; i < vars.Unity["floats"].Current; ++i)
+			{
+				var key = new DeepPointer(sf.Static + sf["floatStore"], 0x18, 0x28 + 0x18 * i, 0x14).DerefString(game, 128);
+				var value = new DeepPointer(sf.Static + sf["floatStore"], 0x18, 0x30 + 0x18 * i).Deref<float>(game);
+
+				if (key == "playtime") continue;
+
+				float temp;
+				if (vars.TempFloats.TryGetValue(key, out temp))
+				{
+					if (temp != value) vars.Log("Float item changed: " + key + " | " + temp + " -> " + value);
+				}
+				else
+				{
+					vars.Log("Float item added: " + key + " | " + value);
+				}
+
+				vars.TempFloats[key] = value;
+			}
+
+			for (int i = 0; i < vars.Unity["strings"].Current; ++i)
+			{
+				var key = new DeepPointer(sf.Static + sf["stringStore"], 0x18, 0x28 + 0x18 * i, 0x14).DerefString(game, 128);
+				var value = new DeepPointer(sf.Static + sf["stringStore"], 0x18, 0x30 + 0x18 * i, 0x14).DerefString(game, 128);
+
+				string temp;
+				if (vars.TempStrings.TryGetValue(key, out temp))
+				{
+					if (temp != value) vars.Log("String item changed: " + key + " | " + temp + " -> " + value);
+				}
+				else
+				{
+					vars.Log("String item added: " + key + " | " + value);
+				}
+
+				vars.TempStrings[key] = value;
+			}
+
+			return ret;
+		});
+		#endregion
+
 		return true;
 	});
 
@@ -63,8 +141,12 @@ update
 	current.Scene = vars.Unity.Scenes.Active.Index;
 	current.GameComplete = vars.Unity["gameComplete"].Current;
 
+	current.Scene = vars.Unity.Scenes.Active.Index;
+	if (current.Scene <= 0)
+		current.Scene = old.Scene;
+
 	if (old.Scene != current.Scene)
-		vars.Log(old.Scene + " -> " + current.Scene);
+		vars.Log("Scene changed: " + old.Scene + " -> " + current.Scene);
 }
 
 start
@@ -74,6 +156,7 @@ start
 
 split
 {
+	vars.UpdateDicts();
 	return !old.GameComplete && current.GameComplete;
 }
 
