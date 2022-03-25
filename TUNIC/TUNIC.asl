@@ -60,10 +60,8 @@ init
 		vars.Unity.Make<int>(sf.Static, sf["floatStore"], 0x20).Name = "floats";
 		vars.Unity.Make<int>(sf.Static, sf["stringStore"], 0x20).Name = "strings";
 
-		vars.UpdateDicts = (Func<List<string>>)(() =>
+		vars.UpdateDicts = (Action)(() =>
 		{
-			var ret = new List<string>();
-
 			for (int i = 0; i < vars.Unity["ints"].Current; ++i)
 			{
 				var key = new DeepPointer(sf.Static + sf["intStore"], 0x18, 0x28 + 0x18 * i, 0x14).DerefString(game, 128);
@@ -119,8 +117,6 @@ init
 
 				vars.TempStrings[key] = value;
 			}
-
-			return ret;
 		});
 		#endregion
 
