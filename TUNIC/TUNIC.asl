@@ -44,8 +44,6 @@ init
 {
 	vars.Unity.TryOnLoad = (Func<dynamic, bool>)(helper =>
 	{
-		helper.Offsets = new[] { 0x30, 0x1C, 0x120 };
-
 		var srd = helper.GetClass("Assembly-CSharp", "SpeedrunData");
 
 		vars.Unity.Make<float>(srd.Static, srd["inGameTime"]).Name = "inGameTime";
@@ -138,7 +136,7 @@ update
 	current.GameComplete = vars.Unity["gameComplete"].Current;
 
 	current.Scene = vars.Unity.Scenes.Active.Index;
-	if (current.Scene <= 0)
+	if (current.Scene <= 0 || current.Scene == 80)
 		current.Scene = old.Scene;
 
 	if (old.Scene != current.Scene)
