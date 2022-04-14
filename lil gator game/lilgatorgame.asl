@@ -2,7 +2,7 @@ state("Lil Gator Game") {}
 
 startup
 {
-	vars.Log = (Action<object>) ((output) => print("[lil gator game ASL] " + output));
+	vars.Log = (Action<object>)(output => print("[lil gator game] " + output));
 
 	settings.Add("QP_Act1_Jill", true, "Finish Jill's Quest");
 	settings.Add("QP_Act1_Martin", true, "Finish Martin's Quest");
