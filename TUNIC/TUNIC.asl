@@ -10,161 +10,124 @@ startup
 	string[,] _settings =
 	{
 		{ null, "Key Items", "Key Items" },
-			{ "Key Items", "inventory quantity Wand : 1",                                          "Wand" },
-			{ "Key Items", "inventory quantity Techbow : 1",                                       "Techbow" },
+			{ "Key Items", "inventory quantity Wand : 1",                                          "Magic Orb" },
+			{ "Key Items", "inventory quantity Techbow : 1",                                       "Fire Wand" },
 			{ "Key Items", "inventory quantity Sword : 1",                                         "Sword" },
 			{ "Key Items", "inventory quantity Hyperdash : 1",                                     "Hyperdash" },
-			{ "Key Items", "inventory quantity SlowmoItem : 1",                                    "SlowmoItem" },
+			{ "Key Items", "inventory quantity SlowmoItem : 1",                                    "Hourglass" },
 			{ "Key Items", "inventory quantity Shield : 1",                                        "Shield" },
 			{ "Key Items", "inventory quantity Lantern : 1",                                       "Lantern" },
 			{ "Key Items", "inventory quantity Stick : 1",                                         "Stick" },
 			{ "Key Items", "inventory quantity Mask : 1",                                          "Mask" },
-			{ "Key Items", "inventory quantity Shotgun : 1",                                       "Shotgun" },
-			{ "Key Items", "inventory quantity Stundagger : 1",                                    "Stundagger" },
+			{ "Key Items", "inventory quantity Shotgun : 1",                                       "Gun" },
+			{ "Key Items", "inventory quantity Stundagger : 1",                                    "Ice Dagger" },
 			{ "Key Items", "inventory quantity Hexagon Green : 1",                                 "Hexagon Green" },
 			{ "Key Items", "inventory quantity Hexagon Red : 1",                                   "Hexagon Red" },
 			{ "Key Items", "inventory quantity Hexagon Blue : 1",                                  "Hexagon Blue" },
-
-			{ "Key Items", "inventory quantity Upgrade Offering - Attack - Tooth : 1",             "Upgrade Offering - Attack - Tooth" },
-			{ "Key Items", "inventory quantity Upgrade Offering - DamageResist - Effigy : 1",      "Upgrade Offering - DamageResist - Effigy" },
-			{ "Key Items", "inventory quantity Upgrade Offering - PotionEfficiency Swig - As : 1", "Upgrade Offering - PotionEfficiency Swig - As" },
-			{ "Key Items", "inventory quantity Upgrade Offering - Stamina SP - Feather : 1",       "Upgrade Offering - Stamina SP - Feather" },
-			{ "Key Items", "inventory quantity Upgrade Offering - Magic MP - Mushroom : 1",        "Upgrade Offering - Magic MP - Mushroom" },
-			{ "Key Items", "inventory quantity Relic - Hero Pendant SP : 1",                       "Relic - Hero Pendant SP" },
-			{ "Key Items", "inventory quantity Relic - Hero Crown : 1",                            "Relic - Hero Crown" },
-			{ "Key Items", "inventory quantity Relic - Hero Pendant MP : 1",                       "Relic - Hero Pendant MP" },
-			{ "Key Items", "inventory quantity Relic - Hero Sword : 1",                            "Relic - Hero Sword" },
-			{ "Key Items", "inventory quantity Relic - Hero Pendant HP : 1",                       "Relic - Hero Pendant HP" },
-			{ "Key Items", "inventory quantity Relic - Hero Water : 1",                            "Relic - Hero Water" },
+			// Hero Relics - I'm honestly not sure which is which for Water/Crown/Sword
+			{ "Key Items", "inventory quantity Relic - Hero Sword : 1",                            "Hero Relic Attack" },
+			{ "Key Items", "inventory quantity Relic - Hero Crown : 1",                            "Hero Relic Defense" },
+			{ "Key Items", "inventory quantity Relic - Hero Water : 1",                            "Hero Relic Potion" },
+			{ "Key Items", "inventory quantity Relic - Hero Pendant HP : 1",                       "Hero Relic HP" },
+			{ "Key Items", "inventory quantity Relic - Hero Pendant SP : 1",                       "Hero Relic SP" },
+			{ "Key Items", "inventory quantity Relic - Hero Pendant MP : 1",                       "Hero Relic MP" },
 
 		{ null, "Major Events", "Major Events" },
 			{ "Major Events", "Rung Bell 1 (East) : 1",                   "Rung Bell 1 (East)" },
 			{ "Major Events", "Rung Bell 2 (West) : 1",                   "Rung Bell 2 (West)" },
-			{ "Major Events", "SV_Fortress Arena_Spidertank Is Dead : 1", "SV_Fortress Arena_Spidertank Is Dead" },
-			{ "Major Events", "Librarian Dead Forever : 1",               "Librarian Dead Forever" },
-			{ "Major Events", "SV_ScavengerBossesDead : 1",               "SV_ScavengerBossesDead" },
-			{ "Major Events", "Has Been Betrayed : 1",                    "Has Been Betrayed" },
-			{ "Major Events", "Has Died To God : 1",                      "Has Died To God" },
+			{ "Major Events", "SV_Fortress Arena_Spidertank Is Dead : 1", "Killed Siege Engine" },
+			{ "Major Events", "Librarian Dead Forever : 1",               "Killed Librarian" },
+			{ "Major Events", "SV_ScavengerBossesDead : 1",               "Killed Boss Scavenger" },
+			{ "Major Events", "Has Died To God : 1",                      "Died to Heir" },
 			{ "Major Events", "Placed Hexagon 1 Red : 1",                 "Placed Hexagon 1 Red" },
 			{ "Major Events", "Placed Hexagon 2 Green : 1",               "Placed Hexagon 2 Green" },
 			{ "Major Events", "Placed Hexagon 3 Blue : 1",                "Placed Hexagon 3 Blue" },
 			{ "Major Events", "Placed Hexagons ALL : 1",                  "Placed Hexagons ALL" },
 
-		{ null, "Trinkets", "Trinkets" },
-			{ "Trinkets", "inventory quantity Trinket - MP Flasks : 1",              "Trinket - MP Flasks" },
-			{ "Trinkets", "inventory quantity Trinket - Glass Cannon : 1",           "Trinket - Glass Cannon" },
-			{ "Trinkets", "inventory quantity Trinket - BTSR : 1",                   "Trinket - BTSR" },
-			{ "Trinkets", "inventory quantity Trinket - Heartdrops : 1",             "Trinket - Heartdrops" },
-			{ "Trinkets", "inventory quantity Trinket - Bloodstain Plus : 1",        "Trinket - Bloodstain Plus" },
-			{ "Trinkets", "inventory quantity Trinket - RTSR : 1",                   "Trinket - RTSR" },
-			{ "Trinkets", "inventory quantity Trinket - Attack Up Defense Down : 1", "Trinket - Attack Up Defense Down" },
-			{ "Trinkets", "inventory quantity Trinket - Block Plus : 1",             "Trinket - Block Plus" },
-			{ "Trinkets", "inventory quantity Trinket - Bloodstain MP : 1",          "Trinket - Bloodstain MP" },
-			{ "Trinkets", "inventory quantity Trinket - Fast Icedagger : 1",         "Trinket - Fast Icedagger" },
-			{ "Trinkets", "inventory quantity Trinket - Stamina Recharge : 1",       "Trinket - Stamina Recharge" },
-			{ "Trinkets", "inventory quantity Trinket - Sneaky : 1",                 "Trinket - Sneaky" },
-			{ "Trinkets", "inventory quantity Trinket - Walk Speed Plus : 1",        "Trinket - Walk Speed Plus" },
-			{ "Trinkets", "inventory quantity Trinket - Parry Window : 1",           "Trinket - Parry Window" },
-			{ "Trinkets", "inventory quantity Trinket - IFrames : 1",                "Trinket - IFrames" },
+		{ null, "Cards", "Cards" },
+			{ "Cards", "inventory quantity Trinket - MP Flasks : 1",              "Inverted Ash" },
+			{ "Cards", "inventory quantity Trinket - Glass Cannon : 1",           "Glass Cannon" },
+			{ "Cards", "inventory quantity Trinket - BTSR : 1",                   "Cyan Peril Ring" },
+			{ "Cards", "inventory quantity Trinket - Heartdrops : 1",             "Lucky Cup" },
+			{ "Cards", "inventory quantity Trinket - Bloodstain Plus : 1",        "Louder Echo" },
+			{ "Cards", "inventory quantity Trinket - RTSR : 1",                   "Orange Peril Ring" },
+			{ "Cards", "inventory quantity Trinket - Attack Up Defense Down : 1", "Tincture" },
+			{ "Cards", "inventory quantity Trinket - Block Plus : 1",             "Bracer" },
+			{ "Cards", "inventory quantity Trinket - Bloodstain MP : 1",          "Magic Echo" },
+			{ "Cards", "inventory quantity Trinket - Fast Icedagger : 1",         "Dagger Strap" },
+			{ "Cards", "inventory quantity Trinket - Stamina Recharge : 1",       "Perfume" },
+			{ "Cards", "inventory quantity Trinket - Sneaky : 1",                 "Muffling Bell" },
+			{ "Cards", "inventory quantity Trinket - Walk Speed Plus : 1",        "Anklet" },
+			{ "Cards", "inventory quantity Trinket - Parry Window : 1",           "Aura's Gem" },
+			{ "Cards", "inventory quantity Trinket - IFrames : 1",                "Bone" },
 
 		{ null, "Fairies", "Fairies" },
-			{ "Fairies", "SV_Fairy_16_Fountain_Revealed : 1", "SV_Fairy_16_Fountain_Revealed" },
-			{ "Fairies", "SV_Fairy_3_Overworld_Moss_Revealed : 1", "SV_Fairy_3_Overworld_Moss_Revealed" },
-			{ "Fairies", "SV_Fairy_3_Overworld_Moss_Opened : 1", "SV_Fairy_3_Overworld_Moss_Opened" },
-			{ "Fairies", "SV_Fairy_4_Caustics_Revealed : 1", "SV_Fairy_4_Caustics_Revealed" },
-			{ "Fairies", "SV_Fairy_4_Caustics_Opened : 1", "SV_Fairy_4_Caustics_Opened" },
-			{ "Fairies", "SV_Fairy_15_Maze_Revealed : 1", "SV_Fairy_15_Maze_Revealed" },
-			{ "Fairies", "SV_Fairy_15_Maze_Opened : 1", "SV_Fairy_15_Maze_Opened" },
-			{ "Fairies", "SV_Fairy_2_Overworld_Flowers_Lower_Revealed : 1", "SV_Fairy_2_Overworld_Flowers_Lower_Revealed" },
-			{ "Fairies", "SV_Fairy_2_Overworld_Flowers_Lower_Opened : 1", "SV_Fairy_2_Overworld_Flowers_Lower_Opened" },
-			{ "Fairies", "SV_Fairy_10_3DPillar_Revealed : 1", "SV_Fairy_10_3DPillar_Revealed" },
-			{ "Fairies", "SV_Fairy_10_3DPillar_Opened : 1", "SV_Fairy_10_3DPillar_Opened" },
-			{ "Fairies", "SV_Fairy_18_GardenCourtyard_Revealed : 1", "SV_Fairy_18_GardenCourtyard_Revealed" },
-			{ "Fairies", "SV_Fairy_18_GardenCourtyard_Opened : 1", "SV_Fairy_18_GardenCourtyard_Opened" },
-			{ "Fairies", "SV_Fairy_17_GardenTree_Revealed : 1", "SV_Fairy_17_GardenTree_Revealed" },
-			{ "Fairies", "SV_Fairy_17_GardenTree_Opened : 1", "SV_Fairy_17_GardenTree_Opened" },
-			{ "Fairies", "SV_Fairy_16_Fountain_Opened : 1", "SV_Fairy_16_Fountain_Opened" },
-			{ "Fairies", "SV_Fairy_14_Cube_Revealed : 1", "SV_Fairy_14_Cube_Revealed" },
-			{ "Fairies", "SV_Fairy_14_Cube_Opened : 1", "SV_Fairy_14_Cube_Opened" },
-			{ "Fairies", "SV_Fairy_12_House_Revealed : 1", "SV_Fairy_12_House_Revealed" },
-			{ "Fairies", "SV_Fairy_12_House_Opened : 1", "SV_Fairy_12_House_Opened" },
-			{ "Fairies", "SV_Fairy_9_Library_Rug_Revealed : 1", "SV_Fairy_9_Library_Rug_Revealed" },
-			{ "Fairies", "SV_Fairy_9_Library_Rug_Opened : 1", "SV_Fairy_9_Library_Rug_Opened" },
-			{ "Fairies", "SV_Fairy_20_ForestMonolith_Revealed : 1", "SV_Fairy_20_ForestMonolith_Revealed" },
-			{ "Fairies", "SV_Fairy_20_ForestMonolith_Opened : 1", "SV_Fairy_20_ForestMonolith_Opened" },
-			{ "Fairies", "SV_Fairy_8_Dancer_Revealed : 1", "SV_Fairy_8_Dancer_Revealed" },
-			{ "Fairies", "SV_Fairy_8_Dancer_Opened : 1", "SV_Fairy_8_Dancer_Opened" },
-			{ "Fairies", "SV_Fairy_11_WeatherVane_Revealed : 1", "SV_Fairy_11_WeatherVane_Revealed" },
-			{ "Fairies", "SV_Fairy_11_WeatherVane_Opened : 1", "SV_Fairy_11_WeatherVane_Opened" },
-			{ "Fairies", "SV_Fairy_1_Overworld_Flowers_Upper_Revealed : 1", "SV_Fairy_1_Overworld_Flowers_Upper_Revealed" },
-			{ "Fairies", "SV_Fairy_13_Patrol_Revealed : 1", "SV_Fairy_13_Patrol_Revealed" },
-			{ "Fairies", "SV_Fairy_13_Patrol_Opened : 1", "SV_Fairy_13_Patrol_Opened" },
-			{ "Fairies", "SV_Fairy_1_Overworld_Flowers_Upper_Opened : 1", "SV_Fairy_1_Overworld_Flowers_Upper_Opened" },
-			{ "Fairies", "SV_Fairy_19_FortressCandles_Revealed : 1", "SV_Fairy_19_FortressCandles_Revealed" },
-			{ "Fairies", "SV_Fairy_19_FortressCandles_Opened : 1", "SV_Fairy_19_FortressCandles_Opened" },
-			{ "Fairies", "SV_Fairy_7_Quarry_Revealed : 1", "SV_Fairy_7_Quarry_Revealed" },
-			{ "Fairies", "SV_Fairy_7_Quarry_Opened : 1", "SV_Fairy_7_Quarry_Opened" },
-			{ "Fairies", "SV_Fairy_6_Temple_Revealed : 1", "SV_Fairy_6_Temple_Revealed" },
-			{ "Fairies", "SV_Fairy_6_Temple_Opened : 1", "SV_Fairy_6_Temple_Opened" },
-			{ "Fairies", "SV_Fairy_00_Enough Fairies Found : 1", "SV_Fairy_00_Enough Fairies Found" },
-			{ "Fairies", "SV_Fairy_5_Waterfall_Revealed : 1", "SV_Fairy_5_Waterfall_Revealed" },
-			{ "Fairies", "SV_Fairy_5_Waterfall_Opened : 1", "SV_Fairy_5_Waterfall_Opened" },
-			{ "Fairies", "SV_Fairy_00_All Fairies Found : 1", "SV_Fairy_00_All Fairies Found" },
-
-		{ null, "Obelisks", "Obelisks" },
-			{ "Obelisks", "fuseClosed 1305 : 1", "fuseClosed 1305" },
-			{ "Obelisks", "fuseClosed 1101 : 1", "fuseClosed 1101" },
-			{ "Obelisks", "fuseClosed 1262 : 1", "fuseClosed 1262" },
-			{ "Obelisks", "fuseClosed 952 : 1", "fuseClosed 952" },
-			{ "Obelisks", "fuseClosed 949 : 1", "fuseClosed 949" },
-			{ "Obelisks", "fuseClosed 950 : 1", "fuseClosed 950" },
-			{ "Obelisks", "fuseClosed 951 : 1", "fuseClosed 951" },
-			{ "Obelisks", "fuseClosed 1055 : 1", "fuseClosed 1055" },
-			{ "Obelisks", "fuseClosed 1014 : 1", "fuseClosed 1014" },
+			{ "Fairies", "SV_Fairy_1_Overworld_Flowers_Upper_Opened : 1", "1 - Flowers 1 (Upper)" },
+			{ "Fairies", "SV_Fairy_2_Overworld_Flowers_Lower_Opened : 1", "2 - Flowers 2 (Lower)" },
+			{ "Fairies", "SV_Fairy_3_Overworld_Moss_Opened : 1",          "3 - Moss" },
+			{ "Fairies", "SV_Fairy_4_Caustics_Opened : 1",                "4 - Casting Light" },
+			{ "Fairies", "SV_Fairy_5_Waterfall_Opened : 1",               "5 - Secret Gathering Place" },
+			{ "Fairies", "SV_Fairy_6_Temple_Opened : 1",                  "6 - Sealed Temple" },
+			{ "Fairies", "SV_Fairy_7_Quarry_Opened : 1",                  "7 - Quarry" },
+			{ "Fairies", "SV_Fairy_8_Dancer_Opened : 1",                  "8 - East Forest (Dancer)" },
+			{ "Fairies", "SV_Fairy_9_Library_Rug_Opened : 1",             "9 - The Great Library" },
+			{ "Fairies", "SV_Fairy_10_3DPillar_Opened : 1",               "10 - Maze (Column)" },
+			{ "Fairies", "SV_Fairy_11_WeatherVane_Opened : 1",            "11 - Vane" },
+			{ "Fairies", "SV_Fairy_12_House_Opened : 1",                  "12 - House" },
+			{ "Fairies", "SV_Fairy_13_Patrol_Opened : 1",                 "13 - Patrol" },
+			{ "Fairies", "SV_Fairy_14_Cube_Opened : 1",                   "14 - Cube" },
+			{ "Fairies", "SV_Fairy_15_Maze_Opened : 1",                   "15 - Maze (Invisible)" },
+			{ "Fairies", "SV_Fairy_16_Fountain_Opened : 1",               "16 - Fountain" },
+			{ "Fairies", "SV_Fairy_17_GardenTree_Opened : 1",             "17 - West Garden (Tree)" },
+			{ "Fairies", "SV_Fairy_18_GardenCourtyard_Opened : 1",        "18 - West Garden (Courtyard)" },
+			{ "Fairies", "SV_Fairy_19_FortressCandles_Opened : 1",        "19 - Fortress of the Eastern Vault" },
+			{ "Fairies", "SV_Fairy_20_ForestMonolith_Opened : 1",         "20 - East Forest (Obelisk)" },
+			{ "Fairies", "SV_Fairy_00_Enough Fairies Found : 1",          "Found 10 fairies" },
+			{ "Fairies", "SV_Fairy_00_All Fairies Found : 1",             "Found 20 fairies" },
 
 		{ null, "Golden Trophies", "Golden Trophies" },
-			{ "Golden Trophies", "inventory quantity GoldenTrophy_9 : 1", "GoldenTrophy_9" },
-			{ "Golden Trophies", "inventory quantity GoldenTrophy_2 : 1", "GoldenTrophy_2" },
-			{ "Golden Trophies", "inventory quantity GoldenTrophy_4 : 1", "GoldenTrophy_4" },
-			{ "Golden Trophies", "inventory quantity GoldenTrophy_8 : 1", "GoldenTrophy_8" },
-			{ "Golden Trophies", "inventory quantity GoldenTrophy_3 : 1", "GoldenTrophy_3" },
-			{ "Golden Trophies", "inventory quantity GoldenTrophy_10 : 1", "GoldenTrophy_10" },
-			{ "Golden Trophies", "inventory quantity GoldenTrophy_12 : 1", "GoldenTrophy_12" },
-			{ "Golden Trophies", "inventory quantity GoldenTrophy_6 : 1", "GoldenTrophy_6" },
-			{ "Golden Trophies", "inventory quantity GoldenTrophy_5 : 1", "GoldenTrophy_5" },
-			{ "Golden Trophies", "inventory quantity GoldenTrophy_11 : 1", "GoldenTrophy_11" },
-			{ "Golden Trophies", "inventory quantity GoldenTrophy_7 : 1", "GoldenTrophy_7" },
-			{ "Golden Trophies", "inventory quantity GoldenTrophy_1 : 1", "GoldenTrophy_1" },
+			{ "Golden Trophies", "inventory quantity GoldenTrophy_1 : 1", "1 - Mr Mayor" },
+			{ "Golden Trophies", "inventory quantity GoldenTrophy_2 : 1", "2 - A Secret Legend" },
+			{ "Golden Trophies", "inventory quantity GoldenTrophy_3 : 1", "3 - Sacred Geometry" },
+			{ "Golden Trophies", "inventory quantity GoldenTrophy_4 : 1", "4 - Vintage" },
+			{ "Golden Trophies", "inventory quantity GoldenTrophy_5 : 1", "5 - Just Some Pals" },
+			{ "Golden Trophies", "inventory quantity GoldenTrophy_6 : 1", "6 - Regal Weasel" },
+			{ "Golden Trophies", "inventory quantity GoldenTrophy_7 : 1", "7 - Sprinng Falls" },
+			{ "Golden Trophies", "inventory quantity GoldenTrophy_8 : 1", "8 - Power Up" },
+			{ "Golden Trophies", "inventory quantity GoldenTrophy_9 : 1", "9 - Back to Work" },
+			{ "Golden Trophies", "inventory quantity GoldenTrophy_10 : 1", "10 - Phonomath" },
+			{ "Golden Trophies", "inventory quantity GoldenTrophy_11 : 1", "11 - Dusty" },
+			{ "Golden Trophies", "inventory quantity GoldenTrophy_12 : 1", "12 - Forever Friend" },
 
 		{ null, "Pages", "Pages" },
-			{ "Pages", "unlocked page 8 : 1", "unlocked page 8" },
-			{ "Pages", "unlocked page 24 : 1", "unlocked page 24" },
-			{ "Pages", "unlocked page 23 : 1", "unlocked page 23" },
-			{ "Pages", "unlocked page 4 : 1", "unlocked page 4" },
-			{ "Pages", "unlocked page 16 : 1", "unlocked page 16" },
-			{ "Pages", "unlocked page 13 : 1", "unlocked page 13" },
-			{ "Pages", "unlocked page 21 : 1", "unlocked page 21" },
-			{ "Pages", "unlocked page 22 : 1", "unlocked page 22" },
-			{ "Pages", "unlocked page 26 : 1", "unlocked page 26" },
-			{ "Pages", "unlocked page 2 : 1", "unlocked page 2" },
-			{ "Pages", "unlocked page 9 : 1", "unlocked page 9" },
-			{ "Pages", "unlocked page 17 : 1", "unlocked page 17" },
-			{ "Pages", "unlocked page 15 : 1", "unlocked page 15" },
-			{ "Pages", "unlocked page 20 : 1", "unlocked page 20" },
-			{ "Pages", "unlocked page 25 : 1", "unlocked page 25" },
-			{ "Pages", "unlocked page 19 : 1", "unlocked page 19" },
-			{ "Pages", "unlocked page 1 : 1", "unlocked page 1" },
-			{ "Pages", "unlocked page 7 : 1", "unlocked page 7" },
-			{ "Pages", "unlocked page 6 : 1", "unlocked page 6" },
-			{ "Pages", "unlocked page 14 : 1", "unlocked page 14" },
-			{ "Pages", "unlocked page 11 : 1", "unlocked page 11" },
-			{ "Pages", "unlocked page 3 : 1", "unlocked page 3" },
-			{ "Pages", "unlocked page 18 : 1", "unlocked page 18" },
-			{ "Pages", "unlocked page 10 : 1", "unlocked page 10" },
-			{ "Pages", "unlocked page 0 : 1", "unlocked page 0" },
-			{ "Pages", "unlocked page 12 : 1", "unlocked page 12" },
-			{ "Pages", "unlocked page 27 : 1", "unlocked page 27" },
-			{ "Pages", "unlocked page 5 : 1", "unlocked page 5" },
+			{ "Pages", "unlocked page 0 : 1", "Page 0-1" },
+			{ "Pages", "unlocked page 1 : 1", "Page 2-3" },
+			{ "Pages", "unlocked page 2 : 1", "Page 4-5" },
+			{ "Pages", "unlocked page 3 : 1", "Page 6-7" },
+			{ "Pages", "unlocked page 4 : 1", "Page 8-9" },
+			{ "Pages", "unlocked page 5 : 1", "Page 10-11" },
+			{ "Pages", "unlocked page 6 : 1", "Page 12-13" },
+			{ "Pages", "unlocked page 7 : 1", "Page 14-15" },
+			{ "Pages", "unlocked page 8 : 1", "Page 16-17" },
+			{ "Pages", "unlocked page 9 : 1", "Page 18-19" },
+			{ "Pages", "unlocked page 10 : 1", "Page 20-21" },
+			{ "Pages", "unlocked page 11 : 1", "Page 22-23" },
+			{ "Pages", "unlocked page 12 : 1", "Page 24-25" },
+			{ "Pages", "unlocked page 13 : 1", "Page 26-27" },
+			{ "Pages", "unlocked page 14 : 1", "Page 28-29" },
+			{ "Pages", "unlocked page 15 : 1", "Page 30-31" },
+			{ "Pages", "unlocked page 16 : 1", "Page 32-33" },
+			{ "Pages", "unlocked page 17 : 1", "Page 34-35" },
+			{ "Pages", "unlocked page 18 : 1", "Page 36-37" },
+			{ "Pages", "unlocked page 19 : 1", "Page 38-39" },
+			{ "Pages", "unlocked page 20 : 1", "Page 40-41" },
+			{ "Pages", "unlocked page 21 : 1", "Page 42-43" },
+			{ "Pages", "unlocked page 22 : 1", "Page 44-45" },
+			{ "Pages", "unlocked page 23 : 1", "Page 46-47" },
+			{ "Pages", "unlocked page 24 : 1", "Page 48-49" },
+			{ "Pages", "unlocked page 25 : 1", "Page 50-51" },
+			{ "Pages", "unlocked page 26 : 1", "Page 52-53" },
+			{ "Pages", "unlocked page 27 : 1", "Page 54-55" },
 
 		// { null, "", "" },
 		// 	{ "", "", "" },
@@ -203,6 +166,9 @@ onStart
 
 init
 {
+	current.Event = "";
+	current.Scene = -1;
+
 	vars.Unity.TryOnLoad = (Func<dynamic, bool>)(helper =>
 	{
 		var srd = helper.GetClass("Assembly-CSharp", "SpeedrunData");
@@ -227,14 +193,15 @@ update
 
 	current.IGT = vars.Unity["inGameTime"].Current;
 	current.GameComplete = vars.Unity["gameComplete"].Current;
-	current.Event = vars.Unity["lastEvent"].Current;
 
-	if (current.Event.StartsWith("playtime"))
-		current.Event = old.Event;
+	var evnt = vars.Unity["lastEvent"].Current;
+	if (!evnt.StartsWith("playtime") && !evnt.StartsWith("permanentlyDead"))
+		current.Event = evnt;
 
-	current.Scene = vars.Unity.Scenes.Active.Index;
-	if (current.Scene <= 0 || current.Scene == 80)
-		current.Scene = old.Scene;
+
+	var scId = vars.Unity.Scenes.Active.Index;
+	if (scId > 0 && scId != 80)
+		current.Scene = scId;
 
 	if (old.Scene != current.Scene)
 		vars.Log("Scene changed: " + old.Scene + " -> " + current.Scene);
@@ -247,12 +214,13 @@ start
 
 split
 {
-	if (old.Event != current.Event && !vars.CompletedEvents.Contains(current.Event))
+	var cE = current.Event;
+	if (old.Event != cE && !vars.CompletedEvents.Contains(cE))
 	{
-		vars.Log(current.Event);
+		vars.Log(cE);
+		vars.CompletedEvents.Add(cE);
 
-		vars.CompletedEvents.Add(current.Event);
-		return settings[current.Event];
+		return settings.ContainsKey(cE) && settings[cE];
 	}
 
 	return !old.GameComplete && current.GameComplete;
