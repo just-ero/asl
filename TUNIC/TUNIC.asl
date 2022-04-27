@@ -129,6 +129,69 @@ startup
 			{ "Pages", "unlocked page 26 : 1", "Page 52-53" },
 			{ "Pages", "unlocked page 27 : 1", "Page 54-55" },
 
+		{ null, "Areas", "Areas" },
+			{ "Areas", "scEvery", "Split every single time the selected areas are visited" },
+			{ "Areas", "scOnce", "Split only the first time the selected areas are visited"},
+
+			{ "Areas", "scGeneral", "General Areas" },
+				{ "scGeneral", "sc24", "Overworld" },
+				{ "scGeneral", "sc38", "Teleport Area" },
+				{ "scGeneral", "sc23", "Temple" },
+				{ "scGeneral", "sc25", "Shield Area" },
+				{ "scGeneral", "sc26", "Well" },
+				{ "scGeneral", "sc63", "Dark Tomb" },
+
+			{ "Areas", "scMountain", "Mountain" },
+				{ "scMountain", "sc08", "Mountain" },
+				{ "scMountain", "sc09", "Mountain Top" },
+
+			{ "Areas", "scEast", "East" },
+				{ "scEast", "sc52", "East Forest" },
+				{ "scEast", "sc11", "East Forest Sword" },
+				{ "scEast", "sc54", "East Forest Guardhouse" },
+				{ "scEast", "sc10", "East Forest Boss Room" },
+				{ "scEast", "sc35", "East Beltower" },
+
+			{ "Areas", "scWest", "West" },
+				{ "scWest", "sc30", "West Garden" },
+
+			{ "Areas", "sc31", "Atoll" },
+
+			{ "Areas", "scFrog", "Frog Cave" },
+				{ "scFrog", "sc32", "Way to Frog Cave" },
+				{ "scFrog", "sc51", "Frog Cave" },
+
+			{ "Areas", "scFortress", "Fortress" },
+				{ "scFortress", "sc12", "Fortress" },
+				{ "scFortress", "sc14", "Fortress Courtyard" },
+				{ "scFortress", "sc13", "Fortress Basement" },
+				{ "scFortress", "sc15", "Siege Arena" },
+
+			{ "Areas", "scLibrary", "Library" },
+				{ "scLibrary", "sc33", "Library Exterior" },
+				{ "scLibrary", "sc18", "Library Hall" },
+				{ "scLibrary", "sc19", "Library Rotunda" },
+				{ "scLibrary", "sc17", "Library Lab" },
+				{ "scLibrary", "sc27", "Librarian Arena" },
+
+			{ "Areas", "scQuarry", "Quarry" },
+				{ "scQuarry", "sc22", "Way to Quarry" },
+				{ "scQuarry", "sc59", "Quarry" },
+				{ "scQuarry", "sc21", "Monastery" },
+
+			{ "Areas", "scZiggurat", "Ziggurat" },
+				{ "scZiggurat", "sc44", "Ziggurat Entrance" },
+				{ "scZiggurat", "sc42", "Ziggurat" },
+				{ "scZiggurat", "sc41", "Ziggurat Transition" },
+				{ "scZiggurat", "sc43", "Ziggurat 2" },
+
+			{ "Areas", "scSwamp", "Swamp" },
+				{ "scSwamp", "sc58", "Swamp" },
+				{ "scSwamp", "sc68", "Cathedral" },
+				{ "scSwamp", "sc60", "Gauntlet Arena" },
+
+			{ "Areas", "sc62", "Heir Arena" },
+
 		// { null, "", "" },
 		// 	{ "", "", "" },
 	};
@@ -154,14 +217,14 @@ startup
 	}
 
 	vars.StartTime = 0f;
-	vars.CompletedEvents = new List<string>();
+	vars.CompletedSplits = new HashSet<string>();
 }
 
 onStart
 {
 	var igt = current.IGT;
 	vars.StartTime = igt < 1f ? 0f : igt;
-	vars.CompletedEvents.Clear();
+	vars.CompletedSplits.Clear();
 }
 
 init
@@ -187,14 +250,15 @@ init
 
 update
 {
-	if (!vars.Unity.Loaded) return false;
+	if (!vars.Unity.Loaded)
+		return false;
 
 	vars.Unity.Update();
 
 	current.IGT = vars.Unity["inGameTime"].Current;
 	current.GameComplete = vars.Unity["gameComplete"].Current;
 
-	var evnt = vars.Unity["lastEvent"].Current;
+	var evnt = vars.Unity["lastEvent"].Current ?? "";
 	if (!evnt.StartsWith("playtime") && !evnt.StartsWith("permanentlyDead"))
 		current.Event = evnt;
 
@@ -202,9 +266,6 @@ update
 	var scId = vars.Unity.Scenes.Active.Index;
 	if (scId > 0 && scId != 80)
 		current.Scene = scId;
-
-	if (old.Scene != current.Scene)
-		vars.Log("Scene changed: " + old.Scene + " -> " + current.Scene);
 }
 
 start
@@ -214,13 +275,28 @@ start
 
 split
 {
+	if (old.Scene != current.Scene)
+	{
+		vars.Log("Scene changed: " + old.Scene + " -> " + current.Scene);
+
+		var cS = "sc" + current.Scene;
+		if (settings["scOnce"] && !vars.CompletedSplits.Contains(cS) || settings["scEvery"])
+		{
+			vars.CompletedSplits.Add(cS);
+
+			if (settings.ContainsKey(cS) && settings[cS])
+				return true;
+		}
+	}
+
 	var cE = current.Event;
-	if (old.Event != cE && !vars.CompletedEvents.Contains(cE))
+	if (old.Event != cE && !vars.CompletedSplits.Contains(cE))
 	{
 		vars.Log(cE);
-		vars.CompletedEvents.Add(cE);
+		vars.CompletedSplits.Add(cE);
 
-		return settings.ContainsKey(cE) && settings[cE];
+		if (settings.ContainsKey(cE) && settings[cE])
+			return true;
 	}
 
 	return !old.GameComplete && current.GameComplete;
