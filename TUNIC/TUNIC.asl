@@ -217,6 +217,7 @@ startup
 	}
 
 	vars.StartTime = 0f;
+	vars.CanStart = false;
 	vars.CompletedSplits = new HashSet<string>();
 }
 
@@ -224,6 +225,7 @@ onStart
 {
 	var igt = current.IGT;
 	vars.StartTime = igt < 1f ? 0f : igt;
+	vars.CanStart = false;
 	vars.CompletedSplits.Clear();
 }
 
@@ -255,6 +257,7 @@ update
 
 	vars.Unity.Update();
 
+	current.TimerRunning = vars.Unity["timerRunning"].Current;
 	current.IGT = vars.Unity["inGameTime"].Current;
 	current.GameComplete = vars.Unity["gameComplete"].Current;
 
@@ -270,7 +273,10 @@ update
 
 start
 {
-	return old.IGT == 0f && current.IGT > 0f;
+	if (old.Scene == 2 && current.Scene == 24)
+		vars.CanStart = true;
+
+	return vars.CanStart && !old.TimerRunning && current.TimerRunning;
 }
 
 split
