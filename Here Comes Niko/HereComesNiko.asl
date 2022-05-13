@@ -375,7 +375,7 @@ split
 		if (current.Counts[i] != old.Counts[i] + 1)
 			continue;
 
-		IntPtr addr = vars.Unity[vars.FlagNames[i]][current.Counts[i] - 1];
+		IntPtr addr = vars.Unity[vars.FlagNames[i]].Current[current.Counts[i] - 1];
 		int oLength = vars.StringClass["m_stringLength"], oFirst = vars.StringClass["m_firstChar"];
 
 		var length = game.ReadValue<int>(addr + oLength);
