@@ -1,16 +1,16 @@
 state("ActionSquad")
 {
 	double LevelRunTime : 0x38FDD0;
-	int LevelState      : 0x3907BC;
-	int LevelEndTime    : 0x391AB0;
 
+	int LevelState      : 0x3907BC;
 	int Level           : 0x3907D0;
 	int Chapter         : 0x3907D4;
 
+	int LevelEndTime    : 0x391AB0;
 	int HostagesTotal   : 0x391AC4;
-	int HostagesSaved   : 0x391B18;
 	int TargetsTotal    : 0x391AE0;
 	int TargetsArrested : 0x391AE4;
+	int HostagesSaved   : 0x391B18;
 }
 
 startup
@@ -145,6 +145,9 @@ startup
 
 	vars.LogFile = "DKAS_ILTimes.log";
 	timer.CurrentTimingMethod = TimingMethod.RealTime;
+
+	if (!File.Exists(vars.LogFile))
+		File.Create(vars.LogFile);
 }
 
 onStart
@@ -156,6 +159,9 @@ init
 {
 	vars.Log = (Action<string>)(successOrFailed =>
 	{
+		if (!File.Exists(vars.LogFile))
+			File.Create(vars.LogFile);
+
 		var output = string.Format(
 			"L{0}-{1:00} | MISSION {2} at {3:mm':'ss'.'fff} (Hostages: {4}/{5}, Arrest Targets: {6}/{7})\n",
 			current.Chapter + 1, current.Level + 1,
@@ -177,6 +183,9 @@ start
 
 split
 {
+	if (old.LevelEndTime == 0 && current.LevelEndTime > 0)
+		print(old.LevelState + " -> " + current.LevelState);
+
 	if (old.LevelEndTime == 0 && current.LevelEndTime > 0 && old.LevelState == 0 && current.LevelState == 1)
 	{
 		vars.Log("SUCCESS");
