@@ -183,9 +183,6 @@ start
 
 split
 {
-	if (old.LevelEndTime == 0 && current.LevelEndTime > 0)
-		print(old.LevelState + " -> " + current.LevelState);
-
 	if (old.LevelEndTime == 0 && current.LevelEndTime > 0 && old.LevelState == 0 && current.LevelState == 1)
 	{
 		vars.Log("SUCCESS");
