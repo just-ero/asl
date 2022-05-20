@@ -185,7 +185,7 @@ split
 {
 	if (old.LevelEndTime == 0 && current.LevelEndTime > 0 && old.LevelState == 0 && current.LevelState == 1)
 	{
-		vars.Log("SUCCESS");
+		try { vars.Log("SUCCESS"); } catch { }
 
 		var is6_11 = current.Chapter == 5 && current.Level == 10;
 		var allTargetsArrested = current.TargetsTotal == 0 ? current.TargetsArrested == 0 : current.TargetsArrested == 1;
@@ -200,7 +200,7 @@ reset
 {
 	if (old.LevelEndTime == 0 && current.LevelEndTime > 0 && old.LevelState == 0 && current.LevelState == 2)
 	{
-		vars.Log("FAILED");
+		try { vars.Log("FAILED"); } catch { }
 
 		return settings["ilTimer"];
 	}
