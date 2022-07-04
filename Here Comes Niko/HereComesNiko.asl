@@ -3,12 +3,17 @@ state("Here Comes Niko!") {}
 startup
 {
 	vars.Log = (Action<object>)(output => print("[Here Comes Niko!] " + output));
-	vars.Unity = Assembly.Load(File.ReadAllBytes(@"Components\UnityASL.bin")).CreateInstance("UnityASL.Unity");
+
+	#region Helper Setup
+	var bytes = File.ReadAllBytes(@"Components\LiveSplit.ASLHelper.bin");
+	var type = Assembly.Load(bytes).GetType("ASLHelper.Unity");
+	vars.Helper = Activator.CreateInstance(type, timer, settings, this);
+	#endregion
 
 	dynamic[,] _settings =
 	{
-		{ "Home", "h_Coins", "Coins", true },
-			{ "h_Coins", "1_Fetch", "Low Frog: take lunch box to High Frog", true },
+		{ "Home", "h_Coins", "Coins", false },
+			{ "h_Coins", "1_Fetch", "Low Frog: take lunch box to High Frog", false },
 
 		{ "Home", "h_Letters", "Letters", false },
 			{ "h_Letters", "1_letter12", "on the rocks near the crane", false },
@@ -16,13 +21,13 @@ startup
 		{ "Home", "1_End", "Enter train to leave Home", true },
 
 
-		{ "Hairball City", "hc_Coins", "Coins", true },
-			{ "hc_Coins", "2_main", "Gunther: talk to Gunther", true },
-			{ "hc_Coins", "2_volley", "Travis: BIG VOLLEY", true },
-			{ "hc_Coins", "2_Dustan", "Dustan: get to the top of the lighthouse", true },
-			{ "hc_Coins", "2_flowerPuzzle", "Little Gabi: plant flowers in each of the plant beds", true },
-			{ "hc_Coins", "2_fishing", "Fischer: catch all 5 fish", true },
-			{ "hc_Coins", "2_bug", "Blessley: collect 30 butterflies", true },
+		{ "Hairball City", "hc_Coins", "Coins", false },
+			{ "hc_Coins", "2_main", "Gunther: talk to Gunther", false },
+			{ "hc_Coins", "2_volley", "Travis: BIG VOLLEY", false },
+			{ "hc_Coins", "2_Dustan", "Dustan: get to the top of the lighthouse", false },
+			{ "hc_Coins", "2_flowerPuzzle", "Little Gabi: plant flowers in each of the plant beds", false },
+			{ "hc_Coins", "2_fishing", "Fischer: catch all 5 fish", false },
+			{ "hc_Coins", "2_bug", "Blessley: collect 30 butterflies", false },
 			{ "hc_Coins", "hc_Coins+", "Requires Contact List", false },
 				{ "hc_Coins+", "2_arcadeBone", "Arcade Machine: get 5 dog bones", false },
 				{ "hc_Coins+", "2_arcade", "Arcade Machine: get the coin", false },
@@ -52,13 +57,13 @@ startup
 		{ "Hairball City", "2_End", "Enter train to leave Hairball City", true },
 
 
-		{ "Turbine Town", "tt_Coins", "Coins", true },
-			{ "tt_Coins", "3_main", "Pelly: get the wind turbine working", true },
-			{ "tt_Coins", "3_volley", "Trixie: AIR VOLLEY", true },
-			{ "tt_Coins", "3_Dustan", "Dustan: get to the top of the turbine", true },
-			{ "tt_Coins", "3_flowerPuzzle", "Little Gabi: plant flowers in each of the plant beds", true },
-			{ "tt_Coins", "3_fishing", "Fischer: catch all 5 fish", true },
-			{ "tt_Coins", "3_bug", "Blessley: collect 30 butterflies", true },
+		{ "Turbine Town", "tt_Coins", "Coins", false },
+			{ "tt_Coins", "3_main", "Pelly: get the wind turbine working", false },
+			{ "tt_Coins", "3_volley", "Trixie: AIR VOLLEY", false },
+			{ "tt_Coins", "3_Dustan", "Dustan: get to the top of the turbine", false },
+			{ "tt_Coins", "3_flowerPuzzle", "Little Gabi: plant flowers in each of the plant beds", false },
+			{ "tt_Coins", "3_fishing", "Fischer: catch all 5 fish", false },
+			{ "tt_Coins", "3_bug", "Blessley: collect 30 butterflies", false },
 			{ "tt_Coins", "tt_Coins+", "Requires Contact List", false },
 				{ "tt_Coins+", "3_arcadeBone", "Arcade Machine: get 5 dog bones", false },
 				{ "tt_Coins+", "3_arcade", "Arcade Machine: get the coin", false },
@@ -90,20 +95,20 @@ startup
 		{ "Turbine Town", "3_End", "Enter train to leave Turbine Town", true },
 
 
-		{ "Salmon Creek Forest", "scf_Coins", "Coins", true },
-			{ "scf_Coins", "4_main", "Stijn: talk to Melissa and bring them to the plateau", true },
-			{ "scf_Coins", "4_volley", "Trixie: SPORTVIVAL VOLLEY", true },
-			{ "scf_Coins", "4_Dustan", "Dustan: get to the top of the mountain", true },
-			{ "scf_Coins", "4_flowerPuzzle", "Little Gabi: plant flowers in each of the plant beds", true },
-			{ "scf_Coins", "4_fishing", "Fischer: catch all 5 fish", true },
-			{ "scf_Coins", "4_bug", "Blessley: collect 30 dragonflies", true },
-			{ "scf_Coins", "4_arcadeBone", "Arcade Machine: get 5 dog bones", true },
-			{ "scf_Coins", "4_hamsterball", "Moomy: collect 10 sunflower seeds", true },
-			{ "scf_Coins", "4_graffiti", "Nina: paint 5 symbols on the ground", true },
-			{ "scf_Coins", "4_cassetteCoin", "Mitch: trade 5 cassettes for a coin", true },
-			{ "scf_Coins", "4_cassetteCoin2", "Mai: trade 5 cassettes for a coin", true },
-			{ "scf_Coins", "4_tree", "Treeman: dive into the Treeman until a coin falls", true },
-			{ "scf_Coins", "4_behindWaterfall", "Secret of the Forest: jump through a waterfall and go to the end of the area", true },
+		{ "Salmon Creek Forest", "scf_Coins", "Coins", false },
+			{ "scf_Coins", "4_main", "Stijn: talk to Melissa and bring them to the plateau", false },
+			{ "scf_Coins", "4_volley", "Trixie: SPORTVIVAL VOLLEY", false },
+			{ "scf_Coins", "4_Dustan", "Dustan: get to the top of the mountain", false },
+			{ "scf_Coins", "4_flowerPuzzle", "Little Gabi: plant flowers in each of the plant beds", false },
+			{ "scf_Coins", "4_fishing", "Fischer: catch all 5 fish", false },
+			{ "scf_Coins", "4_bug", "Blessley: collect 30 dragonflies", false },
+			{ "scf_Coins", "4_arcadeBone", "Arcade Machine: get 5 dog bones", false },
+			{ "scf_Coins", "4_hamsterball", "Moomy: collect 10 sunflower seeds", false },
+			{ "scf_Coins", "4_graffiti", "Nina: paint 5 symbols on the ground", false },
+			{ "scf_Coins", "4_cassetteCoin", "Mitch: trade 5 cassettes for a coin", false },
+			{ "scf_Coins", "4_cassetteCoin2", "Mai: trade 5 cassettes for a coin", false },
+			{ "scf_Coins", "4_tree", "Treeman: dive into the Treeman until a coin falls", false },
+			{ "scf_Coins", "4_behindWaterfall", "Secret of the Forest: jump through a waterfall and go to the end of the area", false },
 			{ "scf_Coins", "scf_Coins+", "Requires Contact List", false },
 				{ "scf_Coins+", "4_arcade", "Arcade Machine: get the coin", false },
 				{ "scf_Coins+", "4_carrynojump", "Serschel/Louist: bring Louist back to Serschel", false },
@@ -137,13 +142,13 @@ startup
 		{ "Salmon Creek Forest", "4_End", "Enter train to leave Salmon Creek Forest", true },
 
 
-		{ "Public Pool", "pp_Coins", "Coins", true },
-			{ "pp_Coins", "5_main", "Frogtective: solve the crime", true },
-			{ "pp_Coins", "5_fishing", "Fischer: catch all 5 fish", true },
-			{ "pp_Coins", "5_arcadeBone", "Arcade Machine: get 5 dog bones", true },
-			{ "pp_Coins", "5_arcade", "Arcade Machine: get the coin", true },
-			{ "pp_Coins", "5_cassetteCoin2", "Mai: trade 5 cassettes for a coin", true },
-			{ "pp_Coins", "5_2D", "Far Away Island: complete the 2D section", true },
+		{ "Public Pool", "pp_Coins", "Coins", false },
+			{ "pp_Coins", "5_main", "Frogtective: solve the crime", false },
+			{ "pp_Coins", "5_fishing", "Fischer: catch all 5 fish", false },
+			{ "pp_Coins", "5_arcadeBone", "Arcade Machine: get 5 dog bones", false },
+			{ "pp_Coins", "5_arcade", "Arcade Machine: get the coin", false },
+			{ "pp_Coins", "5_cassetteCoin2", "Mai: trade 5 cassettes for a coin", false },
+			{ "pp_Coins", "5_2D", "Far Away Island: complete the 2D section", false },
 			{ "pp_Coins", "pp_Coins+", "Requires Contact List", false },
 				{ "pp_Coins+", "5_volley", "Trixie: WATER VOLLEY", false },
 				{ "pp_Coins+", "5_flowerPuzzle", "Little Gabi: plant flowers in each of the plant beds", false },
@@ -175,16 +180,16 @@ startup
 		{ "Public Pool", "5_End", "Enter train to leave Public Pool", true },
 
 
-		{ "The Bathhouse" ,"tb_Coins", "Coins", true },
-			{ "tb_Coins", "6_main", "Poppy: check on Paul and then find Skippy", true },
-			{ "tb_Coins", "6_volley", "Travis: LONG VOLLEY", true },
-			{ "tb_Coins", "6_Dustan", "Dustan: get to the top of the main bathhouse", true },
-			{ "tb_Coins", "6_hamsterball", "Moomy: collect 10 sunflower seeds", true },
-			{ "tb_Coins", "6_carrynojump", "Serschel/Louist: bring Louist back to Serschel", true },
-			{ "tb_Coins", "6_gamerQuest", "Game Kid: get from the marked lamp to the marked hot tub without touching snow", true },
-			{ "tb_Coins", "6_graffiti", "Nina: paint 5 symbols on the ground", true },
-			{ "tb_Coins", "6_cassetteCoin", "Mitch: trade 5 cassettes for a coin", true },
-			{ "tb_Coins", "6_cassetteCoin2", "Mai: trade 5 cassettes for a coin", true },
+		{ "The Bathhouse" ,"tb_Coins", "Coins", false },
+			{ "tb_Coins", "6_main", "Poppy: check on Paul and then find Skippy", false },
+			{ "tb_Coins", "6_volley", "Travis: LONG VOLLEY", false },
+			{ "tb_Coins", "6_Dustan", "Dustan: get to the top of the main bathhouse", false },
+			{ "tb_Coins", "6_hamsterball", "Moomy: collect 10 sunflower seeds", false },
+			{ "tb_Coins", "6_carrynojump", "Serschel/Louist: bring Louist back to Serschel", false },
+			{ "tb_Coins", "6_gamerQuest", "Game Kid: get from the marked lamp to the marked hot tub without touching snow", false },
+			{ "tb_Coins", "6_graffiti", "Nina: paint 5 symbols on the ground", false },
+			{ "tb_Coins", "6_cassetteCoin", "Mitch: trade 5 cassettes for a coin", false },
+			{ "tb_Coins", "6_cassetteCoin2", "Mai: trade 5 cassettes for a coin", false },
 			{ "tb_Coins", "tb_Coins+", "Requires Contact List", false },
 				{ "tb_Coins+", "6_flowerPuzzle", "Little Gabi: plant flowers in each of the plant beds", false },
 				{ "tb_Coins+", "6_fishing", "Fischer: catch all 5 fish", false },
@@ -219,17 +224,17 @@ startup
 		{ "The Bathhouse", "6_End", "Enter train to leave The Bathhouse", true },
 
 
-		{ "Tadpole HQ", "thq_Coins", "Coins", true },
-			{ "thq_Coins", "7_main", "King Frog: listen to King Frog", true },
-			{ "thq_Coins", "7_volley", "Travis: HUGE VOLLEY", true },
-			{ "thq_Coins", "7_flowerPuzzle", "Little Gabi: plant flowers in each of the plant beds", true },
-			{ "thq_Coins", "7_fishing", "Fischer: catch all 5 fish", true },
-			{ "thq_Coins", "7_bug", "Blessley: collect 30 cicadas", true },
-			{ "thq_Coins", "7_arcadeBone", "Arcade Machine: get 5 dog bones", true },
-			{ "thq_Coins", "7_arcade", "Arcade Machine: get the coin", true },
-			{ "thq_Coins", "7_carrynojump", "Serschel/Louist: bring Louist back to Serschel", true },
-			{ "thq_Coins", "7_cassetteCoin", "Mitch: trade 5 cassettes for a coin", true },
-			{ "thq_Coins", "7_cassetteCoin2", "Mai: trade 5 cassettes for a coin", true },
+		{ "Tadpole HQ", "thq_Coins", "Coins", false },
+			{ "thq_Coins", "7_main", "King Frog: listen to King Frog", false },
+			{ "thq_Coins", "7_volley", "Travis: HUGE VOLLEY", false },
+			{ "thq_Coins", "7_flowerPuzzle", "Little Gabi: plant flowers in each of the plant beds", false },
+			{ "thq_Coins", "7_fishing", "Fischer: catch all 5 fish", false },
+			{ "thq_Coins", "7_bug", "Blessley: collect 30 cicadas", false },
+			{ "thq_Coins", "7_arcadeBone", "Arcade Machine: get 5 dog bones", false },
+			{ "thq_Coins", "7_arcade", "Arcade Machine: get the coin", false },
+			{ "thq_Coins", "7_carrynojump", "Serschel/Louist: bring Louist back to Serschel", false },
+			{ "thq_Coins", "7_cassetteCoin", "Mitch: trade 5 cassettes for a coin", false },
+			{ "thq_Coins", "7_cassetteCoin2", "Mai: trade 5 cassettes for a coin", false },
 
 		{ "Tadpole HQ", "thq_Cassettes", "Cassettes", false },
 			{ "thq_Cassettes", "7_Cassette (2)", "in a bush behind the bench with the contact list", false },
@@ -249,7 +254,7 @@ startup
 		{ "Tadpole HQ", "thq_Misc", "Miscellaneous", false },
 			{ "thq_Misc", "7_lock1", "unlock the second Arcade Machine", false },
 
-		{ "Tadpole HQ", "7_End", "Enter train to leave Tadpole HQ", false }
+		{ "Tadpole HQ", "7_End", "Enter train to leave Tadpole HQ", true }
 	};
 
 	settings.Add("Home");
@@ -260,29 +265,12 @@ startup
 	settings.Add("The Bathhouse");
 	settings.Add("Tadpole HQ");
 
-	for (int i = 0; i < _settings.GetLength(0); ++i)
-	{
-		string parent = _settings[i, 0];
-		string id     = _settings[i, 1];
-		string desc   = _settings[i, 2];
-		bool   state  = _settings[i, 3];
-
-		settings.Add(id, state, desc, parent);
-	}
+	vars.Helper.Settings.CreateCustom(_settings, 4, 1, 3, 2);
 
 	vars.CompletedFlags = new List<string>();
 	vars.FlagNames = new[] { "coinFlags", "cassetteFlags", "fishFlags", "letterFlags", "miscFlags" };
 
-	if (timer.CurrentTimingMethod == TimingMethod.RealTime)
-	{
-		var mbox = MessageBox.Show(
-			"Removing loads from Here Comes Niko requires comparing against Game Time.\nWould you like to switch to it?",
-			"LiveSplit | Here Comes Niko",
-			MessageBoxButtons.YesNo);
-
-		if (mbox == DialogResult.Yes)
-			timer.CurrentTimingMethod = TimingMethod.GameTime;
-	}
+	vars.Helper.AlertLoadless("Here Comes Niko!");
 }
 
 onStart
@@ -297,62 +285,53 @@ onStart
 init
 {
 	vars.OnStartPtr = IntPtr.Zero;
-	vars.SpeedrunData = new MemoryWatcherList();
 
-	vars.Unity.TryOnLoad = (Func<dynamic, bool>)(helper =>
+	vars.Helper.TryOnLoad = (Func<dynamic, bool>)(mono =>
 	{
 		// SpeedRunData
-		var srd = helper.GetClass("Assembly-CSharp", "SpeedRunData");
+		var srd = mono.GetClass("Assembly-CSharp", "SpeedRunData");
 
-		vars.SpeedrunData = new MemoryWatcherList
-		{
-			new MemoryWatcher<int>(srd.Static + srd["currentLevel"]) { Name = "currentLevel" },
-			new MemoryWatcher<bool>(srd.Static + srd["onEndingScreen"]) { Name = "onEndingScreen" },
-			new MemoryWatcher<bool>(srd.Static + srd["isLoading"]) { Name = "isLoading" },
-			new MemoryWatcher<bool>(srd.Static + srd["onStartGame"]) { Name = "onStartGame" },
-			new MemoryWatcher<bool>(srd.Static + srd["onLevelStart"]) { Name = "onLevelStart" }
-		};
-
+		vars.Helper["currentLevel"] = srd.Make<int>("currentLevel");
+		vars.Helper["onEndingScreen"] = srd.Make<bool>("onEndingScreen");
+		vars.Helper["isLoading"] = srd.Make<bool>("isLoading");
+		vars.Helper["onStartGame"] = srd.Make<bool>("onStartGame");
+		vars.Helper["onLevelStart"] = srd.Make<bool>("onLevelStart");
 
 		// WorldSaveData
-		var wsd = helper.GetClass("Assembly-CSharp", "scrWorldSaveDataContainer");
+		var wsd = mono.GetClass("Assembly-CSharp", "scrWorldSaveDataContainer");
 
-		vars.Unity.MakeList<IntPtr>(wsd.Static, wsd["instance"], wsd["coinFlags"]).Name = "coinFlags";
-		vars.Unity.MakeList<IntPtr>(wsd.Static, wsd["instance"], wsd["cassetteFlags"]).Name = "cassetteFlags";
-		vars.Unity.MakeList<IntPtr>(wsd.Static, wsd["instance"], wsd["fishFlags"]).Name = "fishFlags";
-		vars.Unity.MakeList<IntPtr>(wsd.Static, wsd["instance"], wsd["letterFlags"]).Name = "letterFlags";
-		vars.Unity.MakeList<IntPtr>(wsd.Static, wsd["instance"], wsd["miscFlags"]).Name = "miscFlags";
-
+		vars.Helper["coinFlags"] = wsd.MakeList<IntPtr>("instance", "coinFlags");
+		vars.Helper["cassetteFlags"] = wsd.MakeList<IntPtr>("instance", "cassetteFlags");
+		vars.Helper["fishFlags"] = wsd.MakeList<IntPtr>("instance", "fishFlags");
+		vars.Helper["letterFlags"] = wsd.MakeList<IntPtr>("instance", "letterFlags");
+		vars.Helper["miscFlags"] = wsd.MakeList<IntPtr>("instance", "miscFlags");
 
 		vars.OnStartPtr = srd.Static + srd["onStartGame"];
-		vars.StringClass = helper.GetClass("mscorlib", "String");
 
 		return true;
 	});
 
-	vars.Unity.Load(game);
+	vars.Helper.Load();
 }
 
 update
 {
-	if (!vars.Unity.Loaded) return false;
+	if (!vars.Helper.Update())
+		return false;
 
-	vars.SpeedrunData.UpdateAll(game);
-	vars.Unity.Update();
-
-	current.Level = vars.SpeedrunData["currentLevel"].Current;
-	current.OnEnding = vars.SpeedrunData["onEndingScreen"].Current;
-	current.Loading = vars.SpeedrunData["isLoading"].Current;
-	current.GameStart = vars.SpeedrunData["onStartGame"].Current;
-	current.LevelStart = vars.SpeedrunData["onLevelStart"].Current;
+	current.Level = vars.Helper["currentLevel"].Current;
+	current.OnEnding = vars.Helper["onEndingScreen"].Current;
+	current.Loading = vars.Helper["isLoading"].Current;
+	current.GameStart = vars.Helper["onStartGame"].Current;
+	current.LevelStart = vars.Helper["onLevelStart"].Current;
 
 	current.Counts = new[]
 	{
-		vars.Unity["coinFlags"].Current.Count,
-		vars.Unity["cassetteFlags"].Current.Count,
-		vars.Unity["fishFlags"].Current.Count,
-		vars.Unity["letterFlags"].Current.Count,
-		vars.Unity["miscFlags"].Current.Count
+		vars.Helper["coinFlags"].Current.Count,
+		vars.Helper["cassetteFlags"].Current.Count,
+		vars.Helper["fishFlags"].Current.Count,
+		vars.Helper["letterFlags"].Current.Count,
+		vars.Helper["miscFlags"].Current.Count
 	};
 }
 
@@ -375,11 +354,8 @@ split
 		if (current.Counts[i] != old.Counts[i] + 1)
 			continue;
 
-		IntPtr addr = vars.Unity[vars.FlagNames[i]].Current[current.Counts[i] - 1];
-		int oLength = vars.StringClass["m_stringLength"], oFirst = vars.StringClass["m_firstChar"];
-
-		var length = game.ReadValue<int>(addr + oLength);
-		var newFlag = current.Level + "_" + game.ReadString(addr + oFirst, length * 2);
+		var addr = vars.Unity[vars.FlagNames[i]].Current[current.Counts[i] - 1];
+		var newFlag = current.Level + "_" + vars.Helper.ReadString();
 
 		if (!vars.CompletedFlags.Contains(newFlag))
 		{
@@ -402,10 +378,10 @@ isLoading
 exit
 {
 	vars.OnStartPtr = IntPtr.Zero;
-	vars.Unity.Reset();
+	vars.Helper.Dispose();
 }
 
 shutdown
 {
-	vars.Unity.Reset();
+	vars.Helper.Dispose();
 }
