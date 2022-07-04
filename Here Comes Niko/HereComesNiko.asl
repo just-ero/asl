@@ -277,15 +277,11 @@ onStart
 {
 	vars.CompletedFlags.Clear();
 	vars.EndGame = false;
-	timer.Run.Offset = TimeSpan.Zero;
-	if (vars.OnStartPtr != IntPtr.Zero)
-		game.WriteValue<bool>((IntPtr)(vars.OnStartPtr), false);
+	vars.Helper["onStartGame"].Write(false);
 }
 
 init
 {
-	vars.OnStartPtr = IntPtr.Zero;
-
 	vars.Helper.TryOnLoad = (Func<dynamic, bool>)(mono =>
 	{
 		// SpeedRunData
@@ -305,8 +301,6 @@ init
 		vars.Helper["fishFlags"] = wsd.MakeList<IntPtr>("instance", "fishFlags");
 		vars.Helper["letterFlags"] = wsd.MakeList<IntPtr>("instance", "letterFlags");
 		vars.Helper["miscFlags"] = wsd.MakeList<IntPtr>("instance", "miscFlags");
-
-		vars.OnStartPtr = srd.Static + srd["onStartGame"];
 
 		return true;
 	});
@@ -377,7 +371,6 @@ isLoading
 
 exit
 {
-	vars.OnStartPtr = IntPtr.Zero;
 	vars.Helper.Dispose();
 }
 
