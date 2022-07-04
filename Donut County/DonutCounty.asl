@@ -3,8 +3,13 @@ state("DonutCounty") {}
 startup
 {
 	vars.Log = (Action<object>)(output => print("[Donut County] " + output));
-	vars.Unity = Assembly.Load(File.ReadAllBytes(@"Components\UnityASL.bin")).CreateInstance("UnityASL.Unity");
-	vars.CompletedSplits = new HashSet<int>();
+
+	#region Helper Setup
+	var bytes = File.ReadAllBytes(@"Components\LiveSplit.ASLHelper.bin");
+	var type = Assembly.Load(bytes).GetType("ASLHelper.Unity");
+	vars.Helper = Activator.CreateInstance(type, timer, settings, this);
+	vars.Helper.LoadSceneManager = true;
+	#endregion
 
 	dynamic[,] _settings =
 	{
@@ -36,15 +41,10 @@ startup
 
 	settings.Add("splits", true, "Split after completing levels:");
 
-	for (int i = 0; i < _settings.GetLength(0); ++i)
-	{
-		string parent = _settings[i, 0];
-		string id     = _settings[i, 1];
-		string desc   = _settings[i, 2];
-		bool   state  = _settings[i, 3];
+	vars.Helper.Settings.CreateCustom(_settings, 4, 1, 3, 2);
+	vars.Helper.AlertGameTime("Donut County");
 
-		settings.Add(id, state, desc, parent);
-	}
+	vars.CompletedSplits = new HashSet<int>();
 }
 
 onStart
@@ -54,37 +54,36 @@ onStart
 
 init
 {
-	vars.Unity.TryOnLoad = (Func<dynamic, bool>)(helper =>
+	vars.Helper.TryOnLoad = (Func<dynamic, bool>)(mono =>
 	{
-		var rm = helper.GetClass("Assembly-CSharp", "RM");
-		var sm = helper.GetClass("Assembly-CSharp", "SceneManager");
-		var ls = helper.GetClass("Assembly-CSharp", "LevelSettings");
-		var d = helper.GetClass("Assembly-CSharp", "OS1Delivery");
-		var t = helper.GetClass("Assembly-CSharp", "Tornado");
+		var rm = mono.GetClass("RM");
+		var sm = mono.GetClass("SceneManager");
+		var ls = mono.GetClass("LevelSettings");
+		var d = mono.GetClass("OS1Delivery");
+		var t = mono.GetClass("Tornado");
 
-		vars.Unity.MakeString(rm.Static, rm["sceneManager"], sm["nextLevel"]).Name = "nextLevel";
-		vars.Unity.Make<bool>(rm.Static, rm["sceneManager"], sm["loading"]).Name = "loading";
-		vars.Unity.Make<bool>(rm.Static, rm["sceneManager"], sm["_isLoadingScene"]).Name = "loadingScene";
-		vars.Unity.Make<int>(rm.Static, rm["levelSettings"], ls["deliveryData"], d["index"]).Name = "levelIndex";
-		vars.Unity.Make<int>(rm.Static, rm["tornado"], t["_numDestructables"]).Name = "tornadoDestructables";
+		vars.Helper["nextLevel"] = rm.MakeString("sceneManager", "nextLevel");
+		vars.Helper["loading"] = rm.Make<bool>("sceneManager", "loading");
+		vars.Helper["loadingScene"] = rm.Make<bool>("sceneManager", "_isLoadingScene");
+		vars.Helper["levelIndex"] = rm.Make<int>("levelSettings", "deliveryData", "index");
+		vars.Helper["tornadoDestructables"] = rm.Make<int>("tornado", "_numDestructables");
 
 		return true;
 	});
 
-	vars.Unity.Load(game);
+	vars.Helper.Load(game);
 }
 
 update
 {
-	if (!vars.Unity.Loaded) return false;
+	if (!vars.Helper.Update())
+		return false;
 
-	vars.Unity.Update();
-
-	current.Scene = vars.Unity["nextLevel"].Current;
-	current.Loading = vars.Unity["loading"].Current;
-	current.LoadingScene = vars.Unity["loadingScene"].Current;
-	current.LevelIndex = vars.Unity["levelIndex"].Current;
-	current.TornadoDestructables = vars.Unity["tornadoDestructables"].Current;
+	current.Scene = vars.Helper["nextLevel"].Current;
+	current.Loading = vars.Helper["loading"].Current;
+	current.LoadingScene = vars.Helper["loadingScene"].Current;
+	current.LevelIndex = vars.Helper["levelIndex"].Current;
+	current.TornadoDestructables = vars.Helper["tornadoDestructables"].Current;
 }
 
 start
@@ -112,10 +111,10 @@ isLoading
 
 exit
 {
-	vars.Unity.Reset();
+	vars.Helper.Dispose();
 }
 
 shutdown
 {
-	vars.Unity.Reset();
+	vars.Helper.Dispose();
 }
