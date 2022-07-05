@@ -9,8 +9,6 @@ startup
 	var type = Assembly.Load(bytes).GetType("ASLHelper.Unity");
 	vars.Helper = Activator.CreateInstance(type, timer, /* settings, */ this);
 	vars.Helper.LoadSceneManager = true;
-	vars.Helper.GameName = "Sonic Project '06";
-	vars.Helper.IO.StartFileLogger("SonicProject06.log");
 	#endregion
 
 	vars.Helper.AlertLoadless(vars.Helper.GameName);
@@ -42,10 +40,10 @@ init
 		vars.Helper["state"] = gm.Make<int>("_instance", "GameState");
 		vars.Helper["level"] = gm.MakeString("_instance", "LoadingTo");
 
-		var pd = mono.GetClass("PlayerData");
-		var cpd = mono.GetClass("CheckpointData");
+		// var pd = mono.GetClass("PlayerData");
+		// var cpd = mono.GetClass("CheckpointData");
 
-		vars.Helper["cp"] = gm.MakeString("_instance", gm["_PlayerData"] + pd["checkpoint"], cpd["SavePoint"]);
+		// vars.Helper["cp"] = gm.MakeString("_instance", gm["_PlayerData"] + pd["checkpoint"], cpd["SavePoint"]);
 
 		return true;
 	});
@@ -60,12 +58,7 @@ update
 
 	current.State = vars.Helper["state"].Current;
 	current.Level = vars.Helper["level"].Current;
-	current.CheckPoint = vars.Helper["cp"].Current ?? old.CheckPoint;
-
-	if (old.CheckPoint != current.CheckPoint)
-	{
-		vars.Helper.IO.Log("Level: " + current.Level + " | Checkpoint: " + current.CheckPoint);
-	}
+	// current.CheckPoint = vars.Helper["cp"].Current ?? old.CheckPoint;
 }
 
 start
@@ -81,7 +74,7 @@ start
 split
 {
 	return old.State == 2 && current.State == 5
-	    || old.CheckPoint != current.CheckPoint && settings[current.CheckPoint];
+	    /* || old.CheckPoint != current.CheckPoint && settings[current.CheckPoint] */;
 }
 
 reset
