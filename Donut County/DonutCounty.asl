@@ -42,7 +42,7 @@ startup
 	settings.Add("splits", true, "Split after completing levels:");
 
 	vars.Helper.Settings.CreateCustom(_settings, 4, 1, 3, 2);
-	vars.Helper.AlertGameTime("Donut County");
+	vars.Helper.AlertLoadless("Donut County");
 
 	vars.CompletedSplits = new HashSet<int>();
 }
