@@ -105,10 +105,6 @@ init
 			{
 				if (level.ID == levelId)
 				{
-					vars.Log(level.Completed);
-					vars.Log(level.Grade);
-					vars.Log(level.Difficulty);
-
 					return level.Completed && level.Grade >= targetGrade && level.Difficulty >= targetDifficulty;
 				}
 			}
@@ -120,6 +116,7 @@ init
 		#region Level
 		var lvl = mono.GetClass("Level");
 
+		// vars.Helper["lvl2"] = lvl.Make<int>("Current", "CurrentLevel");
 		vars.Helper["lvl"] = lvl.Make<int>("PreviousLevel");
 		vars.Helper["lvlTime"] = lvl.Make<float>("Current", "LevelTime");
 		vars.Helper["lvlDifficulty"] = lvl.Make<int>("Current", "mode");
@@ -133,6 +130,8 @@ init
 		vars.Helper["sceneName"] = sl.MakeString("SceneName");
 		vars.Helper["doneLoading"] = sl.Make<bool>("_instance", "doneLoadingSceneAsync");
 		#endregion // SceneLoader
+
+		var x = mono.GetClass("PlayerStatsManager");
 
 		return true;
 	});
@@ -158,8 +157,13 @@ update
 	current.Loading = !vars.Helper["doneLoading"].Current;
 	current.Scene = vars.Helper["sceneName"].Current;
 
-	// vars.Log("InGame:     " +     current.InGame);
+	if (current.Scene == "scene_win")
+	{
+		current.Scene = old.Scene;
+	}
+
 	// vars.Log("Level:      " +      current.Level);
+	// vars.Log("InGame:     " +     current.InGame);
 	// vars.Log("Time:       " +       current.Time);
 	// vars.Log("Difficulty: " + current.Difficulty);
 	// vars.Log("IsEnding:   " +   current.IsEnding);
@@ -213,7 +217,7 @@ split
 
 			case "LEVEL_COMPLETE":
 			{
-				if (old.Scene == id && current.Scene == "scene_win")
+				if (current.Scene == id && vars.IsLevelCompleted(current.Level, -1, -1))
 				{
 					vars.Log("LEVEL_COMPLETE | " + id);
 
