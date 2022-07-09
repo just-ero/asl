@@ -104,7 +104,13 @@ init
 			foreach (var level in vars.GetAllLevelsData())
 			{
 				if (level.ID == levelId)
+				{
+					vars.Log(level.Completed);
+					vars.Log(level.Grade);
+					vars.Log(level.Difficulty);
+
 					return level.Completed && level.Grade >= targetGrade && level.Difficulty >= targetDifficulty;
+				}
 			}
 
 			return false;
@@ -127,8 +133,6 @@ init
 		vars.Helper["sceneName"] = sl.MakeString("SceneName");
 		vars.Helper["doneLoading"] = sl.Make<bool>("_instance", "doneLoadingSceneAsync");
 		#endregion // SceneLoader
-
-		var x = mono.GetClass("PlayerStatsManager");
 
 		return true;
 	});
@@ -209,7 +213,7 @@ split
 
 			case "LEVEL_COMPLETE":
 			{
-				if (current.Scene == id && vars.IsLevelCompleted(current.Level, -1, -1))
+				if (old.Scene == id && current.Scene == "scene_win")
 				{
 					vars.Log("LEVEL_COMPLETE | " + id);
 
