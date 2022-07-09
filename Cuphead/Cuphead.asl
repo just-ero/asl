@@ -10,7 +10,7 @@ startup
 
 	vars.Splits = new Dictionary<string, string>();
 
-	settings.Add("splits", false, "Splits:");
+	settings.Add("splits", true, "Splits:");
 
 	var xml = System.Xml.Linq.XDocument.Load(@"Components\Cuphead.Splits.xml");
 	foreach (var split in xml.Element("Splits").Elements("Split"))
