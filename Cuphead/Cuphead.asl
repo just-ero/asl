@@ -24,6 +24,8 @@ startup
 		vars.Splits[id] = splitType;
 	}
 
+	vars.Helper.AlertLoadless("Cuphead");
+
 	vars.CompletedSplits = new List<string>();
 }
 
