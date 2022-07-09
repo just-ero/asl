@@ -1,0 +1,66 @@
+<Splits>
+	<Split ID="scene_shop"          Name="Shop (Enter Scene)"             ToolTip="Splits when current scene is 'Shop'"         Type="SCENE_ENTER"/>
+	<Split ID="scene_map_world_1"   Name="Inkwell Isle 1 (Enter Scene)"   ToolTip="Splits when first entering Inkwell Isle I"   Type="SCENE_ENTER"/>
+	<Split ID="scene_map_world_2"   Name="Inkwell Isle 2 (Enter Scene)"   ToolTip="Splits when first entering Inkwell Isle II"  Type="SCENE_ENTER"/>
+	<Split ID="scene_map_world_3"   Name="Inkwell Isle 3 (Enter Scene)"   ToolTip="Splits when first entering Inkwell Isle III" Type="SCENE_ENTER"/>
+	<Split ID="scene_map_world_4"   Name="Inkwell Hell (Enter Scene)"     ToolTip="Splits when first entering Inkwell Hell"     Type="SCENE_ENTER"/>
+	<Split ID="scene_map_world_DLC" Name="Inkwell Isle DLC (Enter Scene)" ToolTip="Splits when first entering Inkwell Isle DLC" Type="SCENE_ENTER"/>
+
+	<Split ID="scene_level_tutorial"         Name="Tutorial (Level)"         ToolTip="Splits when leaving the Tutorial level"         Type="SCENE_LEAVE"/>
+	<!-- Sort of guessing the chalice tutorial level name, long story short our current mod has some issues regarding that tutorial level and it doesn't display properly -->
+	<Split ID="scene_level_chalice_tutorial" Name="Chalice Tutorial (Level)" ToolTip="Splits when leaving the Chalice Tutorial level" Type="SCENE_LEAVE"/>
+
+	<Split ID="scene_level_veggies"      Name="The Root Pack (Boss)"    ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_slime"        Name="Goopy Le Grande (Boss)"  ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_flower"       Name="Cagney Carnation (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_frogs"        Name="Ribby And Croaks (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_flying_blimp" Name="Hilda Berg (Boss)"       ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+
+	<Split ID="scene_level_baroness"     Name="Baroness Von Bon Bon (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_flying_genie" Name="Djimmi The Great (Boss)"     ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_clown"        Name="Beppi The Clown (Boss)"      ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_flying_bird"  Name="Wally Warbles (Boss)"        ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_dragon"       Name="Grim Matchstick (Boss)"      ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+
+	<Split ID="scene_level_bee"              Name="Rumor Honeybottoms (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_pirate"           Name="Captin Brineybeard (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_mouse"            Name="Werner Werman (Boss)"      ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_robot"            Name="Dr. Kahl's Robot (Boss)"   ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_sally_stage_play" Name="Sally Stageplay (Boss)"    ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_flying_mermaid"   Name="Cala Maria (Boss)"         ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_train"            Name="Phantom Express (Boss)"    ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+
+	<Split ID="scene_level_old_man"       Name="Glumstone The Giant (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_snow_cult"     Name="Mortimer Freeze (Boss)"     ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_airplane"      Name="The Howling Aces (Boss)"    ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_flying_cowboy" Name="Esther Winchester (Boss)"   ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_rum_runners"   Name="Moonshine Mob (Boss)"       ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_saltbaker"     Name="Chef Saltbaker (Boss)"      ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_graveyard"     Name="Demon and Angel (Boss)"     ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+
+	<Split ID="scene_cutscene_kingdice"      Name="King Dice (Contract Cutscene)" ToolTip="Splits when you get the cutscene trying to enter the King Dice fight without all contracts" Type="SCENE_ENTER"/>
+	<Split ID="scene_level_dice_palace_main" Name="King Dice (Boss)"              ToolTip="Splits when you beat King Dice"                                                             Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_devil"            Name="Devil (Boss)"                  ToolTip="Splits when level is finished"                                                              Type="LEVEL_COMPLETE"/>
+
+	<Split ID="scene_cutscene_credits" Name="End Game (Credits)" ToolTip="Splits when entering the credits" Type="SCENE_ENTER"/>
+
+	<Split ID="scene_level_platforming_1_1F" Name="Forest Follies (Run 'n Gun)"   ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_platforming_1_2F" Name="Treetop Trouble (Run 'n Gun)"  ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_platforming_2_1F" Name="Funfair Fever (Run 'n Gun)"    ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_platforming_2_2F" Name="Funhouse Frazzle (Run 'n Gun)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_platforming_3_1F" Name="Perilous Piers (Run 'n Gun)"   ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_platforming_3_2F" Name="Rugged Ridge (Run 'n Gun)"     ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+
+	<Split ID="scene_level_mausoleum_0" Name="Mausoleum I (Super)"   ToolTip="Splits when level is finished" Type="ENDING"/>
+	<Split ID="scene_level_mausoleum_1" Name="Mausoleum II (Super)"  ToolTip="Splits when level is finished" Type="ENDING"/>
+	<Split ID="scene_level_mausoleum_2" Name="Mausoleum III (Super)" ToolTip="Splits when level is finished" Type="ENDING"/>
+
+	<Split ID="scene_level_chess_pawn"   Name="Chess Pawns (Boss)"  ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_chess_knight" Name="Chess Knight (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_chess_bishop" Name="Chess Bishop (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_chess_rook"   Name="Chess Rook (Boss)"   ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_chess_queen"  Name="Chess Queen (Boss)"  ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+
+	<Split ID="ilEnter" Name="Enter Level (IL)" ToolTip="Splits when entering any level" Type="CUSTOM"/>
+	<Split ID="ilEnd"   Name="End Level (IL)"   ToolTip="Splits when ending any level"   Type="CUSTOM"/>
+</Splits>
