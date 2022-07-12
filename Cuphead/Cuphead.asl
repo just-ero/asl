@@ -117,7 +117,7 @@ init
 		var lvl = mono.GetClass("Level");
 
 		// vars.Helper["lvl2"] = lvl.Make<int>("Current", "CurrentLevel");
-		vars.Helper["lvl"] = lvl.Make<int>("PreviousLevel");
+		// vars.Helper["lvl"] = lvl.Make<int>("PreviousLevel");
 		vars.Helper["lvlTime"] = lvl.Make<float>("Current", "LevelTime");
 		vars.Helper["lvlDifficulty"] = lvl.Make<int>("Current", "mode");
 		vars.Helper["lvlEnding"] = lvl.Make<bool>("Current", "Ending");
@@ -128,6 +128,7 @@ init
 		var sl = mono.GetClass("SceneLoader");
 
 		vars.Helper["sceneName"] = sl.MakeString("SceneName");
+		vars.Helper["lvl"] = sl.Make<int>("CurrentLevel");
 		vars.Helper["doneLoading"] = sl.Make<bool>("_instance", "doneLoadingSceneAsync");
 		#endregion // SceneLoader
 
