@@ -12,8 +12,8 @@ startup
 		{ null, "Key Items", "Key Items" },
 			{ "Key Items", "inventory quantity Wand : 1",                                          "Magic Orb" },
 			{ "Key Items", "inventory quantity Techbow : 1",                                       "Fire Wand" },
-			{ "Key Items", "inventory quantity Sword : 1",                                         "Sword" },
-			{ "Key Items", "Achievement_12 : 1",                                                   "Hyperdash" },
+			{ "Key Items", "Achievement_2 : 1",                                                    "Sword" },
+			{ "Key Items", "Achievement_12 : 1",                                                   "Hyperdash (Hero's Laurels)" },
 			{ "Key Items", "inventory quantity SlowmoItem : 1",                                    "Hourglass" },
 			{ "Key Items", "inventory quantity Shield : 1",                                        "Shield" },
 			{ "Key Items", "inventory quantity Lantern : 1",                                       "Lantern" },
@@ -43,6 +43,7 @@ startup
 			{ "Major Events", "Placed Hexagon 2 Green : 1",               "Placed Hexagon 2 Green" },
 			{ "Major Events", "Placed Hexagon 3 Blue : 1",                "Placed Hexagon 3 Blue" },
 			{ "Major Events", "Placed Hexagons ALL : 1",                  "Placed Hexagons ALL" },
+			{ "Major Events", "Achievement_13 : 1",                       "Restored Corporeal Form" },
 
 		{ null, "Cards", "Cards" },
 			{ "Cards", "inventory quantity Trinket - MP Flasks : 1",              "Inverted Ash" },
