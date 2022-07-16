@@ -3,6 +3,7 @@ state("Cuphead") {}
 startup
 {
 	vars.Log = (Action<object>)(output => print("[Cuphead] " + output));
+	vars.TimerModel = new TimerModel { CurrentState = timer };
 
 	var bytes = File.ReadAllBytes(@"Components\LiveSplit.ASLHelper.bin");
 	var type = Assembly.Load(bytes).GetType("ASLHelper.Unity");
@@ -111,6 +112,14 @@ init
 
 			return false;
 		});
+
+		vars.IsOverworld = (Func<string, bool>)((scene) => 
+		{
+			return scene == "scene_map_world_1" || scene == "scene_map_world_2"
+				|| scene == "scene_map_world_3" || scene == "scene_map_world_4"
+				|| scene == "scene_map_world_DLC";
+		});
+
 		#endregion // PlayerData
 
 		#region Level
@@ -161,6 +170,13 @@ update
 	if (current.Scene == "scene_win")
 	{
 		current.Scene = old.Scene;
+	}
+
+	// auto-reset after results screen
+	if (settings["ilEnter"] && settings["ilEnd"] && timer.CurrentPhase == TimerPhase.Ended
+		&& timer.Run.Count == 1 && (current.Time == 0f || vars.IsOverworld(current.Scene)))
+	{
+		vars.TimerModel.Reset();
 	}
 
 	// vars.Log("Level:      " +      current.Level);
