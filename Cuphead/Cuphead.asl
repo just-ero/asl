@@ -264,7 +264,7 @@ split
 
 			case "ilEnd":
 			{
-				if (current.Time > 0f && current.IsEnding)
+				if (current.Time > 0f && current.HasWon)
 					return true;
 
 				continue;
