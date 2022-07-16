@@ -3,7 +3,6 @@ state("Cuphead") {}
 startup
 {
 	vars.Log = (Action<object>)(output => print("[Cuphead] " + output));
-	vars.TimerModel = new TimerModel { CurrentState = timer };
 
 	var bytes = File.ReadAllBytes(@"Components\LiveSplit.ASLHelper.bin");
 	var type = Assembly.Load(bytes).GetType("ASLHelper.Unity");
@@ -113,13 +112,14 @@ init
 			return false;
 		});
 
-		vars.IsOverworld = (Func<string, bool>)((scene) => 
+		vars.IsInOverworld = (Func<bool>)(() => 
 		{
-			return scene == "scene_map_world_1" || scene == "scene_map_world_2"
-				|| scene == "scene_map_world_3" || scene == "scene_map_world_4"
-				|| scene == "scene_map_world_DLC";
+			return current.Scene == "scene_map_world_1"
+			       || current.Scene == "scene_map_world_2"
+			       || current.Scene == "scene_map_world_3"
+			       || current.Scene == "scene_map_world_4"
+			       || current.Scene == "scene_map_world_DLC";
 		});
-
 		#endregion // PlayerData
 
 		#region Level
@@ -157,6 +157,7 @@ update
 	current.SaveSlot = vars.GetCurrentSave();
 
 	current.InGame = vars.Helper["inGame"].Current;
+	current.InOverworld = vars.IsInOverworld();
 
 	current.Level = vars.Helper["lvl"].Current;
 	current.Time = vars.Helper["lvlTime"].Current;
@@ -173,11 +174,11 @@ update
 	}
 
 	// auto-reset after results screen
-	if (settings["ilEnter"] && settings["ilEnd"] && timer.CurrentPhase == TimerPhase.Ended
-		&& timer.Run.Count == 1 && (current.Time == 0f || vars.IsOverworld(current.Scene)))
+	if (settings.ResetEnabled && settings["ilEnter"] && settings["ilEnd"] && timer.CurrentPhase == TimerPhase.Ended
+	    && timer.Run.Count == 1 && (current.Time == 0f || current.InOverworld))
 	{
-		vars.Log("resetting (ended) | current.Time = " + current.Time + " - IsOverworld = " + vars.IsOverworld(current.Scene));
-		vars.TimerModel.Reset();
+		vars.Log("Resetting because of IL End | Time: " + current.Time + " | IsOverworld: " + current.InOverworld);
+		vars.Helper.Timer.Reset();
 	}
 
 	// vars.Log("Level:      " +      current.Level);
@@ -194,9 +195,9 @@ update
 start
 {
 	// ilEnter should also start the timer
-	if(settings["ilEnter"] && old.Time == 0f && current.Time > 0f)
+	if (settings["ilEnter"] && old.Time == 0f && current.Time > 0f)
 	{
-		vars.Log("ilEnter (start) | old.Time = " + old.Time + " - current.time = " + current.Time);
+		vars.Log("Starting because of IL Enter | Time: " + old.Time + " -> " + current.Time);
 		return true;
 	}
 
@@ -276,7 +277,7 @@ split
 			{
 				if (old.Time == 0f && current.Time > 0f)
 				{
-					vars.Log("ilEnter (split) | old.Time = " + old.Time + " - current.time = " + current.Time);
+					vars.Log("Splitting due to IL Enter | Time: " + old.Time + " -> " + current.Time);
 					return true;
 				}
 
@@ -287,7 +288,7 @@ split
 			{
 				if (current.Time > 0f && current.HasWon)
 				{
-					vars.Log("ilEnd | current.HasWon = " + current.HasWon + " - current.time = " + current.Time);
+					vars.Log("Splitting due to IL End | Time: " + current.Time + " | HasWon: " + current.HasWon);
 					return true;
 				}
 
@@ -302,16 +303,16 @@ reset
 	// Reset only when the runner is doing IL attempts.
 	// Kind of a big assumption, don't you think? Runners can do full game runs with only 1 split, too.
 	// DevilSquirrel's code. /shrug
-	if(timer.Run.Count == 1 && current.Loading && current.Time == 0f)
+	if (timer.Run.Count == 1 && current.Loading && current.Time == 0f)
 	{
-		vars.Log("resetting (running) | current.Time = " + current.Time + " - current.Loading = " + current.Loading);
+		vars.Log("Resetting due to reset {} | Time: " + current.Time + " | Loading: " + current.Loading);
 		return true;
 	}
 }
 
 gameTime
 {
-	if(settings["ilEnd"] && settings["ilEnter"] && timer.Run.Count == 1)
+	if (settings["ilEnd"] && settings["ilEnter"] && timer.Run.Count == 1)
 	{
 		return TimeSpan.FromSeconds(current.Time);
 	}
