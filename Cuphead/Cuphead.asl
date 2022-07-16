@@ -176,6 +176,7 @@ update
 	if (settings["ilEnter"] && settings["ilEnd"] && timer.CurrentPhase == TimerPhase.Ended
 		&& timer.Run.Count == 1 && (current.Time == 0f || vars.IsOverworld(current.Scene)))
 	{
+		vars.Log("resetting (ended) | current.Time = " + current.Time + " - IsOverworld = " + vars.IsOverworld(current.Scene));
 		vars.TimerModel.Reset();
 	}
 
@@ -195,6 +196,7 @@ start
 	// ilEnter should also start the timer
 	if(settings["ilEnter"] && old.Time == 0f && current.Time > 0f)
 	{
+		vars.Log("ilEnter (start) | old.Time = " + old.Time + " - current.time = " + current.Time);
 		return true;
 	}
 
@@ -273,7 +275,10 @@ split
 			case "ilEnter":
 			{
 				if (old.Time == 0f && current.Time > 0f)
+				{
+					vars.Log("ilEnter (split) | old.Time = " + old.Time + " - current.time = " + current.Time);
 					return true;
+				}
 
 				continue;
 			}
@@ -281,7 +286,10 @@ split
 			case "ilEnd":
 			{
 				if (current.Time > 0f && current.HasWon)
+				{
+					vars.Log("ilEnd | current.HasWon = " + current.HasWon + " - current.time = " + current.Time);
 					return true;
+				}
 
 				continue;
 			}
@@ -294,11 +302,20 @@ reset
 	// Reset only when the runner is doing IL attempts.
 	// Kind of a big assumption, don't you think? Runners can do full game runs with only 1 split, too.
 	// DevilSquirrel's code. /shrug
-	return timer.Run.Count == 1 && current.Loading && current.Time == 0f;
+	if(timer.Run.Count == 1 && current.Loading && current.Time == 0f)
+	{
+		vars.Log("resetting (running) | current.Time = " + current.Time + " - current.Loading = " + current.Loading);
+		return true;
+	}
 }
 
 gameTime
-{}
+{
+	if(settings["ilEnd"] && settings["ilEnter"] && timer.Run.Count == 1)
+	{
+		return TimeSpan.FromSeconds(current.Time);
+	}
+}
 
 isLoading
 {
