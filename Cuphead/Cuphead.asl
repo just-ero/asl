@@ -176,6 +176,12 @@ update
 
 start
 {
+	// ilEnter should also start the timer
+	if(settings["ilEnter"] && old.Time == 0f && current.Time > 0f)
+	{
+		return true;
+	}
+
 	return current.Scene == "scene_cutscene_intro" && current.InGame && current.Loading;
 }
 
