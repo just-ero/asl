@@ -154,6 +154,8 @@ update
 	if (!vars.Helper.Update())
 		return false;
 
+	current.InILMode = settings["ilEnter"] && settings["ilEnd"] && timer.Run.Count == 1;
+
 	current.SaveSlot = vars.GetCurrentSave();
 
 	current.Loading = !vars.Helper["doneLoading"].Current;
@@ -174,8 +176,8 @@ update
 	}
 
 	// auto-reset after results screen
-	if (settings.ResetEnabled && settings["ilEnter"] && settings["ilEnd"] && timer.CurrentPhase == TimerPhase.Ended
-	    && timer.Run.Count == 1 && (current.Time == 0f || current.InOverworld))
+	if (current.InILMode && settings.ResetEnabled && timer.CurrentPhase == TimerPhase.Ended
+	    && (current.Time == 0f || current.InOverworld))
 	{
 		vars.Log("Resetting because of IL End | Time: " + current.Time + " | IsOverworld: " + current.InOverworld);
 		vars.Helper.Timer.Reset();
@@ -194,8 +196,8 @@ update
 
 start
 {
-	// ilEnter should also start the timer
-	if (settings["ilEnter"] && old.Time == 0f && current.Time > 0f)
+	// start timer on ilEnter when in ILMode
+	if (current.InILMode && old.Time == 0f && current.Time > 0f)
 	{
 		vars.Log("Starting because of IL Enter | Time: " + old.Time + " -> " + current.Time);
 		return true;
@@ -300,11 +302,7 @@ split
 
 reset
 {
-	// Reset only when the runner is doing IL attempts.
-	// Kind of a big assumption, don't you think? Runners can do full game runs with only 1 split, too.
-	// DevilSquirrel's code. /shrug
-	if (settings["ilEnter"] && settings["ilEnd"] && timer.Run.Count == 1
-		&& ((current.Loading && current.Time == 0f) || current.InOverworld))
+	if (current.InILMode && ((current.Loading && current.Time == 0f) || current.InOverworld))
 	{
 		vars.Log("Resetting due to reset {} | Time: " + current.Time + " | Loading: " + current.Loading + " | InOverworld: " + current.InOverworld);
 		return true;
@@ -313,7 +311,7 @@ reset
 
 gameTime
 {
-	if (settings["ilEnd"] && settings["ilEnter"] && timer.Run.Count == 1)
+	if (current.InILMode)
 	{
 		return TimeSpan.FromSeconds(current.Time);
 	}
