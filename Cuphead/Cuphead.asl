@@ -171,15 +171,13 @@ update
 	current.HasWon = vars.Helper["lvlWon"].Current;
 
 	if (current.Scene == "scene_win")
-	{
 		current.Scene = old.Scene;
-	}
 
 	// auto-reset after results screen
 	if (current.InILMode && settings.ResetEnabled && timer.CurrentPhase == TimerPhase.Ended
 	    && (current.Time == 0f || current.InOverworld))
 	{
-		vars.Log("Resetting because of IL End | Time: " + current.Time + " | IsOverworld: " + current.InOverworld);
+		vars.Log("Resetting due to IL End | Time: " + current.Time + " | IsOverworld: " + current.InOverworld);
 		vars.Helper.Timer.Reset();
 	}
 
@@ -199,7 +197,7 @@ start
 	// start timer on ilEnter when in ILMode
 	if (current.InILMode && old.Time == 0f && current.Time > 0f)
 	{
-		vars.Log("Starting because of IL Enter | Time: " + old.Time + " -> " + current.Time);
+		vars.Log("Starting due to IL Enter | Time: " + old.Time + " -> " + current.Time);
 		return true;
 	}
 
@@ -302,7 +300,7 @@ split
 
 reset
 {
-	if (current.InILMode && ((current.Loading && current.Time == 0f) || current.InOverworld))
+	if (current.InILMode && (current.Loading && current.Time == 0f || current.InOverworld))
 	{
 		vars.Log("Resetting due to reset {} | Time: " + current.Time + " | Loading: " + current.Loading + " | InOverworld: " + current.InOverworld);
 		return true;
@@ -312,17 +310,12 @@ reset
 gameTime
 {
 	if (current.InILMode)
-	{
 		return TimeSpan.FromSeconds(current.Time);
-	}
 }
 
 isLoading
 {
-	// prevents flickering
-	if(current.InILMode) return true;
-
-	return current.Loading;
+	return current.InILMode || current.Loading;
 }
 
 exit
