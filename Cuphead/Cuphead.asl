@@ -111,6 +111,15 @@ init
 
 			return false;
 		});
+
+		vars.IsInOverworld = (Func<bool>)(() => 
+		{
+			return current.Scene == "scene_map_world_1"
+			       || current.Scene == "scene_map_world_2"
+			       || current.Scene == "scene_map_world_3"
+			       || current.Scene == "scene_map_world_4"
+			       || current.Scene == "scene_map_world_DLC";
+		});
 		#endregion // PlayerData
 
 		#region Level
@@ -145,9 +154,15 @@ update
 	if (!vars.Helper.Update())
 		return false;
 
+	current.InILMode = settings["ilEnter"] && settings["ilEnd"] && timer.Run.Count == 1;
+
 	current.SaveSlot = vars.GetCurrentSave();
 
+	current.Loading = !vars.Helper["doneLoading"].Current;
+	current.Scene = vars.Helper["sceneName"].Current;
+
 	current.InGame = vars.Helper["inGame"].Current;
+	current.InOverworld = vars.IsInOverworld();
 
 	current.Level = vars.Helper["lvl"].Current;
 	current.Time = vars.Helper["lvlTime"].Current;
@@ -155,12 +170,15 @@ update
 	current.IsEnding = vars.Helper["lvlEnding"].Current;
 	current.HasWon = vars.Helper["lvlWon"].Current;
 
-	current.Loading = !vars.Helper["doneLoading"].Current;
-	current.Scene = vars.Helper["sceneName"].Current;
-
 	if (current.Scene == "scene_win")
-	{
 		current.Scene = old.Scene;
+
+	// auto-reset after results screen
+	if (current.InILMode && settings.ResetEnabled && timer.CurrentPhase == TimerPhase.Ended
+	    && (current.Time == 0f || current.InOverworld))
+	{
+		vars.Log("Resetting due to IL End | Time: " + current.Time + " | IsOverworld: " + current.InOverworld);
+		vars.Helper.Timer.Reset();
 	}
 
 	// vars.Log("Level:      " +      current.Level);
@@ -176,9 +194,10 @@ update
 
 start
 {
-	// ilEnter should also start the timer
-	if(settings["ilEnter"] && old.Time == 0f && current.Time > 0f)
+	// start timer on ilEnter when in ILMode
+	if (current.InILMode && old.Time == 0f && current.Time > 0f)
 	{
+		vars.Log("Starting due to IL Enter | Time: " + old.Time + " -> " + current.Time);
 		return true;
 	}
 
@@ -257,7 +276,10 @@ split
 			case "ilEnter":
 			{
 				if (old.Time == 0f && current.Time > 0f)
+				{
+					vars.Log("Splitting due to IL Enter | Time: " + old.Time + " -> " + current.Time);
 					return true;
+				}
 
 				continue;
 			}
@@ -265,7 +287,10 @@ split
 			case "ilEnd":
 			{
 				if (current.Time > 0f && current.HasWon)
+				{
+					vars.Log("Splitting due to IL End | Time: " + current.Time + " | HasWon: " + current.HasWon);
 					return true;
+				}
 
 				continue;
 			}
@@ -275,18 +300,22 @@ split
 
 reset
 {
-	// Reset only when the runner is doing IL attempts.
-	// Kind of a big assumption, don't you think? Runners can do full game runs with only 1 split, too.
-	// DevilSquirrel's code. /shrug
-	return timer.Run.Count == 1 && current.Loading && current.Time == 0f;
+	if (current.InILMode && (current.Loading && current.Time == 0f || current.InOverworld))
+	{
+		vars.Log("Resetting due to reset {} | Time: " + current.Time + " | Loading: " + current.Loading + " | InOverworld: " + current.InOverworld);
+		return true;
+	}
 }
 
 gameTime
-{}
+{
+	if (current.InILMode)
+		return TimeSpan.FromSeconds(current.Time);
+}
 
 isLoading
 {
-	return current.Loading;
+	return current.InILMode || current.Loading;
 }
 
 exit
