@@ -319,6 +319,9 @@ gameTime
 
 isLoading
 {
+	// prevents flickering
+	if(current.InILMode) return true;
+
 	return current.Loading;
 }
 
