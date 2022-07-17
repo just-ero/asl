@@ -303,9 +303,10 @@ reset
 	// Reset only when the runner is doing IL attempts.
 	// Kind of a big assumption, don't you think? Runners can do full game runs with only 1 split, too.
 	// DevilSquirrel's code. /shrug
-	if (timer.Run.Count == 1 && current.Loading && current.Time == 0f)
+	if (settings["ilEnter"] && settings["ilEnd"] && timer.Run.Count == 1
+		&& ((current.Loading && current.Time == 0f) || current.InOverworld))
 	{
-		vars.Log("Resetting due to reset {} | Time: " + current.Time + " | Loading: " + current.Loading);
+		vars.Log("Resetting due to reset {} | Time: " + current.Time + " | Loading: " + current.Loading + " | InOverworld: " + current.InOverworld);
 		return true;
 	}
 }
