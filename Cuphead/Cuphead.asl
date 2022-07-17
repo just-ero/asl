@@ -124,6 +124,7 @@ init
 
 		#region Level
 		var lvl = mono.GetClass("Level");
+		var lvlSD = mono.GetClass("LevelScoringData");
 
 		// vars.Helper["lvl2"] = lvl.Make<int>("Current", "CurrentLevel");
 		// vars.Helper["lvl"] = lvl.Make<int>("PreviousLevel");
@@ -131,6 +132,12 @@ init
 		vars.Helper["lvlDifficulty"] = lvl.Make<int>("Current", "mode");
 		vars.Helper["lvlEnding"] = lvl.Make<bool>("Current", "Ending");
 		vars.Helper["lvlWon"] = lvl.Make<bool>("Won");
+
+		vars.Helper["lvlIsDicePalace"] = lvl.Make<bool>("IsDicePalace");
+		vars.Helper["lvlIsDicePalaceMain"] = lvl.Make<bool>("IsDicePalaceMain");
+		current.IsKDLevelEnding = false;
+
+		vars.Helper["lvlSDTime"] = lvl.Make<float>("ScoringData", lvlSD["time"]);
 		#endregion // Level
 
 		#region SceneLoader
@@ -163,9 +170,13 @@ update
 
 	current.InGame = vars.Helper["inGame"].Current;
 	current.InOverworld = vars.IsInOverworld();
+	current.InKingDice = vars.Helper["lvlIsDicePalace"].Current;
+	current.InKingDiceMain = vars.Helper["lvlIsDicePalaceMain"].Current;
 
 	current.Level = vars.Helper["lvl"].Current;
 	current.Time = vars.Helper["lvlTime"].Current;
+	// LevelScoringData#time
+	current.LSDTime = vars.Helper["lvlSDTime"].Current;
 	current.Difficulty = vars.Helper["lvlDifficulty"].Current;
 	current.IsEnding = vars.Helper["lvlEnding"].Current;
 	current.HasWon = vars.Helper["lvlWon"].Current;
@@ -181,6 +192,26 @@ update
 		vars.Helper.Timer.Reset();
 	}
 
+	// KD nonsense
+	if (current.InKingDiceMain != old.InKingDiceMain)
+	{
+		current.IsKDLevelEnding = false;
+	}
+
+	if (current.InKingDice && current.LSDTime != old.LSDTime && current.LSDTime != 0)
+	{
+		current.IsKDLevelEnding = true;
+	}
+
+	if (current.Loading != old.Loading) vars.Log("Loading:     " +     current.Loading);
+	if (current.HasWon != old.HasWon) vars.Log("HasWon:     " +     current.HasWon);
+	if (current.IsEnding != old.IsEnding) vars.Log("IsEnding:     " +     current.IsEnding);
+	if (current.Time != old.Time && current.Time == 0) vars.Log("Time reset from " + old.Time);
+	if (current.LSDTime != old.LSDTime) vars.Log("LSDTime:     " +     current.LSDTime);
+	if (current.InKingDice != old.InKingDice) vars.Log("InKingDice:     " +     current.InKingDice);
+	if (current.InKingDiceMain != old.InKingDiceMain) vars.Log("InKingDiceMain:     " +     current.InKingDiceMain);
+	if (current.IsKDLevelEnding != old.IsKDLevelEnding) vars.Log("IsKDLevelEnding:     " +     current.IsKDLevelEnding);
+	
 	// vars.Log("Level:      " +      current.Level);
 	// vars.Log("InGame:     " +     current.InGame);
 	// vars.Log("Time:       " +       current.Time);
@@ -245,7 +276,7 @@ split
 			{
 				if (current.Scene == id && vars.IsLevelCompleted(current.Level, -1, -1))
 				{
-					vars.Log("LEVEL_COMPLETE | " + id);
+					vars.Log("LEVEL_COMPLETE | " + id + " in " + current.Time + " on " + current.Difficulty);
 
 					vars.CompletedSplits.Add(id);
 					return true;
@@ -275,6 +306,9 @@ split
 		{
 			case "ilEnter":
 			{
+				if(current.InKingDice && old.InKingDice)
+					continue;
+					
 				if (old.Time == 0f && current.Time > 0f)
 				{
 					vars.Log("Splitting due to IL Enter | Time: " + old.Time + " -> " + current.Time);
@@ -286,6 +320,9 @@ split
 
 			case "ilEnd":
 			{
+				if(current.InKingDice && !current.InKingDiceMain)
+					continue;
+
 				if (current.Time > 0f && current.HasWon)
 				{
 					vars.Log("Splitting due to IL End | Time: " + current.Time + " | HasWon: " + current.HasWon);
@@ -300,9 +337,13 @@ split
 
 reset
 {
-	if (current.InILMode && (current.Loading && current.Time == 0f || current.InOverworld))
+	if (current.InILMode && (
+	      !current.InKingDice && current.Loading && current.Time == 0f
+	   || current.InKingDice && current.Loading && current.LSDTime == 0f
+	   || current.InOverworld))
 	{
 		vars.Log("Resetting due to reset {} | Time: " + current.Time + " | Loading: " + current.Loading + " | InOverworld: " + current.InOverworld);
+		current.IsKDLevelEnding = false;
 		return true;
 	}
 }
@@ -310,7 +351,23 @@ reset
 gameTime
 {
 	if (current.InILMode)
-		return TimeSpan.FromSeconds(current.Time);
+	{
+		if (!current.InKingDice)
+			return TimeSpan.FromSeconds(current.Time);
+
+		/*
+		King Dice consists of several levels. The game gets the final time for the boss by summing
+		the level times of each of these. Every time a level finishes, it appends the current.Time to the current.LSDTime.
+
+		If we are in a miniboss (i.e. InKingDiceMain is false), the time is updated when the boss is defeated. This syncs with
+		HasWon from false -> true and IsEnding from false -> true (when ilEnd would fire). Time also stops updating.
+
+		If we are InKingDiceMain, then time is updated briefly after the space on the board is selected (and we are transitioning
+		into a boss). HasWon and IsEnding are not updated, and current.Time continues counting.
+		*/
+		var time = current.IsKDLevelEnding ? current.LSDTime : current.LSDTime + current.Time;
+		return TimeSpan.FromSeconds(time);
+	}
 }
 
 isLoading
