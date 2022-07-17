@@ -156,6 +156,9 @@ update
 
 	current.SaveSlot = vars.GetCurrentSave();
 
+	current.Loading = !vars.Helper["doneLoading"].Current;
+	current.Scene = vars.Helper["sceneName"].Current;
+
 	current.InGame = vars.Helper["inGame"].Current;
 	current.InOverworld = vars.IsInOverworld();
 
@@ -164,9 +167,6 @@ update
 	current.Difficulty = vars.Helper["lvlDifficulty"].Current;
 	current.IsEnding = vars.Helper["lvlEnding"].Current;
 	current.HasWon = vars.Helper["lvlWon"].Current;
-
-	current.Loading = !vars.Helper["doneLoading"].Current;
-	current.Scene = vars.Helper["sceneName"].Current;
 
 	if (current.Scene == "scene_win")
 	{
