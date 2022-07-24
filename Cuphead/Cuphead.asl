@@ -71,6 +71,10 @@ init
 		vars.GetCurrentSave = (Func<IntPtr>)(() =>
 		{
 			var slot = vars.Helper["saveSlotIndex"].Current;
+
+			if (vars.Helper["saveFiles"].Current.Length < 2)
+				return IntPtr.Zero;
+
 			return vars.Helper["saveFiles"].Current[slot];
 		});
 
@@ -164,9 +168,11 @@ update
 	if (!vars.Helper.Update())
 		return false;
 
-	current.InILMode = settings["ilEnter"] && settings["ilEnd"] && timer.Run.Count == 1;
-
 	current.SaveSlot = vars.GetCurrentSave();
+	if (current.SaveSlot == IntPtr.Zero)
+		return false;
+
+	current.InILMode = settings["ilEnter"] && settings["ilEnd"] && timer.Run.Count == 1;
 
 	current.Loading = !vars.Helper["doneLoading"].Current;
 	current.Scene = vars.Helper["sceneName"].Current;
