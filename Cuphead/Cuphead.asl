@@ -23,7 +23,7 @@ startup
 		settings.SetToolTip(id, tt);
 
 		vars.Splits[id] = splitType;
-		if(splitType == "LEVEL_COMPLETE")
+		if (splitType == "LEVEL_COMPLETE")
 			vars.SceneLevels[id] = int.Parse(split.Attribute("Level").Value);
 	}
 
@@ -36,6 +36,9 @@ onStart
 {
 	timer.IsGameTimePaused = true;
 	vars.CompletedSplits.Clear();
+
+	if (!current.InILMode)
+		timer.SetGameTime(TimeSpan.Zero);
 }
 
 onSplit
@@ -49,6 +52,7 @@ init
 	int PTR_SIZE = game.Is64Bit() ? 0x8 : 0x4;
 
 	current.SaveSlot = IntPtr.Zero;
+	current.IsKDLevelEnding = false;
 
 	vars.Helper.TryOnLoad = (Func<dynamic, bool>)(mono =>
 	{
@@ -72,12 +76,12 @@ init
 		// Level Completion
 		var pldm = mono.GetClass("PlayerLevelDataManager");
 		var pldo = mono.GetClass("PlayerLevelDataObject");
+		if(pldm.Fields.Count == 0 || pldo.Fields.Count == 0)
+			return false;
 
 		vars.GetAllLevelsData = (Func<List<dynamic>>)(() =>
 		{
-			// pldm["levelObjects"] sometimes causes a Sequence contains no matching element error in MonoClass[int]
-			// don't know why, it seems random, but it's always 0x10 anyways
-			var levels = vars.Helper.ReadList<IntPtr>(current.SaveSlot + pd["levelDataManager"], 0x10);
+			var levels = vars.Helper.ReadList<IntPtr>(current.SaveSlot + pd["levelDataManager"], pldm["levelObjects"]);
 			var ret = new List<dynamic>();
 
 			foreach (var level in levels)
@@ -124,7 +128,7 @@ init
 
 		#region Level
 		var lvl = mono.GetClass("Level");
-		var lvlSD = mono.GetClass("LevelScoringData");
+		var lsd = mono.GetClass("LevelScoringData");
 
 		// vars.Helper["lvl2"] = lvl.Make<int>("Current", "CurrentLevel");
 		// vars.Helper["lvl"] = lvl.Make<int>("PreviousLevel");
@@ -135,9 +139,8 @@ init
 
 		vars.Helper["lvlIsDicePalace"] = lvl.Make<bool>("IsDicePalace");
 		vars.Helper["lvlIsDicePalaceMain"] = lvl.Make<bool>("IsDicePalaceMain");
-		current.IsKDLevelEnding = false;
 
-		vars.Helper["lvlSDTime"] = lvl.Make<float>("ScoringData", lvlSD["time"]);
+		vars.Helper["lsdTime"] = lvl.Make<float>("ScoringData", lsd["time"]);
 		#endregion // Level
 
 		#region SceneLoader
@@ -178,7 +181,7 @@ update
 	current.Level = vars.Helper["lvl"].Current;
 	current.Time = vars.Helper["lvlTime"].Current;
 	// LevelScoringData#time
-	current.LSDTime = vars.Helper["lvlSDTime"].Current;
+	current.LSDTime = vars.Helper["lsdTime"].Current;
 	current.Difficulty = vars.Helper["lvlDifficulty"].Current;
 	current.IsEnding = vars.Helper["lvlEnding"].Current;
 	current.HasWon = vars.Helper["lvlWon"].Current;
@@ -206,12 +209,12 @@ update
 	 * So to check if a level is ending we check if the LSDTime is updated (and isn't being reset).
 	 * We set this value back to false when we transition from the main palace to a miniboss or vica-versa (the next level has started).
 	*/
-	if (current.InKingDiceMain != old.InKingDiceMain)
+	if (old.InKingDiceMain != current.InKingDiceMain)
 	{
 		current.IsKDLevelEnding = false;
 	}
 
-	if (current.InKingDice && current.LSDTime != old.LSDTime && current.LSDTime != 0)
+	if (current.InKingDice && old.LSDTime != current.LSDTime && current.LSDTime != 0)
 	{
 		current.IsKDLevelEnding = true;
 	}
@@ -312,7 +315,7 @@ split
 		{
 			case "ilEnter":
 			{
-				if(current.InKingDice && old.InKingDice)
+				if (current.InKingDice && old.InKingDice)
 					continue;
 					
 				if (old.Time == 0f && current.Time > 0f)
@@ -326,7 +329,7 @@ split
 
 			case "ilEnd":
 			{
-				if(current.InKingDice && !current.InKingDiceMain)
+				if (current.InKingDice && !current.InKingDiceMain)
 					continue;
 
 				if (current.Time > 0f && current.HasWon)
@@ -362,17 +365,6 @@ gameTime
 		// If a level is ending we just use that time, otherwise we update the current time with the current level time
 		var time = current.IsKDLevelEnding ? current.LSDTime : current.LSDTime + current.Time;
 		return TimeSpan.FromSeconds(time);
-	}
-	
-	// Sometimes the time is 0.01 during the first loading screen, it should always be 0, so we force that here
-	// https://discord.com/channels/144133978759233536/144134231201808385/727009875569279048
-	if(timer.CurrentTime.GameTime.HasValue
-	    && current.Loading
-		&& timer.CurrentTime.GameTime.Value > TimeSpan.Zero
-	    && timer.CurrentTime.RealTime.Value < TimeSpan.FromMilliseconds(50))
-	{
-		vars.Log("Overwriting game time to 0 | RealTime: " + timer.CurrentTime.RealTime.Value + " | GameTime: " + timer.CurrentTime.GameTime.Value);
-		return TimeSpan.Zero;
 	}
 }
 
