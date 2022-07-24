@@ -10,56 +10,56 @@
 	<!-- Sort of guessing the chalice tutorial level name, long story short our current mod has some issues regarding that tutorial level and it doesn't display properly -->
 	<Split ID="scene_level_chalice_tutorial" Name="Chalice Tutorial (Level)" ToolTip="Splits when leaving the Chalice Tutorial level" Type="SCENE_LEAVE"/>
 
-	<Split ID="scene_level_veggies"      Name="The Root Pack (Boss)"    ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_slime"        Name="Goopy Le Grande (Boss)"  ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_flower"       Name="Cagney Carnation (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_frogs"        Name="Ribby And Croaks (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_flying_blimp" Name="Hilda Berg (Boss)"       ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_veggies"      Name="The Root Pack (Boss)"    ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="6"/>
+	<Split ID="scene_level_slime"        Name="Goopy Le Grande (Boss)"  ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1450863107"/>
+	<Split ID="scene_level_flower"       Name="Cagney Carnation (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1450266910"/>
+	<Split ID="scene_level_frogs"        Name="Ribby And Croaks (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="7"/>
+	<Split ID="scene_level_flying_blimp" Name="Hilda Berg (Boss)"       ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1449745424"/>
 
-	<Split ID="scene_level_baroness"     Name="Baroness Von Bon Bon (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_flying_genie" Name="Djimmi The Great (Boss)"     ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_clown"        Name="Beppi The Clown (Boss)"      ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_flying_bird"  Name="Wally Warbles (Boss)"        ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_dragon"       Name="Grim Matchstick (Boss)"      ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_baroness"     Name="Baroness Von Bon Bon (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1451300935"/>
+	<Split ID="scene_level_flying_genie" Name="Djimmi The Great (Boss)"     ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1460200177"/>
+	<Split ID="scene_level_clown"        Name="Beppi The Clown (Boss)"      ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1456125457"/>
+	<Split ID="scene_level_flying_bird"  Name="Wally Warbles (Boss)"        ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1428495827"/>
+	<Split ID="scene_level_dragon"       Name="Grim Matchstick (Boss)"      ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1432722919"/>
 
-	<Split ID="scene_level_bee"              Name="Rumor Honeybottoms (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_pirate"           Name="Captin Brineybeard (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_mouse"            Name="Werner Werman (Boss)"      ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_robot"            Name="Dr. Kahl's Robot (Boss)"   ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_sally_stage_play" Name="Sally Stageplay (Boss)"    ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_flying_mermaid"   Name="Cala Maria (Boss)"         ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_train"            Name="Phantom Express (Boss)"    ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_bee"              Name="Rumor Honeybottoms (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1429976377"/>
+	<Split ID="scene_level_pirate"           Name="Captin Brineybeard (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="2"/>
+	<Split ID="scene_level_mouse"            Name="Werner Werman (Boss)"      ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1430652919"/>
+	<Split ID="scene_level_robot"            Name="Dr. Kahl's Robot (Boss)"   ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1452935394"/>
+	<Split ID="scene_level_sally_stage_play" Name="Sally Stageplay (Boss)"    ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1456740288"/>
+	<Split ID="scene_level_flying_mermaid"   Name="Cala Maria (Boss)"         ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1446558823"/>
+	<Split ID="scene_level_train"            Name="Phantom Express (Boss)"    ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="5"/>
 
-	<Split ID="scene_level_old_man"       Name="Glumstone The Giant (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_snow_cult"     Name="Mortimer Freeze (Boss)"     ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_airplane"      Name="The Howling Aces (Boss)"    ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_flying_cowboy" Name="Esther Winchester (Boss)"   ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_rum_runners"   Name="Moonshine Mob (Boss)"       ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_saltbaker"     Name="Chef Saltbaker (Boss)"      ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_graveyard"     Name="Demon and Angel (Boss)"     ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_old_man"       Name="Glumstone The Giant (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1523429320"/>
+	<Split ID="scene_level_snow_cult"     Name="Mortimer Freeze (Boss)"     ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1527591209"/>
+	<Split ID="scene_level_airplane"      Name="The Howling Aces (Boss)"    ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1511943573"/>
+	<Split ID="scene_level_flying_cowboy" Name="Esther Winchester (Boss)"   ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1530096313"/>
+	<Split ID="scene_level_rum_runners"   Name="Moonshine Mob (Boss)"       ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1518081307"/>
+	<Split ID="scene_level_saltbaker"     Name="Chef Saltbaker (Boss)"      ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1573044456"/>
+	<Split ID="scene_level_graveyard"     Name="Demon and Angel (Boss)"     ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1616405510"/>
 
 	<Split ID="scene_cutscene_kingdice"      Name="King Dice (Contract Cutscene)" ToolTip="Splits when you get the cutscene trying to enter the King Dice fight without all contracts" Type="SCENE_ENTER"/>
-	<Split ID="scene_level_dice_palace_main" Name="King Dice (Boss)"              ToolTip="Splits when you beat King Dice"                                                             Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_devil"            Name="Devil (Boss)"                  ToolTip="Splits when level is finished"                                                              Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_dice_palace_main" Name="King Dice (Boss)"              ToolTip="Splits when you beat King Dice"                                                             Type="LEVEL_COMPLETE" Level="1465296077"/>
+	<Split ID="scene_level_devil"            Name="Devil (Boss)"                  ToolTip="Splits when level is finished"                                                              Type="LEVEL_COMPLETE" Level="1466688317"/>
 
 	<Split ID="scene_cutscene_credits" Name="End Game (Credits)" ToolTip="Splits when entering the credits" Type="SCENE_ENTER"/>
 
-	<Split ID="scene_level_platforming_1_1F" Name="Forest Follies (Run 'n Gun)"   ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_platforming_1_2F" Name="Treetop Trouble (Run 'n Gun)"  ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_platforming_2_1F" Name="Funfair Fever (Run 'n Gun)"    ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_platforming_2_2F" Name="Funhouse Frazzle (Run 'n Gun)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_platforming_3_1F" Name="Perilous Piers (Run 'n Gun)"   ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_platforming_3_2F" Name="Rugged Ridge (Run 'n Gun)"     ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_platforming_1_1F" Name="Forest Follies (Run 'n Gun)"   ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1464969490"/>
+	<Split ID="scene_level_platforming_1_2F" Name="Treetop Trouble (Run 'n Gun)"  ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1464969491"/>
+	<Split ID="scene_level_platforming_2_1F" Name="Funfair Fever (Run 'n Gun)"    ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1499704951"/>
+	<Split ID="scene_level_platforming_2_2F" Name="Funhouse Frazzle (Run 'n Gun)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1496818712"/>
+	<Split ID="scene_level_platforming_3_1F" Name="Perilous Piers (Run 'n Gun)"   ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1464969492"/>
+	<Split ID="scene_level_platforming_3_2F" Name="Rugged Ridge (Run 'n Gun)"     ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1464969493"/>
 
 	<Split ID="scene_level_mausoleum_0" Name="Mausoleum I (Super)"   ToolTip="Splits when level is finished" Type="ENDING"/>
 	<Split ID="scene_level_mausoleum_1" Name="Mausoleum II (Super)"  ToolTip="Splits when level is finished" Type="ENDING"/>
 	<Split ID="scene_level_mausoleum_2" Name="Mausoleum III (Super)" ToolTip="Splits when level is finished" Type="ENDING"/>
 
-	<Split ID="scene_level_chess_pawn"   Name="Chess Pawns (Boss)"  ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_chess_knight" Name="Chess Knight (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_chess_bishop" Name="Chess Bishop (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_chess_rook"   Name="Chess Rook (Boss)"   ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
-	<Split ID="scene_level_chess_queen"  Name="Chess Queen (Boss)"  ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE"/>
+	<Split ID="scene_level_chess_pawn"   Name="Chess Pawns (Boss)"  ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1562078899"/>
+	<Split ID="scene_level_chess_knight" Name="Chess Knight (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1560339521"/>
+	<Split ID="scene_level_chess_bishop" Name="Chess Bishop (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1526556188"/>
+	<Split ID="scene_level_chess_rook"   Name="Chess Rook (Boss)"   ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1560855325"/>
+	<Split ID="scene_level_chess_queen"  Name="Chess Queen (Boss)"  ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1561124831"/>
 
 	<Split ID="ilEnter" Name="Enter Level (IL)" ToolTip="Splits when entering any level" Type="CUSTOM"/>
 	<Split ID="ilEnd"   Name="End Level (IL)"   ToolTip="Splits when ending any level"   Type="CUSTOM"/>

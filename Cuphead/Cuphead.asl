@@ -9,6 +9,7 @@ startup
 	vars.Helper = Activator.CreateInstance(type, timer, this);
 
 	vars.Splits = new Dictionary<string, string>();
+	vars.SceneLevels = new Dictionary<string, int>();
 
 	settings.Add("splits", true, "Splits:");
 
@@ -22,6 +23,8 @@ startup
 		settings.SetToolTip(id, tt);
 
 		vars.Splits[id] = splitType;
+		if(splitType == "LEVEL_COMPLETE")
+			vars.SceneLevels[id] = int.Parse(split.Attribute("Level").Value);
 	}
 
 	vars.Helper.AlertLoadless("Cuphead");
@@ -211,6 +214,8 @@ update
 	if (current.InKingDice != old.InKingDice) vars.Log("InKingDice:     " +     current.InKingDice);
 	if (current.InKingDiceMain != old.InKingDiceMain) vars.Log("InKingDiceMain:     " +     current.InKingDiceMain);
 	if (current.IsKDLevelEnding != old.IsKDLevelEnding) vars.Log("IsKDLevelEnding:     " +     current.IsKDLevelEnding);
+	if (current.Level != old.Level) vars.Log("Level:     " +     current.Level);
+	if (current.Scene != old.Scene) vars.Log("Scene:     " +     current.Scene);
 	
 	// vars.Log("Level:      " +      current.Level);
 	// vars.Log("InGame:     " +     current.InGame);
@@ -274,9 +279,11 @@ split
 
 			case "LEVEL_COMPLETE":
 			{
-				if (current.Scene == id && vars.IsLevelCompleted(current.Level, -1, -1))
+				if (current.Scene == id 
+				    && vars.SceneLevels.ContainsKey(id) && current.Level == vars.SceneLevels[id]
+				    && vars.IsLevelCompleted(current.Level, -1, -1))
 				{
-					vars.Log("LEVEL_COMPLETE | " + id + " in " + current.Time + " on " + current.Difficulty);
+					vars.Log("LEVEL_COMPLETE | " + id + " in " + current.Time);
 
 					vars.CompletedSplits.Add(id);
 					return true;
