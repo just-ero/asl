@@ -84,7 +84,9 @@ init
 
 		vars.GetAllLevelsData = (Func<List<dynamic>>)(() =>
 		{
-			var levels = vars.Helper.ReadList<IntPtr>(current.SaveSlot + pd["levelDataManager"], pldm["levelObjects"]);
+			// pldm["levelObjects"] sometimes causes a Sequence contains no matching element error in MonoClass[int]
+			// don't know why, it seems random, but it's always 0x10 anyways
+			var levels = vars.Helper.ReadList<IntPtr>(current.SaveSlot + pd["levelDataManager"], 0x10);
 			var ret = new List<dynamic>();
 
 			foreach (var level in levels)
