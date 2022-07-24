@@ -363,6 +363,17 @@ gameTime
 		var time = current.IsKDLevelEnding ? current.LSDTime : current.LSDTime + current.Time;
 		return TimeSpan.FromSeconds(time);
 	}
+	
+	// Sometimes the time is 0.01 during the first loading screen, it should always be 0, so we force that here
+	// https://discord.com/channels/144133978759233536/144134231201808385/727009875569279048
+	if(timer.CurrentTime.GameTime.HasValue
+	    && current.Loading
+		&& timer.CurrentTime.GameTime.Value > TimeSpan.Zero
+	    && timer.CurrentTime.RealTime.Value < TimeSpan.FromMilliseconds(50))
+	{
+		vars.Log("Overwriting game time to 0 | RealTime: " + timer.CurrentTime.RealTime.Value + " | GameTime: " + timer.CurrentTime.GameTime.Value);
+		return TimeSpan.Zero;
+	}
 }
 
 isLoading
