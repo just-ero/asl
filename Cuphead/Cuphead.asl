@@ -358,7 +358,7 @@ gameTime
 		if (!current.InKingDice)
 			return TimeSpan.FromSeconds(current.Time);
 		
-		// King dice is a series of levels whose time at the end is a sum of all levels.
+		// King dice is a series of levels whose time at the end is a sum of all levels, updated after each level is completed.
 		// If a level is ending we just use that time, otherwise we update the current time with the current level time
 		var time = current.IsKDLevelEnding ? current.LSDTime : current.LSDTime + current.Time;
 		return TimeSpan.FromSeconds(time);
