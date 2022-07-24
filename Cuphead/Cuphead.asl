@@ -344,9 +344,7 @@ split
 
 reset
 {
-	if (current.InILMode && (current.InOverworld
-	   || !current.InKingDice && current.Loading && current.Time == 0f
-	   || current.InKingDice && current.Loading && current.LSDTime == 0f))
+	if (current.InILMode && (current.Loading && current.LSDTime == 0f || current.InOverworld))
 	{
 		vars.Log("Resetting due to reset {} | Time: " + current.Time + " | InOverworld: " + current.InOverworld + " | InKingDice: " + current.InKingDice + " | Loading: " + current.Loading);
 		current.IsKDLevelEnding = false;
