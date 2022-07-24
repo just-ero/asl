@@ -39,16 +39,7 @@ onStart
 }
 
 onSplit
-{
-	// Set final split's time to accurate in-game time when player is doing IL attempts.
-	// This (like `reset`) assumes the runner only has 1 split.
-	// DevilSquirrel's code. /shrug
-	if (timer.CurrentPhase != TimerPhase.Ended || timer.Run.Count != 1)
-		return;
-
-	var time = timer.Run[0].SplitTime;
-	timer.Run[0].SplitTime = new Time(time.RealTime, TimeSpan.FromSeconds(current.Time));
-}
+{}
 
 onReset
 {}
