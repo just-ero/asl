@@ -45,7 +45,9 @@ onSplit
 {}
 
 onReset
-{}
+{
+	current.IsKDLevelEnding = false;
+}
 
 init
 {
