@@ -76,7 +76,7 @@ init
 		// Level Completion
 		var pldm = mono.GetClass("PlayerLevelDataManager");
 		var pldo = mono.GetClass("PlayerLevelDataObject");
-		if(pldm.Fields.Count == 0 || pldo.Fields.Count == 0)
+		if (pldm.Fields.Count == 0 || pldo.Fields.Count == 0)
 			return false;
 
 		vars.GetAllLevelsData = (Func<List<dynamic>>)(() =>
