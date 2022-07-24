@@ -195,7 +195,18 @@ update
 		vars.Helper.Timer.Reset();
 	}
 
-	// KD nonsense
+	/* King Dice consists of several levels. The game gets the final time for the boss by summing
+	 * the level times of each of these. Every time a level finishes, it appends the current.Time to the current.LSDTime.
+	 * 
+	 * If we are in a miniboss (i.e. InKingDiceMain is false), the time is updated when the boss is defeated. This syncs with
+	 * HasWon from false -> true and IsEnding from false -> true (when ilEnd would fire). current.Time also freezes.
+	 * 
+	 * If we are InKingDiceMain, then time is updated briefly after the space on the board is selected (and we are transitioning
+	 * into a boss). HasWon and IsEnding are not updated, and current.Time doesn't freeze.
+	 * 
+	 * So to check if a level is ending we check if the LSDTime is updated (and isn't being reset).
+	 * We set this value back to false when we transition from the main palace to a miniboss or vica-versa (the next level has started).
+	*/
 	if (current.InKingDiceMain != old.InKingDiceMain)
 	{
 		current.IsKDLevelEnding = false;
@@ -206,17 +217,6 @@ update
 		current.IsKDLevelEnding = true;
 	}
 
-	if (current.Loading != old.Loading) vars.Log("Loading:     " +     current.Loading);
-	if (current.HasWon != old.HasWon) vars.Log("HasWon:     " +     current.HasWon);
-	if (current.IsEnding != old.IsEnding) vars.Log("IsEnding:     " +     current.IsEnding);
-	if (current.Time != old.Time && current.Time == 0) vars.Log("Time reset from " + old.Time);
-	if (current.LSDTime != old.LSDTime) vars.Log("LSDTime:     " +     current.LSDTime);
-	if (current.InKingDice != old.InKingDice) vars.Log("InKingDice:     " +     current.InKingDice);
-	if (current.InKingDiceMain != old.InKingDiceMain) vars.Log("InKingDiceMain:     " +     current.InKingDiceMain);
-	if (current.IsKDLevelEnding != old.IsKDLevelEnding) vars.Log("IsKDLevelEnding:     " +     current.IsKDLevelEnding);
-	if (current.Level != old.Level) vars.Log("Level:     " +     current.Level);
-	if (current.Scene != old.Scene) vars.Log("Scene:     " +     current.Scene);
-	
 	// vars.Log("Level:      " +      current.Level);
 	// vars.Log("InGame:     " +     current.InGame);
 	// vars.Log("Time:       " +       current.Time);
@@ -361,17 +361,9 @@ gameTime
 	{
 		if (!current.InKingDice)
 			return TimeSpan.FromSeconds(current.Time);
-
-		/*
-		King Dice consists of several levels. The game gets the final time for the boss by summing
-		the level times of each of these. Every time a level finishes, it appends the current.Time to the current.LSDTime.
-
-		If we are in a miniboss (i.e. InKingDiceMain is false), the time is updated when the boss is defeated. This syncs with
-		HasWon from false -> true and IsEnding from false -> true (when ilEnd would fire). Time also stops updating.
-
-		If we are InKingDiceMain, then time is updated briefly after the space on the board is selected (and we are transitioning
-		into a boss). HasWon and IsEnding are not updated, and current.Time continues counting.
-		*/
+		
+		// King dice is a series of levels whose time at the end is a sum of all levels.
+		// If a level is ending we just use that time, otherwise we update the current time with the current level time
 		var time = current.IsKDLevelEnding ? current.LSDTime : current.LSDTime + current.Time;
 		return TimeSpan.FromSeconds(time);
 	}
