@@ -24,7 +24,7 @@ startup
 	settings.SetToolTip("ilTimeLoadless", "Use loadless time (reflecting real runs) instead of the timer in-game. Includes pauses / parries and loads on King Dice.");
 
 	settings.Add("highest_grade", false, "Only split on highest grade.");
-	settings.SetToolTip("highest_grade", "Only splits on levels with grades when they have been completed with grade S or P. Does not affect IL mode.");
+	settings.SetToolTip("highest_grade", "Only splits on levels with grades when they have been completed with highest grade for difficulty (B+, A+, S, or P). Does not affect IL mode.");
 	
 	settings.Add("splits", true, "Splits:");
 
