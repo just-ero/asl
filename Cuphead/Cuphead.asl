@@ -270,7 +270,7 @@ split
 {
 	if(current.InILMode)
 	{
-		if ((current.InKingDice && !current.InKingDiceMain) || current.Time == 0f || !current.HasWon)
+		if ((current.InKingDice && (!current.InKingDiceMain || !current.IsKDLevelEnding)) || current.Time == 0f || !current.HasWon)
 			return false;
 
 		vars.Log("Splitting due to IL End | Time: " + current.Time + " | HasWon: " + current.HasWon);
