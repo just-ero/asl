@@ -150,6 +150,8 @@ init
 		vars.Helper["lvlDifficulty"] = lvl.Make<int>("Current", "mode");
 		vars.Helper["lvlEnding"] = lvl.Make<bool>("Current", "Ending");
 		vars.Helper["lvlWon"] = lvl.Make<bool>("Won");
+		// Battle, Tutorial, Platforming
+		vars.Helper["lvlType"] = lvl.Make<int>("Current", "type");
 
 		vars.Helper["lvlIsDicePalace"] = lvl.Make<bool>("IsDicePalace");
 		vars.Helper["lvlIsDicePalaceMain"] = lvl.Make<bool>("IsDicePalaceMain");
@@ -199,6 +201,10 @@ update
 	current.Difficulty = vars.Helper["lvlDifficulty"].Current;
 	current.IsEnding = vars.Helper["lvlEnding"].Current;
 	current.HasWon = vars.Helper["lvlWon"].Current;
+	current.Type = vars.Helper["lvlType"].Current;
+	current.HighestGrade = 
+	    current.Type == 0 ? vars.BossHG[current.Difficulty] : 
+	    current.Type == 2 ? vars.PRank : -1;
 
 	if (current.Scene == "scene_win")
 		current.Scene = old.Scene;
