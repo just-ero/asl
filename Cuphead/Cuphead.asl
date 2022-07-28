@@ -11,9 +11,18 @@ startup
 	vars.Splits = new Dictionary<string, string>();
 	vars.SceneLevels = new Dictionary<string, int>();
 
+	vars.Grades = new string[] { "D-", "D", "D+", "C-", "C", "C+", "B-", "B", "B+", "A-", "A", "A+", "S", "P" };
+	vars.Difficulties = new string[] { "Simple", "Regular", "Expert" };
+
+	vars.BossHG = new int[] { 8, 11, 12 }; // B+, A+, S for Simple, Regular, Expert
+	vars.PRank = 13;
+	
 	settings.Add("ilmode", false, "Use IL timer?");
 	settings.SetToolTip("ilmode", "Must have 'Splits' unchecked and only 1 split in 'Edit Splits'.");
 
+	settings.Add("highest_grade", false, "Only split on highest grade.");
+	settings.SetToolTip("highest_grade", "Only splits on levels with grades when they have been completed with grade S or P. Does not affect IL mode.");
+	
 	settings.Add("splits", true, "Splits:");
 
 	var xml = System.Xml.Linq.XDocument.Load(@"Components\Cuphead.Splits.xml");
