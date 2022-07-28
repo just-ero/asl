@@ -244,7 +244,11 @@ start
 		return true;
 	}
 
-	return current.Scene == "scene_cutscene_intro" && current.InGame && current.Loading;
+	if (current.Scene == "scene_cutscene_intro" && current.InGame && current.Loading)
+	{
+		vars.Log("Starting due to save select | InGame: " + current.InGame + " | Loading: " + current.Loading);
+		return true;
+	}
 }
 
 split
