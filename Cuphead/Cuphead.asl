@@ -305,9 +305,10 @@ split
 
 			case "LEVEL_COMPLETE":
 			{
+				var targetGrade = settings["highest_grade"] ? current.HighestGrade : -1;
 				if (current.Scene == id 
 				    && vars.SceneLevels.ContainsKey(id) && current.Level == vars.SceneLevels[id]
-				    && vars.IsLevelCompleted(current.Level, -1, -1))
+				    && vars.IsLevelCompleted(current.Level, -1, targetGrade))
 				{
 					vars.Log("LEVEL_COMPLETE | " + id + " in " + current.Time);
 
