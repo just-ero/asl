@@ -11,6 +11,9 @@ startup
 	vars.Splits = new Dictionary<string, string>();
 	vars.SceneLevels = new Dictionary<string, int>();
 
+	settings.Add("ilmode", false, "Use IL timer?");
+	settings.SetToolTip("ilmode", "Must have 'Splits' unchecked and only 1 split in 'Edit Splits'.");
+
 	settings.Add("splits", true, "Splits:");
 
 	var xml = System.Xml.Linq.XDocument.Load(@"Components\Cuphead.Splits.xml");
@@ -170,7 +173,7 @@ update
 	if (current.SaveSlot == IntPtr.Zero)
 		return false;
 
-	current.InILMode = settings["ilEnter"] && settings["ilEnd"] && timer.Run.Count == 1;
+	current.InILMode = settings["ilmode"] && !settings["splits"] && timer.Run.Count == 1;
 
 	current.Loading = !vars.Helper["doneLoading"].Current;
 	current.Scene = vars.Helper["sceneName"].Current;
@@ -305,38 +308,6 @@ split
 					vars.Log("ENDING | " + id);
 
 					vars.CompletedSplits.Add(id);
-					return true;
-				}
-
-				continue;
-			}
-		}
-
-		// case "CUSTOM"
-		switch (id)
-		{
-			case "ilEnter":
-			{
-				if (current.InKingDice && old.InKingDice)
-					continue;
-					
-				if (old.Time == 0f && current.Time > 0f)
-				{
-					vars.Log("Splitting due to IL Enter | Time: " + old.Time + " -> " + current.Time);
-					return true;
-				}
-
-				continue;
-			}
-
-			case "ilEnd":
-			{
-				if (current.InKingDice && !current.InKingDiceMain)
-					continue;
-
-				if (current.Time > 0f && current.HasWon)
-				{
-					vars.Log("Splitting due to IL End | Time: " + current.Time + " | HasWon: " + current.HasWon);
 					return true;
 				}
 

@@ -60,7 +60,4 @@
 	<Split ID="scene_level_chess_bishop" Name="Chess Bishop (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1526556188"/>
 	<Split ID="scene_level_chess_rook"   Name="Chess Rook (Boss)"   ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1560855325"/>
 	<Split ID="scene_level_chess_queen"  Name="Chess Queen (Boss)"  ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1561124831"/>
-
-	<Split ID="ilEnter" Name="Enter Level (IL)" ToolTip="Splits when entering any level" Type="CUSTOM"/>
-	<Split ID="ilEnd"   Name="End Level (IL)"   ToolTip="Splits when ending any level"   Type="CUSTOM"/>
 </Splits>
