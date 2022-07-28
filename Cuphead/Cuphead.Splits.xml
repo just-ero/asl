@@ -22,13 +22,13 @@
 	<Split ID="scene_level_flying_bird"  Name="Wally Warbles (Boss)"        ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1428495827"/>
 	<Split ID="scene_level_dragon"       Name="Grim Matchstick (Boss)"      ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1432722919"/>
 
-	<Split ID="scene_level_bee"              Name="Rumor Honeybottoms (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1429976377"/>
-	<Split ID="scene_level_pirate"           Name="Captin Brineybeard (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="2"/>
-	<Split ID="scene_level_mouse"            Name="Werner Werman (Boss)"      ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1430652919"/>
-	<Split ID="scene_level_robot"            Name="Dr. Kahl's Robot (Boss)"   ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1452935394"/>
-	<Split ID="scene_level_sally_stage_play" Name="Sally Stageplay (Boss)"    ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1456740288"/>
-	<Split ID="scene_level_flying_mermaid"   Name="Cala Maria (Boss)"         ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1446558823"/>
-	<Split ID="scene_level_train"            Name="Phantom Express (Boss)"    ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="5"/>
+	<Split ID="scene_level_bee"              Name="Rumor Honeybottoms (Boss)"  ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1429976377"/>
+	<Split ID="scene_level_pirate"           Name="Captain Brineybeard (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="2"/>
+	<Split ID="scene_level_mouse"            Name="Werner Werman (Boss)"       ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1430652919"/>
+	<Split ID="scene_level_robot"            Name="Dr. Kahl's Robot (Boss)"    ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1452935394"/>
+	<Split ID="scene_level_sally_stage_play" Name="Sally Stageplay (Boss)"     ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1456740288"/>
+	<Split ID="scene_level_flying_mermaid"   Name="Cala Maria (Boss)"          ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1446558823"/>
+	<Split ID="scene_level_train"            Name="Phantom Express (Boss)"     ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="5"/>
 
 	<Split ID="scene_level_old_man"       Name="Glumstone The Giant (Boss)" ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1523429320"/>
 	<Split ID="scene_level_snow_cult"     Name="Mortimer Freeze (Boss)"     ToolTip="Splits when level is finished" Type="LEVEL_COMPLETE" Level="1527591209"/>
