@@ -170,7 +170,7 @@ init
 		vars.Helper["doneLoading"] = sl.Make<bool>("_instance", "doneLoadingSceneAsync");
 		#endregion // SceneLoader
 
-		var x = mono.GetClass("PlayerStatsManager");
+
 
 		return true;
 	});
