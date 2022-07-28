@@ -17,8 +17,11 @@ startup
 	vars.BossHG = new int[] { 8, 11, 12 }; // B+, A+, S for Simple, Regular, Expert
 	vars.PRank = 13;
 	
-	settings.Add("ilmode", false, "Use IL timer?");
-	settings.SetToolTip("ilmode", "Must have 'Splits' unchecked and only 1 split in 'Edit Splits'.");
+	settings.Add("ilMode", false, "Use IL timer?");
+	settings.SetToolTip("ilMode", "Must have 'Splits' unchecked and only 1 split in 'Edit Splits'.");
+
+	settings.Add("ilTimeLoadless", false, "Use Loadless time instead of IGT?", "ilMode");
+	settings.SetToolTip("ilTimeLoadless", "Use loadless time (reflecting real runs) instead of the timer in-game. Includes pauses / parries and loads on King Dice.");
 
 	settings.Add("highest_grade", false, "Only split on highest grade.");
 	settings.SetToolTip("highest_grade", "Only splits on levels with grades when they have been completed with grade S or P. Does not affect IL mode.");
@@ -184,7 +187,7 @@ update
 	if (current.SaveSlot == IntPtr.Zero)
 		return false;
 
-	current.InILMode = settings["ilmode"] && !settings["splits"] && timer.Run.Count == 1;
+	current.InILMode = settings["ilMode"] && !settings["splits"] && timer.Run.Count == 1;
 
 	current.Loading = !vars.Helper["doneLoading"].Current;
 	current.Scene = vars.Helper["sceneName"].Current;
@@ -358,7 +361,7 @@ reset
 
 gameTime
 {
-	if (!current.InILMode)
+	if (!current.InILMode || settings["ilTimeLoadless"])
 		return;
 
 	if (!current.InKingDice)
@@ -372,7 +375,7 @@ gameTime
 
 isLoading
 {
-	return current.InILMode || current.Loading;
+	return (current.InILMode && !settings["ilTimeLoadless"]) || current.Loading;
 }
 
 exit
