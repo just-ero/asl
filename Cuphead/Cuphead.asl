@@ -11,19 +11,19 @@ startup
 	vars.Splits = new Dictionary<string, string>();
 	vars.SceneLevels = new Dictionary<string, int>();
 
-	vars.Grades = new string[] { "D-", "D", "D+", "C-", "C", "C+", "B-", "B", "B+", "A-", "A", "A+", "S", "P" };
-	vars.Difficulties = new string[] { "Simple", "Regular", "Expert" };
+	vars.Grades = new[] { "D-", "D", "D+", "C-", "C", "C+", "B-", "B", "B+", "A-", "A", "A+", "S", "P" };
+	vars.Difficulties = new[] { "Simple", "Regular", "Expert" };
 
-	vars.BossHG = new int[] { 8, 11, 12 }; // B+, A+, S for Simple, Regular, Expert
+	vars.BossHG = new[] { 8, 11, 12 }; // B+, A+, S for Simple, Regular, Expert
 	vars.PRank = 13;
 
 	settings.Add("ilMode", false, "Use IL timer?");
 
 	settings.Add("ilTimeLoadless", false, "Use Loadless time instead of IGT?", "ilMode");
-	settings.SetToolTip("ilTimeLoadless", "Use loadless time (reflecting real runs) instead of the timer in-game. Includes pauses / parries and remove loads on King Dice.");
+	settings.SetToolTip("ilTimeLoadless", "Use loadless time (reflecting real runs) instead of the timer in-game.\nIncludes pauses / parries and removes loads on King Dice.");
 
-	settings.Add("highest_grade", false, "Only split on highest grade.");
-	settings.SetToolTip("highest_grade", "Only splits on levels with grades when they have been completed with highest grade for difficulty (B+, A+, S, or P). Does not affect IL mode.");
+	settings.Add("highestGrade", false, "Only split on highest grade.");
+	settings.SetToolTip("highestGrade", "Only splits on levels with grades when they have been completed\nwith the highest grade for difficulty (B+, A+, S, or P).\nDoes not affect IL mode.");
 
 	settings.Add("splits", true, "Splits:");
 
@@ -132,7 +132,7 @@ init
 			return false;
 		});
 
-		vars.IsInOverworld = (Func<bool>)(() => 
+		vars.IsInOverworld = (Func<bool>)(() =>
 		{
 			return current.Scene == "scene_map_world_1"
 			       || current.Scene == "scene_map_world_2"
@@ -218,13 +218,13 @@ update
 
 	/* King Dice consists of several levels. The game gets the final time for the boss by summing
 	 * the level times of each of these. Every time a level finishes, it appends the current.Time to the current.LSDTime.
-	 * 
+	 *
 	 * If we are in a miniboss (i.e. InKingDiceMain is false), the time is updated when the boss is defeated. This syncs with
 	 * HasWon from false -> true and IsEnding from false -> true (when ilEnd would fire). current.Time also freezes.
-	 * 
+	 *
 	 * If we are InKingDiceMain, then time is updated briefly after the space on the board is selected (and we are transitioning
 	 * into a boss). HasWon and IsEnding are not updated, and current.Time doesn't freeze.
-	 * 
+	 *
 	 * So to check if a level is ending we check if the LSDTime is updated (and isn't being reset).
 	 * We set this value back to false when we transition from the main palace to a miniboss or vica-versa (the next level has started).
 	*/
@@ -303,8 +303,8 @@ split
 
 			case "LEVEL_COMPLETE":
 			{
-				var targetGrade = settings["highest_grade"] ? current.HighestGrade : -1;
-				if (current.Scene == id 
+				var targetGrade = settings["highestGrade"] ? current.HighestGrade : -1;
+				if (current.Scene == id
 				    && vars.SceneLevels.ContainsKey(id) && current.Level == vars.SceneLevels[id]
 				    && vars.IsLevelCompleted(current.Level, -1, targetGrade))
 				{
@@ -352,7 +352,7 @@ gameTime
 
 	if (!current.InKingDice)
 		return TimeSpan.FromSeconds(current.Time);
-	
+
 	// King dice is a series of levels whose time at the end is a sum of all levels, updated after each level is completed.
 	// If a level is ending we just use that time, otherwise we update the current time with the current level time
 	var time = current.IsKDLevelEnding ? current.LSDTime : current.LSDTime + current.Time;
