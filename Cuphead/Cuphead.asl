@@ -11,6 +11,21 @@ startup
 	vars.Splits = new Dictionary<string, string>();
 	vars.SceneLevels = new Dictionary<string, int>();
 
+	vars.Grades = new string[] { "D-", "D", "D+", "C-", "C", "C+", "B-", "B", "B+", "A-", "A", "A+", "S", "P" };
+	vars.Difficulties = new string[] { "Simple", "Regular", "Expert" };
+
+	vars.BossHG = new int[] { 8, 11, 12 }; // B+, A+, S for Simple, Regular, Expert
+	vars.PRank = 13;
+
+	settings.Add("ilMode", false, "Use IL timer?");
+	settings.SetToolTip("ilMode", "Must have 'Splits' unchecked and only 1 split in 'Edit Splits'.");
+
+	settings.Add("ilTimeLoadless", false, "Use Loadless time instead of IGT?", "ilMode");
+	settings.SetToolTip("ilTimeLoadless", "Use loadless time (reflecting real runs) instead of the timer in-game. Includes pauses / parries and loads on King Dice.");
+
+	settings.Add("highest_grade", false, "Only split on highest grade.");
+	settings.SetToolTip("highest_grade", "Only splits on levels with grades when they have been completed with highest grade for difficulty (B+, A+, S, or P). Does not affect IL mode.");
+
 	settings.Add("splits", true, "Splits:");
 
 	var xml = System.Xml.Linq.XDocument.Load(@"Components\Cuphead.Splits.xml");
@@ -132,8 +147,7 @@ init
 		var lvl = mono.GetClass("Level");
 		var lsd = mono.GetClass("LevelScoringData");
 
-		// vars.Helper["lvl2"] = lvl.Make<int>("Current", "CurrentLevel");
-		// vars.Helper["lvl"] = lvl.Make<int>("PreviousLevel");
+		vars.Helper["lvlType"] = lvl.Make<int>("Current", "type");
 		vars.Helper["lvlTime"] = lvl.Make<float>("Current", "LevelTime");
 		vars.Helper["lvlDifficulty"] = lvl.Make<int>("Current", "mode");
 		vars.Helper["lvlEnding"] = lvl.Make<bool>("Current", "Ending");
@@ -153,8 +167,6 @@ init
 		vars.Helper["doneLoading"] = sl.Make<bool>("_instance", "doneLoadingSceneAsync");
 		#endregion // SceneLoader
 
-		var x = mono.GetClass("PlayerStatsManager");
-
 		return true;
 	});
 
@@ -170,7 +182,7 @@ update
 	if (current.SaveSlot == IntPtr.Zero)
 		return false;
 
-	current.InILMode = settings["ilEnter"] && settings["ilEnd"] && timer.Run.Count == 1;
+	current.InILMode = settings["ilMode"] && !settings["splits"] && timer.Run.Count == 1;
 
 	current.Loading = !vars.Helper["doneLoading"].Current;
 	current.Scene = vars.Helper["sceneName"].Current;
@@ -187,6 +199,12 @@ update
 	current.Difficulty = vars.Helper["lvlDifficulty"].Current;
 	current.IsEnding = vars.Helper["lvlEnding"].Current;
 	current.HasWon = vars.Helper["lvlWon"].Current;
+
+	// Battle=0 (B+/A+/S), Tutorial=1 (N/A), Platforming=2 (P)
+	current.Type = vars.Helper["lvlType"].Current;
+	current.HighestGrade =
+	    current.Type == 0 ? vars.BossHG[current.Difficulty] :
+	    current.Type == 2 ? vars.PRank : -1;
 
 	if (current.Scene == "scene_win")
 		current.Scene = old.Scene;
@@ -220,16 +238,6 @@ update
 	{
 		current.IsKDLevelEnding = true;
 	}
-
-	// vars.Log("Level:      " +      current.Level);
-	// vars.Log("InGame:     " +     current.InGame);
-	// vars.Log("Time:       " +       current.Time);
-	// vars.Log("Difficulty: " + current.Difficulty);
-	// vars.Log("IsEnding:   " +   current.IsEnding);
-	// vars.Log("HasWon:     " +     current.HasWon);
-	// vars.Log("Loading:    " +    current.Loading);
-	// vars.Log("Scene:      " +      current.Scene);
-	// vars.Log("---------------------------------");
 }
 
 start
@@ -241,11 +249,24 @@ start
 		return true;
 	}
 
-	return current.Scene == "scene_cutscene_intro" && current.InGame && current.Loading;
+	if (current.Scene == "scene_cutscene_intro" && current.InGame && current.Loading)
+	{
+		vars.Log("Starting due to save select | InGame: " + current.InGame + " | Loading: " + current.Loading);
+		return true;
+	}
 }
 
 split
 {
+	if(current.InILMode)
+	{
+		if ((current.InKingDice && (!current.InKingDiceMain || !current.IsKDLevelEnding)) || current.Time == 0f || !current.HasWon)
+			return false;
+
+		vars.Log("Splitting due to IL End | Time: " + current.Time + " | HasWon: " + current.HasWon);
+		return true;
+	}
+
 	foreach (var split in vars.Splits)
 	{
 		string id = split.Key, type = split.Value;
@@ -283,9 +304,10 @@ split
 
 			case "LEVEL_COMPLETE":
 			{
+				var targetGrade = settings["highest_grade"] ? current.HighestGrade : -1;
 				if (current.Scene == id 
 				    && vars.SceneLevels.ContainsKey(id) && current.Level == vars.SceneLevels[id]
-				    && vars.IsLevelCompleted(current.Level, -1, -1))
+				    && vars.IsLevelCompleted(current.Level, -1, targetGrade))
 				{
 					vars.Log("LEVEL_COMPLETE | " + id + " in " + current.Time);
 
@@ -311,38 +333,6 @@ split
 				continue;
 			}
 		}
-
-		// case "CUSTOM"
-		switch (id)
-		{
-			case "ilEnter":
-			{
-				if (current.InKingDice && old.InKingDice)
-					continue;
-					
-				if (old.Time == 0f && current.Time > 0f)
-				{
-					vars.Log("Splitting due to IL Enter | Time: " + old.Time + " -> " + current.Time);
-					return true;
-				}
-
-				continue;
-			}
-
-			case "ilEnd":
-			{
-				if (current.InKingDice && !current.InKingDiceMain)
-					continue;
-
-				if (current.Time > 0f && current.HasWon)
-				{
-					vars.Log("Splitting due to IL End | Time: " + current.Time + " | HasWon: " + current.HasWon);
-					return true;
-				}
-
-				continue;
-			}
-		}
 	}
 }
 
@@ -358,7 +348,7 @@ reset
 
 gameTime
 {
-	if (!current.InILMode)
+	if (!current.InILMode || settings["ilTimeLoadless"])
 		return;
 
 	if (!current.InKingDice)
@@ -372,7 +362,7 @@ gameTime
 
 isLoading
 {
-	return current.InILMode || current.Loading;
+	return (current.InILMode && !settings["ilTimeLoadless"]) || current.Loading;
 }
 
 exit
