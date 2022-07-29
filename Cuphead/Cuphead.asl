@@ -16,7 +16,7 @@ startup
 
 	vars.BossHG = new int[] { 8, 11, 12 }; // B+, A+, S for Simple, Regular, Expert
 	vars.PRank = 13;
-	
+
 	settings.Add("ilMode", false, "Use IL timer?");
 	settings.SetToolTip("ilMode", "Must have 'Splits' unchecked and only 1 split in 'Edit Splits'.");
 
@@ -25,7 +25,7 @@ startup
 
 	settings.Add("highest_grade", false, "Only split on highest grade.");
 	settings.SetToolTip("highest_grade", "Only splits on levels with grades when they have been completed with highest grade for difficulty (B+, A+, S, or P). Does not affect IL mode.");
-	
+
 	settings.Add("splits", true, "Splits:");
 
 	var xml = System.Xml.Linq.XDocument.Load(@"Components\Cuphead.Splits.xml");
@@ -147,14 +147,11 @@ init
 		var lvl = mono.GetClass("Level");
 		var lsd = mono.GetClass("LevelScoringData");
 
-		// vars.Helper["lvl2"] = lvl.Make<int>("Current", "CurrentLevel");
-		// vars.Helper["lvl"] = lvl.Make<int>("PreviousLevel");
+		vars.Helper["lvlType"] = lvl.Make<int>("Current", "type");
 		vars.Helper["lvlTime"] = lvl.Make<float>("Current", "LevelTime");
 		vars.Helper["lvlDifficulty"] = lvl.Make<int>("Current", "mode");
 		vars.Helper["lvlEnding"] = lvl.Make<bool>("Current", "Ending");
 		vars.Helper["lvlWon"] = lvl.Make<bool>("Won");
-		// Battle, Tutorial, Platforming
-		vars.Helper["lvlType"] = lvl.Make<int>("Current", "type");
 
 		vars.Helper["lvlIsDicePalace"] = lvl.Make<bool>("IsDicePalace");
 		vars.Helper["lvlIsDicePalaceMain"] = lvl.Make<bool>("IsDicePalaceMain");
@@ -169,8 +166,6 @@ init
 		vars.Helper["lvl"] = sl.Make<int>("CurrentLevel");
 		vars.Helper["doneLoading"] = sl.Make<bool>("_instance", "doneLoadingSceneAsync");
 		#endregion // SceneLoader
-
-
 
 		return true;
 	});
@@ -204,9 +199,11 @@ update
 	current.Difficulty = vars.Helper["lvlDifficulty"].Current;
 	current.IsEnding = vars.Helper["lvlEnding"].Current;
 	current.HasWon = vars.Helper["lvlWon"].Current;
+
+	// Battle=0 (B+/A+/S), Tutorial=1 (N/A), Platforming=2 (P)
 	current.Type = vars.Helper["lvlType"].Current;
-	current.HighestGrade = 
-	    current.Type == 0 ? vars.BossHG[current.Difficulty] : 
+	current.HighestGrade =
+	    current.Type == 0 ? vars.BossHG[current.Difficulty] :
 	    current.Type == 2 ? vars.PRank : -1;
 
 	if (current.Scene == "scene_win")
@@ -241,16 +238,6 @@ update
 	{
 		current.IsKDLevelEnding = true;
 	}
-
-	// vars.Log("Level:      " +      current.Level);
-	// vars.Log("InGame:     " +     current.InGame);
-	// vars.Log("Time:       " +       current.Time);
-	// vars.Log("Difficulty: " + current.Difficulty);
-	// vars.Log("IsEnding:   " +   current.IsEnding);
-	// vars.Log("HasWon:     " +     current.HasWon);
-	// vars.Log("Loading:    " +    current.Loading);
-	// vars.Log("Scene:      " +      current.Scene);
-	// vars.Log("---------------------------------");
 }
 
 start
