@@ -21,6 +21,8 @@ state("flashplayer_32_sa_debug", "Debug Flash Player")
 
 startup
 {
+	vars.ResetStopwatch = new Stopwatch();
+
 	if (timer.CurrentTimingMethod == TimingMethod.RealTime)
 	{
 		var mbox = MessageBox.Show(
@@ -46,7 +48,14 @@ split
 
 reset
 {
-	return old.Level != 0 && current.Level == 0;
+	if (old.Level != 0 && current.Level == 0)
+		vars.ResetStopwatch.Restart();
+
+	if (vars.ResetStopwatch.Elapsed.TotalSeconds >= 0.1f)
+	{
+		vars.ResetStopwatch.Reset();
+		return true;
+	}
 }
 
 gameTime
