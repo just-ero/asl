@@ -1,7 +1,4 @@
-state("Warhammer3")
-{
-	bool Loading : 0x4264BB4;
-}
+state("Warhammer3") {}
 
 startup
 {
@@ -10,12 +7,14 @@ startup
 	vars.Targets = new SigScanTarget[]
 	{
 		new SigScanTarget(6, "48 83 EC 28 80 3D ???????? 00 74 ?? E8"), // Loading
-		new SigScanTarget(3, "40 38 3D ???????? 0F 84 ???????? FF 15"), // IsPlayersTurn
+		new SigScanTarget(3, "44 38 25 ???????? 0F 84 ???????? FF 15"), // IsPlayersTurn
 		new SigScanTarget(8, "40 53 48 83 EC 50 8B 05 ???????? 85 C0") // HasTradeOffer
 	};
 
 	foreach (var target in (SigScanTarget[])(vars.Targets))
 		target.OnFound = (p, _, addr) => addr + 0x4 + p.ReadValue<int>(addr);
+
+
 }
 
 init
