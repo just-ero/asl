@@ -4,17 +4,17 @@ startup
 {
 	vars.Log = (Action<object>)(output => print("[Warhammer 3] " + output));
 
-	vars.Targets = new SigScanTarget[]
+	var trgs = new[]
 	{
 		new SigScanTarget(6, "48 83 EC 28 80 3D ???????? 00 74 ?? E8"), // Loading
 		new SigScanTarget(3, "44 38 25 ???????? 0F 84 ???????? FF 15"), // IsPlayersTurn
 		new SigScanTarget(8, "40 53 48 83 EC 50 8B 05 ???????? 85 C0") // HasTradeOffer
 	};
 
-	foreach (var target in (SigScanTarget[])(vars.Targets))
+	foreach (var target in trgs)
 		target.OnFound = (p, _, addr) => addr + 0x4 + p.ReadValue<int>(addr);
 
-
+	vars.Targets = trgs;
 }
 
 init
