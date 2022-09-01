@@ -23,7 +23,6 @@ body:
       label: Describe your Issue
       value: |
         -[ ] The game has recently received an update.
-
         If there is any especially weird behavior with the timer, please describe what is happening.
   - type: textarea
     attributes:
@@ -31,5 +30,4 @@ body:
       description: (*for experienced users only, provide known errors here*)
       placeholder: |
         Do you know the exact cause of the problem? Broken pointers, signatures can't be resolved, level names changed? Please elaborate.
-
         Do you already have a fix? Please pull request this repository with your proposed changes. You will be properly credited.
