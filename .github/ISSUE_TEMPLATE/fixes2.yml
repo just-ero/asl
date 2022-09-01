@@ -22,7 +22,7 @@ body:
     attributes:
       label: Describe your Issue
       options:
-        - The game has recently received an update
+        - label: The game has recently received an update
   - type: textarea
     attributes:
       description: If there is any especially weird behavior with the timer, please describe what is happening.
