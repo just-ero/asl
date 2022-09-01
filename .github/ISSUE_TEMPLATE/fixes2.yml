@@ -25,6 +25,7 @@ body:
         - label: The game has recently received an update
   - type: textarea
     attributes:
+      label: 
       description: If there is any especially weird behavior with the timer, please describe what is happening.
   - type: textarea
     attributes:
