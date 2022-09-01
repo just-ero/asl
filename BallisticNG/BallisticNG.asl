@@ -18,18 +18,16 @@ init
 {
 	vars.Helper.TryOnLoad = (Func<dynamic, bool>)(mono =>
 	{
-		var race = mono.GetClass("GameData.Race");
-		var ships = mono.GetClass("Ships");
-		var sr = mono.GetClass("ShipRefs");
+		var player = mono.GetClass("NgData.Player");
+		vars.Helper["State"] = player.Make<int>("State");
 
-		vars.Helper["countdownFinished"] = race.Make<bool>("HasCountdownFinished");
-		vars.Helper["finished"] = ships.Make<bool>("LoadedShips", 0x10, 0x20, sr["FinishedEvent"]);
-		vars.Helper["lap"] = ships.Make<int>("LoadedShips", 0x10, 0x20, sr["CurrentLap"]);
+		var ships = mono.GetClass("NgData.Ships");
+		var sr = mono.GetClass("ShipController");
+		vars.Helper["Lap"] = ships.Make<int>("Loaded", 0x10, 0x20, sr["CurrentLap"]);
 
 		var gmr = mono.GetClass("GamemodeRegistry");
 		var gm = mono.GetClass("Gamemode");
-
-		vars.Helper["mode"] = gmr.MakeString("CurrentGamemode", gm["Name"]);
+		vars.Helper["Mode"] = gmr.MakeString("CurrentGamemode", gm["Name"]);
 
 		return true;
 	});
@@ -39,36 +37,23 @@ init
 
 update
 {
-	if (!vars.Helper.Update() || vars.Helper["mode"].Current != "Race" || vars.Helper.Scenes.Active.Index == 3)
+	if (!vars.Helper.Update() || vars.Helper["Mode"].Current != "Race")
 		return false;
 
-	current.CountdownFinished = vars.Helper["countdownFinished"].Current;
-	current.EventFinished = vars.Helper["finished"].Current;
-	current.Lap = vars.Helper["lap"].Current;
+	vars.Helper.MapWatchersToCurrent(current);
 
 	current.SceneCount = vars.Helper.Scenes.Count;
 }
 
 start
 {
-	return !old.CountdownFinished && current.CountdownFinished;
+	return old.State == 1 && current.State == 2;
 }
 
 split
 {
-	if (old.SceneCount == 1 && current.SceneCount > 1)
-	{
-		vars.Helper["countdownFinished"].Write(false);
-	}
-
-	if (current.EventFinished)
-	{
-		return !old.EventFinished;
-	}
-	else
-	{
-		return settings["laps"] && old.Lap < current.Lap && current.Lap > 1;
-	}
+	return old.State == 2 && current.State == 3
+	       || settings["laps"] && old.Lap < current.Lap && current.Lap > 1;
 }
 
 reset
@@ -76,7 +61,7 @@ reset
 
 isLoading
 {
-	return current.SceneCount > 1 || !current.CountdownFinished || current.EventFinished;
+	return current.SceneCount > 1 || current.State != 2;
 }
 
 exit
