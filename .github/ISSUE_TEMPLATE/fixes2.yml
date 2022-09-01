@@ -30,5 +30,4 @@ body:
     attributes:
       label: Causes and Fixes
       description: (*for experienced users only, provide known errors here*)
-      placeholder: Do you know the exact cause of the problem? Broken pointers, signatures can't be resolved, level names changed? Please elaborate.
-Do you already have a fix? Please pull request this repository with your proposed changes. You will be properly credited.
+      placeholder: Do you know the exact cause of the problem? Broken pointers, signatures can't be resolved, level names changed? Please elaborate. Do you already have a fix? Please pull request this repository with your proposed changes. You will be properly credited.
