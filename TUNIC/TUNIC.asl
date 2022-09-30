@@ -268,13 +268,13 @@ update
 
 
 	var scId = vars.Unity.Scenes.Active.Index;
-	if (scId > 0 && scId != 80)
+	if (scId > 0 && scId != 81)
 		current.Scene = scId;
 }
 
 start
 {
-	if (current.Scene == 25)
+	if (old.Scene == 3 && current.Scene == 25)
 		vars.CanStart = true;
 
 	return vars.CanStart && !old.TimerRunning && current.TimerRunning;
