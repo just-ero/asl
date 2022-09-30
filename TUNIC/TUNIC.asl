@@ -135,63 +135,63 @@ startup
 			{ "Areas", "scOnce", "Split only the first time the selected areas are visited"},
 
 			{ "Areas", "scGeneral", "General Areas" },
-				{ "scGeneral", "sc24", "Overworld" },
-				{ "scGeneral", "sc38", "Teleport Area" },
-				{ "scGeneral", "sc23", "Temple" },
-				{ "scGeneral", "sc25", "Shield Area" },
-				{ "scGeneral", "sc26", "Well" },
-				{ "scGeneral", "sc63", "Dark Tomb" },
+				{ "scGeneral", "sc25", "Overworld" },
+				{ "scGeneral", "sc39", "Teleport Area" },
+				{ "scGeneral", "sc24", "Temple" },
+				{ "scGeneral", "sc26", "Shield Area" },
+				{ "scGeneral", "sc27", "Well" },
+				{ "scGeneral", "sc64", "Dark Tomb" },
 
 			{ "Areas", "scMountain", "Mountain" },
-				{ "scMountain", "sc08", "Mountain" },
-				{ "scMountain", "sc09", "Mountain Top" },
+				{ "scMountain", "sc09", "Mountain" },
+				{ "scMountain", "sc10", "Mountain Top" },
 
 			{ "Areas", "scEast", "East" },
-				{ "scEast", "sc52", "East Forest" },
-				{ "scEast", "sc11", "East Forest Sword" },
-				{ "scEast", "sc54", "East Forest Guardhouse" },
-				{ "scEast", "sc10", "East Forest Boss Room" },
-				{ "scEast", "sc35", "East Beltower" },
+				{ "scEast", "sc53", "East Forest" },
+				{ "scEast", "sc12", "East Forest Sword" },
+				{ "scEast", "sc55", "East Forest Guardhouse" },
+				{ "scEast", "sc11", "East Forest Boss Room" },
+				{ "scEast", "sc36", "East Beltower" },
 
 			{ "Areas", "scWest", "West" },
-				{ "scWest", "sc30", "West Garden" },
+				{ "scWest", "sc31", "West Garden" },
 
-			{ "Areas", "sc31", "Atoll" },
+			{ "Areas", "sc32", "Atoll" },
 
 			{ "Areas", "scFrog", "Frog Cave" },
-				{ "scFrog", "sc32", "Way to Frog Cave" },
-				{ "scFrog", "sc51", "Frog Cave" },
+				{ "scFrog", "sc33", "Way to Frog Cave" },
+				{ "scFrog", "sc52", "Frog Cave" },
 
 			{ "Areas", "scFortress", "Fortress" },
-				{ "scFortress", "sc12", "Fortress" },
-				{ "scFortress", "sc14", "Fortress Courtyard" },
-				{ "scFortress", "sc13", "Fortress Basement" },
-				{ "scFortress", "sc15", "Siege Arena" },
+				{ "scFortress", "sc13", "Fortress" },
+				{ "scFortress", "sc15", "Fortress Courtyard" },
+				{ "scFortress", "sc14", "Fortress Basement" },
+				{ "scFortress", "sc16", "Siege Arena" },
 
 			{ "Areas", "scLibrary", "Library" },
-				{ "scLibrary", "sc33", "Library Exterior" },
-				{ "scLibrary", "sc18", "Library Hall" },
-				{ "scLibrary", "sc19", "Library Rotunda" },
-				{ "scLibrary", "sc17", "Library Lab" },
-				{ "scLibrary", "sc27", "Librarian Arena" },
+				{ "scLibrary", "sc34", "Library Exterior" },
+				{ "scLibrary", "sc19", "Library Hall" },
+				{ "scLibrary", "sc20", "Library Rotunda" },
+				{ "scLibrary", "sc18", "Library Lab" },
+				{ "scLibrary", "sc28", "Librarian Arena" },
 
 			{ "Areas", "scQuarry", "Quarry" },
-				{ "scQuarry", "sc22", "Way to Quarry" },
-				{ "scQuarry", "sc59", "Quarry" },
-				{ "scQuarry", "sc21", "Monastery" },
+				{ "scQuarry", "sc23", "Way to Quarry" },
+				{ "scQuarry", "sc60", "Quarry" },
+				{ "scQuarry", "sc22", "Monastery" },
 
 			{ "Areas", "scZiggurat", "Ziggurat" },
-				{ "scZiggurat", "sc44", "Ziggurat Entrance" },
-				{ "scZiggurat", "sc42", "Ziggurat" },
-				{ "scZiggurat", "sc41", "Ziggurat Transition" },
-				{ "scZiggurat", "sc43", "Ziggurat 2" },
+				{ "scZiggurat", "sc45", "Ziggurat Entrance" },
+				{ "scZiggurat", "sc43", "Ziggurat" },
+				{ "scZiggurat", "sc42", "Ziggurat Transition" },
+				{ "scZiggurat", "sc44", "Ziggurat 2" },
 
 			{ "Areas", "scSwamp", "Swamp" },
-				{ "scSwamp", "sc58", "Swamp" },
-				{ "scSwamp", "sc68", "Cathedral" },
-				{ "scSwamp", "sc60", "Gauntlet Arena" },
+				{ "scSwamp", "sc59", "Swamp" },
+				{ "scSwamp", "sc69", "Cathedral" },
+				{ "scSwamp", "sc61", "Gauntlet Arena" },
 
-			{ "Areas", "sc62", "Heir Arena" },
+			{ "Areas", "sc63", "Heir Arena" },
 
 		// { null, "", "" },
 		// 	{ "", "", "" },
@@ -274,7 +274,7 @@ update
 
 start
 {
-	if (old.Scene == 2 && current.Scene == 24)
+	if (current.Scene == 25)
 		vars.CanStart = true;
 
 	return vars.CanStart && !old.TimerRunning && current.TimerRunning;

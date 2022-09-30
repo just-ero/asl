@@ -1,7 +1,7 @@
 # Auto Splitter for ***TUNIC***
 ## Features
 Starts the timer when the in-game time begins.  
-Splits are not yes available in the settings?  
+Splits are available in the settings. 
 Resets the timer when returning to the main menu.  
 Syncs to in-game time.
 
