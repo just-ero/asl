@@ -4,108 +4,81 @@ startup
 {
   Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
   vars.Helper.GameName = "lil gator game";
-
-//   vars.CompletedSplits = new HashSet<string>();
-
-  vars.Helper.AlertLoadless();
-}
-
-onStart
-{
-//   vars.CompletedSplits.Clear();
+  vars.Helper.Settings.CreateFromXml("Components/lilgatorgame.Settings.xml");
+  vars.Helper.AlertGameTime();
 }
 
 init
 {
+  current.Item = null;
+  current.Friend = null;
+
   vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
   {
-    vars.Helper["State"] = mono.Make<int>("Game", "g", "state");
-    vars.Helper["CreditsPlaying"] = mono.Make<bool>("OverriddenMusic", "isOverridden");
-    vars.Helper["VolumeMultiplier"] = mono.Make<float>("FadeGameVolume", "volumeMultiplier");
+    var srd = mono["SpeedrunData"];
+    if (srd.Static == IntPtr.Zero)
+      return false;
 
-    // var boolsKeys = mono.MakeList<IntPtr>("GameData", "instance", "gameSaveData", "bools", 0x50);
-    // var boolsVals = mono.MakeList<bool>("GameData", "instance", "gameSaveData", "bools", 0x58);
+    vars.Helper["State"] = srd.Make<int>("state");
+    vars.Helper["IGT"] = srd.Make<double>("inGameTime");
 
-    // vars.GetBools = (Func<Dictionary<string, bool>>)(() =>
-    // {
-    //   boolsKeys.Update(game);
-    //   boolsVals.Update(game);
 
-    //   var bools = new Dictionary<string, bool>(boolsKeys.Current.Count);
+    // handling collectibles
+    var list = mono["mscorlib", "List_1"];
 
-    //   for (int i = 0; i < boolsKeys.Current.Count; i++)
-    //   {
-    //     var key = vars.Helper.ReadString(false, boolsKeys.Current[i]);
-    //     bools[key] = boolsVals.Current[i];
-    //   }
+    var unlockableCounts = new Dictionary<string, dynamic>
+    {
+      { "Item", srd.Make<int>("unlockedItems", list["_size"]) },
+      { "Friend", srd.Make<int>("unlockedFriends", list["_size"]) }
+    };
 
-    //   return bools;
-    // });
+    vars.GetMostRecent = (Func<string, string>)(type =>
+    {
+      unlockableCounts[type].Update(game);
 
-    // var intsKeys = mono.MakeList<IntPtr>("GameData", "instance", "gameSaveData", "ints", 0x50);
-    // var intsVals = mono.MakeList<int>("GameData", "instance", "gameSaveData", "ints", 0x58);
-
-    // vars.GetInts = (Func<Dictionary<string, int>>)(() =>
-    // {
-    //   intsKeys.Update(game);
-    //   intsVals.Update(game);
-
-    //   var ints = new Dictionary<string, int>(intsKeys.Current.Count);
-
-    //   for (int i = 0; i < intsKeys.Current.Count; i++)
-    //   {
-    //     var key = vars.Helper.ReadString(false, intsKeys.Current[i]);
-    //     ints[key] = intsVals.Current[i];
-    //   }
-
-    //   return ints;
-    // });
+      int lastItemOffset = vars.Helper.PtrSize * (unlockableCounts[type].Current + 3);
+      return vars.Helper.ReadString(srd.Static + srd["unlocked" + type + "s"], list["_items"], lastItemOffset);
+    });
 
     return true;
   });
 }
 
+update
+{
+  current.Item = vars.GetMostRecent("Item");
+  current.Friend = vars.GetMostRecent("Friend");
+
+  if (old.Item != current.Item)
+    vars.Log("New item: " + current.Item);
+
+  if (old.Friend != current.Friend)
+    vars.Log("New friend: " + current.Friend);
+}
+
 start
 {
-  return old.State == 2 && current.State == 0;
+  return old.State == 0 && current.State == 1;
 }
 
 split
 {
-//   foreach (var kvp in vars.GetBools())
-//   {
-//     var key = kvp.Key;
-
-//     if (settings.ContainsKey(key)
-//         && settings[key]
-//         && kvp.Value
-//         && vars.CompletedSplits.Add(key))
-//     {
-//       return true;
-//     }
-//   }
-
-//   foreach (var kvp in vars.GetInts())
-//   {
-//     var key = kvp.Key + "-" + kvp.Value;
-
-//     if (settings.ContainsKey(key)
-//         && settings[key]
-//         && vars.CompletedSplits.Add(key))
-//     {
-//       return true;
-//     }
-//   }
-
-  return !old.CreditsPlaying && current.CreditsPlaying;
+  return old.State == 1 && current.State == 2
+         || old.Item != current.Item && settings[current.Item]
+         || old.Friend != current.Friend && settings[current.Friend];
 }
 
 reset
 {
-  return old.State == 2 && current.State == 0;
+  return old.State != 0 && current.State == 0;
+}
+
+gameTime
+{
+  return TimeSpan.FromSeconds(current.IGT);
 }
 
 isLoading
 {
-  return current.VolumeMultiplier < 1f;
+  return true;
 }
