@@ -2,6 +2,9 @@ state("lil gator game") {}
 
 startup
 {
+  MessageBox.Show("The auto splitter is currently not working!");
+  throw new Exception();
+
   Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
   vars.Helper.GameName = "lil gator game";
   vars.Helper.Settings.CreateFromXml("Components/lilgatorgame.Settings.xml");
