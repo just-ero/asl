@@ -24,6 +24,8 @@
           <Setting Id="iQuest_Act1_Avery-2" Label="craft the hero hat" State="false" />
           <Setting Id="iQuest_Act1_Avery-3" Label="show avery! the hat" State="false" />
         </Setting>
+
+        <Setting Id="iAct1_States-3" Label="return to sis! (tutorial island complete)" State="false" />
       </Setting>
 
       <Setting Id="franny" Label="franny, the duck" State="false">
@@ -40,8 +42,6 @@
         <Setting Id="iQuest_Act1_Bear-1" Label="quest start" State="false" />
         <Setting Id="iQuest_Act1_Bear-2" Label="watch simon ragdoll" State="false" />
       </Setting>
-
-      <Setting Id="iAct1_States-3" Label="return to sis! (tutorial island complete)" State="false" />
     </Setting>
 
     <Setting Id="bigIsland" Label="big island" State="false">
