@@ -112,10 +112,10 @@
           </Setting>
 
           <Setting Id="esme" Label="esme, the bat" State="false">
-            <Setting Id="iAct2_TheatreVampire-1" Label="" State="false" />
-            <Setting Id="iAct2_TheatreVampire-2" Label="" State="false" />
-            <Setting Id="iAct2_TheatreVampire-3" Label="" State="false" />
-            <Setting Id="iAct2_TheatreVampire-4" Label="" State="false" />
+            <Setting Id="iAct2_TheatreVampire-1" Label="quest start" State="false" />
+            <Setting Id="iAct2_TheatreVampire-2" Label="get ice cream" State="false" />
+            <Setting Id="iAct2_TheatreVampire-3" Label="bring ice cream to esme" State="false" />
+            <Setting Id="iAct2_TheatreVampire-4" Label="stay in the cave forever" State="false" />
           </Setting>
 
           <Setting Id="iQuest_Act2_Theatre-3" Label="regroup with avery!" State="false" />
