@@ -2,46 +2,44 @@ state("lil gator game") {}
 
 startup
 {
-  MessageBox.Show("The auto splitter is currently not working!");
-  throw new Exception();
-
   Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
   vars.Helper.GameName = "lil gator game";
-  vars.Helper.Settings.CreateFromXml("Components/lilgatorgame.Settings.xml");
-  vars.Helper.AlertGameTime();
+  vars.Helper.Settings.CreateFromXml(@"D:\Code\Projects\LiveSplit.Ero\asl\lil gator game\lilgatorgame.Settings.xml");
+
+  vars.CompletedBools = new HashSet<int>();
+  vars.CompletedInts = new HashSet<int>();
+
+  vars.IgnoredKeys = new HashSet<string>
+  {
+    "CraftingMaterials", "PrologueCameraRotation",
+    "CameraRotation" , "PlayerRotation" , "PlayerPosition_X" , "PlayerPosition_Y" , "PlayerPosition_Z",
+    "CameraFBRotation" , "PlayerFBRotation" , "PlayerFBPosition_X" , "PlayerFBPosition_Y" , "PlayerFBPosition_Z"
+  };
+
+  vars.Helper.AlertRealTime();
+}
+
+onStart
+{
+  vars.CompletedBools.Clear();
+  vars.CompletedInts.Clear();
 }
 
 init
 {
-  current.Item = null;
-  current.Friend = null;
-
   vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
   {
-    var srd = mono["SpeedrunData"];
-    if (srd.Static == IntPtr.Zero)
-      return false;
+    vars.Helper["Playing"] = mono.Make<bool>("GameData", "instance", "save");
 
-    vars.Helper["State"] = srd.Make<int>("state");
-    vars.Helper["IGT"] = srd.Make<double>("inGameTime");
+    var dict = mono["mscorlib", "Dictionary_2"];
 
+    vars.Helper["BoolsCount"] = mono.Make<int>("GameData", "instance", "gameSaveData", "bools", dict["count"]);
+    vars.Helper["BoolsEntries"] = mono.Make<IntPtr>("GameData", "instance", "gameSaveData", "bools", dict["entries"]);
 
-    // handling collectibles
-    var list = mono["mscorlib", "List_1"];
+    vars.Helper["IntsCount"] = mono.Make<int>("GameData", "instance", "gameSaveData", "ints", dict["count"]);
+    vars.Helper["IntsEntries"] = mono.Make<IntPtr>("GameData", "instance", "gameSaveData", "ints", dict["entries"]);
 
-    var unlockableCounts = new Dictionary<string, dynamic>
-    {
-      { "Item", srd.Make<int>("unlockedItems", list["_size"]) },
-      { "Friend", srd.Make<int>("unlockedFriends", list["_size"]) }
-    };
-
-    vars.GetMostRecent = (Func<string, string>)(type =>
-    {
-      unlockableCounts[type].Update(game);
-
-      int lastItemOffset = vars.Helper.PtrSize * (unlockableCounts[type].Current + 3);
-      return vars.Helper.ReadString(srd.Static + srd["unlocked" + type + "s"], list["_items"], lastItemOffset);
-    });
+    vars.Helper["ObjectStates"] = mono.Make<IntPtr>("GameData", "instance", "gameSaveData", "objectStates");
 
     return true;
   });
@@ -49,39 +47,72 @@ init
 
 update
 {
-  current.Item = vars.GetMostRecent("Item");
-  current.Friend = vars.GetMostRecent("Friend");
-
-  if (old.Item != current.Item)
-    vars.Log("New item: " + current.Item);
-
-  if (old.Friend != current.Friend)
-    vars.Log("New friend: " + current.Friend);
+  if (settings["any%End"])
+  {
+    var ps = vars.Helper.PtrSize;
+    var addr = current.ObjectStates + (ps * 4) + 965;
+    current.AnyPercentComplete = vars.Helper.Read<bool>(addr);
+  }
 }
 
 start
 {
-  return old.State == 0 && current.State == 1;
+  return !old.Playing && current.Playing;
 }
 
 split
 {
-  return old.State == 1 && current.State == 2
-         || old.Item != current.Item && settings[current.Item]
-         || old.Friend != current.Friend && settings[current.Friend];
+  var ps = vars.Helper.PtrSize;
+
+  for (int i = 0; i < current.BoolsCount; i++)
+  {
+    if (vars.CompletedBools.Contains(i)) continue;
+
+    var addr = current.BoolsEntries + (ps * 4) + (ps * 3 * i);
+    var value = vars.Helper.Read<bool>(addr + (ps * 2));
+
+    if (!value) continue;
+
+    vars.CompletedBools.Add(i);
+
+    var key = "b" + vars.Helper.ReadString(addr + (ps * 1));
+
+    if (settings.ContainsKey(key) && settings[key])
+    {
+      return true;
+    }
+  }
+
+  for (int i = 0; i < current.IntsCount; i++)
+  {
+    if (vars.CompletedInts.Contains(i)) continue;
+
+    var addr = current.IntsEntries + (ps * 4) + (ps * 3 * i);
+    var value = vars.Helper.Read<int>(addr + (ps * 2));
+
+    if (value <= 0) continue;
+
+    var key = vars.Helper.ReadString(addr + (ps * 1));
+    if (vars.IgnoredKeys.Contains(key)) continue;
+
+    key = "i" + key + "-" + value;
+    if (settings.ContainsKey(key) && settings[key])
+    {
+      vars.CompletedInts.Add(i);
+      return true;
+    }
+  }
+
+  if (settings["any%End"])
+  {
+    var addr = current.ObjectStates + (ps * 4) + 965;
+    current.AnyPercentComplete = vars.Helper.Read<bool>(addr);
+
+    return !old.AnyPercentComplete && current.AnyPercentComplete;
+  }
 }
 
 reset
 {
-  return old.State != 0 && current.State == 0;
-}
-
-gameTime
-{
-  return TimeSpan.FromSeconds(current.IGT);
-}
-
-isLoading
-{
-  return true;
+  return old.Playing && !current.Playing;
 }
