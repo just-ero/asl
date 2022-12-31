@@ -1,9 +1,9 @@
 <!-- <Setting Id="" Label="" State="false" /> -->
 
 <Settings>
-  <Setting Id="quests" Label="quests" State="false">
-    <Setting Id="tutIsland" Label="tutorial island" State="false">
-      <Setting Id="friendQuests" Label="friend quests!" State="false">
+  <Setting Id="quests" Label="quests" State="true">
+    <Setting Id="tutIsland" Label="tutorial island" State="true">
+      <Setting Id="friendQuests" Label="friend quests!" State="true">
         <Setting Id="iAct1_States-1" Label="quest start" State="false" />
 
         <Setting Id="jill" Label="Jill, the dog" State="false">
@@ -25,7 +25,7 @@
           <Setting Id="iQuest_Act1_Avery-3" Label="show avery! the hat" State="false" />
         </Setting>
 
-        <Setting Id="iAct1_States-3" Label="return to sis! (tutorial island complete)" State="false" />
+        <Setting Id="iAct1_States-3" Label="return to sis! (tutorial island complete)" State="true" />
       </Setting>
 
       <Setting Id="franny" Label="franny, the duck" State="false">
@@ -44,9 +44,9 @@
       </Setting>
     </Setting>
 
-    <Setting Id="bigIsland" Label="big island" State="false">
-      <Setting Id="mainQuests" Label="main quests" State="false">
-        <Setting Id="prepKids" Label="distract the prep kids!" State="false">
+    <Setting Id="bigIsland" Label="big island" State="true">
+      <Setting Id="mainQuests" Label="main quests" State="true">
+        <Setting Id="prepKids" Label="distract the prep kids!" State="true">
           <Setting Id="iQuest_Act2_Jill-1" Label="quest start" State="false" />
 
           <Setting Id="susanne" Label="Susanne, the antelope" State="false">
@@ -70,10 +70,10 @@
           </Setting>
 
           <Setting Id="iQuest_Act2_Jill-3" Label="tell Jill the bad news" State="false" />
-          <Setting Id="iQuest_Act2_Jill-4" Label="check on Jill (quest complete)" State="false" />
+          <Setting Id="iQuest_Act2_Jill-4" Label="check on Jill (quest complete)" State="true" />
         </Setting>
 
-        <Setting Id="coolKids" Label="turn the water on again!" State="false">
+        <Setting Id="coolKids" Label="turn the water on again!" State="true">
           <Setting Id="iQuest_Act2_Cool-1" Label="quest start" State="false" />
 
           <Setting Id="iAct2_CoolWolfQuest-1" Label="turn on lucas' pump" State="false" />
@@ -89,10 +89,10 @@
           </Setting>
 
           <Setting Id="iAct2_CoolGooseQuest-1" Label="turn on duke's pump" State="false" />
-          <Setting Id="iQuest_Act2_Cool-3" Label="return to the splash pad" State="false" />
+          <Setting Id="iQuest_Act2_Cool-3" Label="return to the splash pad" State="true" />
         </Setting>
 
-        <Setting Id="theaterKids" Label="get the gang back together!" State="false">
+        <Setting Id="theaterKids" Label="get the gang back together!" State="true">
           <Setting Id="iQuest_Act2_Theatre-1" Label="quest start" State="false" />
 
           <Setting Id="velma" Label="velma, the cow" State="false">
@@ -118,7 +118,7 @@
             <Setting Id="iAct2_TheatreVampire-4" Label="stay in the cave forever" State="false" />
           </Setting>
 
-          <Setting Id="iQuest_Act2_Theatre-3" Label="regroup with avery!" State="false" />
+          <Setting Id="iQuest_Act2_Theatre-3" Label="regroup with avery!" State="true" />
         </Setting>
 
         <Setting Id="town" Label="the town" State="false">
