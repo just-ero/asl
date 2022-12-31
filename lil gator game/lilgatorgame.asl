@@ -45,16 +45,6 @@ init
   });
 }
 
-update
-{
-  if (settings["any%End"])
-  {
-    var ps = vars.Helper.PtrSize;
-    var addr = current.ObjectStates + (ps * 4) + 965;
-    current.AnyPercentComplete = vars.Helper.Read<bool>(addr);
-  }
-}
-
 start
 {
   return !old.Playing && current.Playing;
@@ -80,7 +70,6 @@ split
 
     if (settings.ContainsKey(key) && settings[key])
     {
-      vars.Log("Split for [" + key + "]");
       return true;
     }
   }
@@ -106,8 +95,12 @@ split
 
   if (settings["any%End"])
   {
-    var addr = current.ObjectStates + (ps * 4) + 965;
-    current.AnyPercentComplete = vars.Helper.Read<bool>(addr);
+    var count = current.ObjectStates + (ps * 3);
+    if (vars.Helper.Read<int>(count) < 965)
+      return;
+
+    var finalObj = current.ObjectStates + (ps * 4) + 965;
+    current.AnyPercentComplete = vars.Helper.Read<bool>(finalObj);
 
     return !old.AnyPercentComplete && current.AnyPercentComplete;
   }
