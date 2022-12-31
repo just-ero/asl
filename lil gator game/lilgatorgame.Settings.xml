@@ -237,7 +237,7 @@
       <Setting Id="becca" Label="becca, the shark" State="false">
         <Setting Id="iQuest_Fetch_Shark-1" Label="quest start" State="false" />
         <Setting Id="bQuestItem_Retainer" Label="find becca's retainer" State="false" />
-        <Setting Id="iQuest_Fetch_Shark-3" Label="give becca her retainer" State="false" />
+        <Setting Id="iQuest_Fetch_Shark-2" Label="give becca her retainer" State="false" />
       </Setting>
 
       <Setting Id="kasen" Label="kasen, the vulture" State="false">

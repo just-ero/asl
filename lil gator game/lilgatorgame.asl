@@ -76,21 +76,22 @@ split
     vars.CompletedBools.Add(i);
 
     var key = "b" + vars.Helper.ReadString(addr + (ps * 1));
+    if (vars.IgnoredKeys.Contains(key)) continue;
 
     if (settings.ContainsKey(key) && settings[key])
     {
+      vars.Log("Split for [" + key + "]");
       return true;
     }
   }
 
   for (int i = 0; i < current.IntsCount; i++)
   {
-    if (vars.CompletedInts.Contains(i)) continue;
-
     var addr = current.IntsEntries + (ps * 4) + (ps * 3 * i);
     var value = vars.Helper.Read<int>(addr + (ps * 2));
+    var id = i * 1000 + value;
 
-    if (value <= 0) continue;
+    if (value <= 0 || !vars.CompletedInts.Add(id)) continue;
 
     var key = vars.Helper.ReadString(addr + (ps * 1));
     if (vars.IgnoredKeys.Contains(key)) continue;
@@ -98,7 +99,7 @@ split
     key = "i" + key + "-" + value;
     if (settings.ContainsKey(key) && settings[key])
     {
-      vars.CompletedInts.Add(i);
+      vars.CompletedInts.Add(id);
       return true;
     }
   }
