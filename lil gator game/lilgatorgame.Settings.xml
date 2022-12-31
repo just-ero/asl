@@ -78,7 +78,7 @@
 
           <Setting Id="iAct2_CoolWolfQuest-1" Label="turn on lucas' pump" State="false" />
 
-          <Setting Id="jada" Label="jada, the boar" State="false">
+          <Setting Id="jada" Label="turn on jada's pump" State="false">
             <Setting Id="iAct2_CoolBoarQuest-1" Label="quest start" State="false" />
             <Setting Id="iAct2_CoolBoarQuest-2" Label="cut some grass" State="false" />
             <Setting Id="iAct2_CoolBoarQuest-3" Label="give grass to jada" State="false" />
