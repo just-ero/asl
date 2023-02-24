@@ -4,7 +4,7 @@ startup
 {
   Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
   vars.Helper.GameName = "lil gator game";
-  vars.Helper.Settings.CreateFromXml(@"D:\Code\Projects\LiveSplit.Ero\asl\lil gator game\lilgatorgame-beta.Settings.xml");
+  vars.Helper.Settings.CreateFromXml("Components/lilgatorgame.Settings.xml");
   vars.Helper.AlertGameTime();
 }
 
