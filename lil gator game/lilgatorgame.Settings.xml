@@ -1,516 +1,151 @@
-<!-- <Setting Id="" Label="" State="false" /> -->
-
 <Settings>
-  <Setting Id="quests" Label="quests" State="true">
-    <Setting Id="tutIsland" Label="tutorial island" State="true">
-      <Setting Id="friendQuests" Label="friend quests!" State="true">
-        <Setting Id="iAct1_States-1" Label="quest start" State="false" />
-
-        <Setting Id="jill" Label="Jill, the dog" State="false">
-          <Setting Id="iQuest_Act1_Jill-1" Label="quest start" State="false" />
-          <Setting Id="iQuest_Act1_Jill-2" Label="find the sword" State="false" />
-          <Setting Id="iQuest_Act1_Jill-3" Label="defeat the monster" State="false" />
-          <Setting Id="iQuest_Act1_Jill-4" Label="talk to Jill" State="false" />
-        </Setting>
-
-        <Setting Id="martin" Label="martin, the horse" State="false">
-          <Setting Id="iQuest_Act1_Martin-1" Label="quest start" State="false" />
-          <Setting Id="iQuest_Act1_Martin-2" Label="fetch the pot" State="false" />
-          <Setting Id="iQuest_Act1_Martin-3" Label="return to martin" State="false" />
-        </Setting>
-
-        <Setting Id="avery" Label="avery!, the frog" State="false">
-          <Setting Id="iQuest_Act1_Avery-1" Label="quest start" State="false" />
-          <Setting Id="iQuest_Act1_Avery-2" Label="craft the hero hat" State="false" />
-          <Setting Id="iQuest_Act1_Avery-3" Label="show avery! the hat" State="false" />
-        </Setting>
-
-        <Setting Id="iAct1_States-3" Label="return to sis! (tutorial island complete)" State="true" />
-      </Setting>
-
-      <Setting Id="franny" Label="franny, the duck" State="false">
-        <Setting Id="iQuest_Act1_LookingForStick-1" Label="talk to franny" State="false" />
-        <Setting Id="iQuest_Act1_LookingForStick-2" Label="tell the truth" State="false" />
-      </Setting>
-
-      <Setting Id="gerald" Label="gerald, the giraffe" State="false">
-        <Setting Id="iQuest_Act1_Giraffe-1" Label="destroy cardboard slimes" State="false" />
-        <Setting Id="iQuest_Act1_Giraffe-2" Label="talk to gerald" State="false" />
-      </Setting>
-
-      <Setting Id="simon" Label="simon, the bear" State="false">
-        <Setting Id="iQuest_Act1_Bear-1" Label="quest start" State="false" />
-        <Setting Id="iQuest_Act1_Bear-2" Label="watch simon ragdoll" State="false" />
-      </Setting>
-    </Setting>
-
-    <Setting Id="bigIsland" Label="big island" State="true">
-      <Setting Id="mainQuests" Label="main quests" State="true">
-        <Setting Id="prepKids" Label="distract the prep kids!" State="true">
-          <Setting Id="iQuest_Act2_Jill-1" Label="quest start" State="false" />
-
-          <Setting Id="susanne" Label="Susanne, the antelope" State="false">
-            <Setting Id="iQuest_Act2_Jill_Engineer-1" Label="quest start" State="false" />
-            <Setting Id="iQuest_Act2_Jill_Engineer-2" Label="find a beach ore" State="false" />
-            <Setting Id="iQuest_Act2_Jill_Engineer-3" Label="give the ore to Susanne" State="false" />
-            <Setting Id="iQuest_Act2_Jill_Engineer-4" Label="hit the ore a bunch" State="false" />
-          </Setting>
-
-          <Setting Id="antone" Label="Antone, the iguana" State="false">
-            <Setting Id="iQuest_Act2_Jill_Entomologist-1" Label="quest start" State="false" />
-            <Setting Id="iQuest_Act2_Jill_Entomologist-2" Label="find a hercules beetle" State="false" />
-            <Setting Id="iQuest_Act2_Jill_Entomologist-3" Label="chase the beetle!" State="false" />
-            <Setting Id="iQuest_Act2_Jill_Entomologist-4" Label="talk to antone" State="false" />
-          </Setting>
-
-          <Setting Id="gene" Label="Gene, the chipmunk" State="false">
-            <Setting Id="iQuest_Act2_Jill_Economist-1" Label="quest start" State="false" />
-            <Setting Id="iQuest_Act2_Jill_Economist-2" Label="find the yellow triangle" State="false" />
-            <Setting Id="iQuest_Act2_Jill_Economist-3" Label="trade with Gene" State="false" />
-          </Setting>
-
-          <Setting Id="iQuest_Act2_Jill-3" Label="tell Jill the bad news" State="false" />
-          <Setting Id="iQuest_Act2_Jill-4" Label="check on Jill (quest complete)" State="true" />
-        </Setting>
-
-        <Setting Id="coolKids" Label="turn the water on again!" State="true">
-          <Setting Id="iQuest_Act2_Cool-1" Label="quest start" State="false" />
-
-          <Setting Id="iAct2_CoolWolfQuest-1" Label="turn on lucas' pump" State="false" />
-
-          <Setting Id="jada" Label="turn on jada's pump" State="false">
-            <Setting Id="iAct2_CoolBoarQuest-1" Label="quest start" State="false" />
-            <Setting Id="iAct2_CoolBoarQuest-2" Label="cut some grass" State="false" />
-            <Setting Id="iAct2_CoolBoarQuest-3" Label="give grass to jada" State="false" />
-            <Setting Id="iAct2_CoolBoarQuest-4" Label="fill the bucket with water" State="false" />
-            <Setting Id="iAct2_CoolBoarQuest-5" Label="give water bucket to jada" State="false" />
-            <Setting Id="iAct2_CoolBoarQuest-6" Label="get rid of whatever's blocking the sunlight" State="false" />
-            <Setting Id="iAct2_CoolBoarQuest-7" Label="report back to jada" State="false" />
-          </Setting>
-
-          <Setting Id="iAct2_CoolGooseQuest-1" Label="turn on duke's pump" State="false" />
-          <Setting Id="iQuest_Act2_Cool-3" Label="return to the splash pad" State="true" />
-        </Setting>
-
-        <Setting Id="theaterKids" Label="get the gang back together!" State="true">
-          <Setting Id="iQuest_Act2_Theatre-1" Label="quest start" State="false" />
-
-          <Setting Id="velma" Label="velma, the cow" State="false">
-            <Setting Id="iAct2_TheatreCowfolk-1" Label="quest start" State="false" />
-            <Setting Id="iAct2_TheatreCowfolk-2" Label="calm down the cow kids" State="false" />
-            <Setting Id="iAct2_TheatreCowfolk-3" Label="talk to velma" State="false" />
-          </Setting>
-
-          <Setting Id="andromeda" Label="andromeda, the eagle" State="false">
-            <Setting Id="iAct2_TheatreSpace-1" Label="quest start" State="false" />
-            <Setting Id="iAct2_TheatreSpace-2" Label="defeat the alien imposters" State="false" />
-            <Setting Id="iAct2_TheatreSpace-3" Label="report to andromeda" State="false" />
-            <Setting Id="iAct2_TheatreSpace-4" Label="defeat the second wave" State="false" />
-            <Setting Id="iAct2_TheatreSpace-5" Label="assemble with andromeda" State="false" />
-            <Setting Id="iAct2_TheatreSpace-6" Label="destroy the mothership" State="false" />
-            <Setting Id="iAct2_TheatreSpace-7" Label="quest end" State="false" />
-          </Setting>
-
-          <Setting Id="esme" Label="esme, the bat" State="false">
-            <Setting Id="iAct2_TheatreVampire-1" Label="quest start" State="false" />
-            <Setting Id="iAct2_TheatreVampire-2" Label="get ice cream" State="false" />
-            <Setting Id="iAct2_TheatreVampire-3" Label="bring ice cream to esme" State="false" />
-            <Setting Id="iAct2_TheatreVampire-4" Label="stay in the cave forever" State="false" />
-          </Setting>
-
-          <Setting Id="iQuest_Act2_Theatre-3" Label="regroup with avery!" State="true" />
-        </Setting>
-
-        <Setting Id="town" Label="the town" State="false">
-          <Setting Id="iTownState-1" Label="find tom in the playground" State="false" />
-          <Setting Id="iTownState-2" Label="build your idea" State="false" />
-          <Setting Id="iTownState-3" Label="fully upgrade town" State="false" />
-        </Setting>
-
-        <Setting Id="postgame" Label="post-game" State="false">
-          <Setting Id="iTownState-4" Label="talk with friends (credits finished)" State="false" />
-          <Setting Id="iTownState-5" Label="destroy all monsters" State="false" />
-
-          <Setting Id="goodbye" Label="goodbye, island!" State="false">
-            <Setting Id="QP_Completion-1" Label="tell sis it's time to go" State="false" />
-          </Setting>
-        </Setting>
-      </Setting>
-
-      <Setting Id="ninjas" Label="ninja village" State="false">
-        <Setting Id="sierra" Label="sierra, the crane" State="false">
-          <Setting Id="iQuest_Side_NinjaShuriken-1" Label="give sierra 500 scrap" State="false" />
-          <Setting Id="iQuest_Side_NinjaShuriken-2" Label="receive the shuriken" State="false" />
-        </Setting>
-
-        <Setting Id="romeo" Label="romeo, the anteater" State="false">
-          <Setting Id="iQuest_Side_NinjaArgument-1" Label="quest start" State="false" />
-          <Setting Id="iQuest_Side_NinjaArgument-2" Label="complete the challenge" State="false" />
-          <Setting Id="iQuest_Side_NinjaArgument-3" Label="report back to romeo" State="false" />
-        </Setting>
-
-        <Setting Id="oscar" Label="oscar, the tiger" State="false">
-          <Setting Id="iQuest_Side_NinjaArgument-4" Label="quest start" State="false" />
-          <Setting Id="iQuest_Side_NinjaArgument-5" Label="talk to oscar" State="false" />
-          <Setting Id="iQuest_Side_NinjaArgument-6" Label="hit oscar with the nunchaku" State="false" />
-          <Setting Id="iQuest_Side_NinjaArgument-7" Label="reunite" State="false" />
-        </Setting>
-      </Setting>
-
-      <Setting Id="zhu" Label="zhu, the fox" State="false">
-        <Setting Id="iQuest_Side_RockFox-1" Label="receive the rock" State="false" />
-        <Setting Id="iQuest_Side_RockFox-2" Label="skip the rock 3 times" State="false" />
-        <Setting Id="iQuest_Side_RockFox-3" Label="talk to zhu" State="false" />
-      </Setting>
-
-      <Setting Id="beaver" Label="penelope, the beaver" State="false">
-        <Setting Id="iQuest_Side_BastionBeaver-1" Label="destroy the slimes" State="false" />
-        <Setting Id="iQuest_Side_BastionBeaver-2" Label="report to penelope" State="false" />
-      </Setting>
-
-      <Setting Id="gunther" Label="gunther, the hippo" State="false">
-        <Setting Id="iQuest_Side_Sidekick-1" Label="take on a sidekick" State="false" />
-        <Setting Id="iQuest_Side_Sidekick-3" Label="take a break" State="false" />
-        <Setting Id="iQuest_Side_Sidekick-5" Label="don't take on a sidekick" State="false" />
-      </Setting>
-
-      <Setting Id="billy" Label="billy, the whale" State="false">
-        <Setting Id="iQuest_Side_BigWhale-1" Label="unstuck the bowling ball" State="false" />
-        <Setting Id="iQuest_Side_BigWhale-2" Label="talk to billy" State="false" />
-      </Setting>
-
-      <Setting Id="eva" Label="eva, the cat" State="false">
-        <Setting Id="iQuest_Side_Photographer-1" Label="quest start" State="false" />
-        <Setting Id="iQuest_Side_Photographer-2" Label="chase away the cardinal" State="false" />
-        <Setting Id="iQuest_Side_Photographer-3" Label="report back to eva" State="false" />
-      </Setting>
-
-      <Setting Id="picnicKids" Label="picnic kids" State="false">
-        <Setting Id="iQuest_Side_LunchSwap-1" Label="quest start" State="false" />
-        <Setting Id="iQuest_Side_LunchSwap-3" Label="decide who gets what" State="false" />
-      </Setting>
-
-      <Setting Id="potKid" Label="pot kid, the armadillo" State="false">
-        <Setting Id="iQuest_Side_PotKid-1" Label="break pot kid free" State="false" />
-        <Setting Id="iQuest_Side_PotKid-2" Label="talk to pot kid" State="false" />
-      </Setting>
-
-      <Setting Id="pepperoni" Label="pepperoni, the ostrich" State="false">
-        <Setting Id="iQuest_Side_ObstacleOstrich-1" Label="quest start" State="false" />
-        <Setting Id="iQuest_Side_ObstacleOstrich-2" Label="complete the challenge" State="false" />
-        <Setting Id="iQuest_Side_ObstacleOstrich-3" Label="report back to pepperoni" State="false" />
-      </Setting>
-
-      <Setting Id="tiffanyCarol" Label="tiffany &amp; Carol, the siamese cats" State="false">
-        <Setting Id="iQuest_Side_TutuCat-1" Label="quest start" State="false" />
-        <Setting Id="iQuest_Side_TutuCat-2" Label="destroy the clutter" State="false" />
-        <Setting Id="iQuest_Side_TutuCat-3" Label="talk to tiffany" State="false" />
-        <Setting Id="iQuest_Side_TutuCat-4" Label="talk to Carol" State="false" />
-        <Setting Id="iQuest_Side_TutuCat-5" Label="tea party" State="false" />
-      </Setting>
-
-      <Setting Id="mrDoddler" Label="Mr. Doddler, the sloth" State="false">
-        <Setting Id="iQuest_Side_OldMan-1" Label="quest start" State="false" />
-        <Setting Id="iQuest_Side_OldMan-2" Label="get the junk off the roof" State="false" />
-        <Setting Id="iQuest_Side_OldMan-3" Label="report back to Mr. Doddler" State="false" />
-      </Setting>
-
-      <Setting Id="cadeMarlow" Label="cade, the bull, &amp; marlow, the sheep" State="false">
-        <Setting Id="iQuest_Side_SwimBull-1" Label="quest start" State="false" />
-        <Setting Id="iQuest_Side_SwimBull-2" Label="talk to marlow" State="false" />
-        <Setting Id="iQuest_Side_SwimBull-3" Label="make cade swim" State="false" />
-      </Setting>
-
-      <Setting Id="skatePug" Label="skate pug, the pug" State="false">
-        <Setting Id="iQuest_Side_SkatePug-1" Label="quest start" State="false" />
-        <Setting Id="iQuest_Side_SkatePug-2" Label="complete the challenge" State="false" />
-        <Setting Id="iQuest_Side_SkatePug-3" Label="report back to skate pug" State="false" />
-      </Setting>
-
-      <Setting Id="sam" Label="sam, the coyote" State="false">
-        <Setting Id="iSide_Clumsy-1" Label="quest start" State="false" />
-        <Setting Id="iSide_Clumsy-2" Label="bring the pencil to sam" State="false" />
-        <Setting Id="iSide_Clumsy-3" Label="bring the pencil to sam, again" State="false" />
-        <Setting Id="iSide_Clumsy-4" Label="bring the pencil to sam, again..." State="false" />
-      </Setting>
-
-      <Setting Id="becca" Label="becca, the shark" State="false">
-        <Setting Id="iQuest_Fetch_Shark-1" Label="quest start" State="false" />
-        <Setting Id="bQuestItem_Retainer" Label="find becca's retainer" State="false" />
-        <Setting Id="iQuest_Fetch_Shark-2" Label="give becca her retainer" State="false" />
-      </Setting>
-
-      <Setting Id="kasen" Label="kasen, the vulture" State="false">
-        <Setting Id="iSide_Quest_FetchVulture-1" Label="find kasen's broken scooter board" State="false" />
-        <Setting Id="iSide_Quest_FetchVulture-2" Label="give kasen his scooter board" State="false" />
-      </Setting>
-
-      <Setting Id="darcie" Label="darcie, the owl" State="false">
-        <Setting Id="iQuest_Side_BalloonOwl-1" Label="rescue darcie" State="false" />
-        <Setting Id="iQuest_Side_BalloonOwl-2" Label="talk to darcie" State="false" />
-      </Setting>
-
-      <Setting Id="neil" Label="neil, the rat" State="false">
-        <Setting Id="iQuest_Side_MistakesRat-1" Label="destroy neil's first wave" State="false" />
-        <Setting Id="iQuest_Side_MistakesRat-2" Label="comfort neil" State="false" />
-        <Setting Id="iQuest_Side_MistakesRat-3" Label="destroy neil's second wave" State="false" />
-        <Setting Id="iQuest_Side_MistakesRat-4" Label="comfort neil" State="false" />
-        <Setting Id="iQuest_Side_MistakesRat-5" Label="destroy neil's third wave" State="false" />
-        <Setting Id="iQuest_Side_MistakesRat-6" Label="report back to neil" State="false" />
-      </Setting>
-
-      <Setting Id="scooter" Label="scooter, the cougar" State="false">
-        <Setting Id="bQuest_ScaredPots" Label="destroy scooter's pots" State="false" />
-        <Setting Id="bNPC_ScaredPots_Cougar" Label="talk to scooter" State="false" />
-      </Setting>
-
-      <Setting Id="twig" Label="twig, the pomeranian" State="false">
-        <Setting Id="iQuest_Side_Flip-1" Label="quest start" State="false" />
-        <Setting Id="iQuest_Side_Flip-2" Label="do a flip!" State="false" />
-        <Setting Id="iQuest_Side_Flip-3" Label="talk to twig" State="false" />
-      </Setting>
-
-      <Setting Id="tanner" Label="tanner, the elk" State="false">
-        <Setting Id="iQuest_Side_ConfusedElk-1" Label="quest start" State="false" />
-        <Setting Id="iQuest_Side_ConfusedElk-2" Label="destroy the fake pots" State="false" />
-        <Setting Id="iQuest_Side_ConfusedElk-3" Label="report back to tanner" State="false" />
-      </Setting>
-
-      <Setting Id="flint" Label="flint, the mole" State="false">
-        <Setting Id="iQuest_Side_BombBowl-1" Label="quest start" State="false" />
-        <Setting Id="iQuest_Side_BombBowl-2" Label="complete the challenge" State="false" />
-        <Setting Id="iQuest_Side_BombBowl-3" Label="report back to flint" State="false" />
-      </Setting>
-
-      <Setting Id="ssumantha" Label="ssumantha, the opossum" State="false">
-        <Setting Id="iQuest_Side_SurfOpossum-1" Label="quest start" State="false" />
-        <Setting Id="iQuest_Side_SurfOpossum-2" Label="skip on the water" State="false" />
-        <Setting Id="iQuest_Side_SurfOpossum-3" Label="talk to ssumantha" State="false" />
-      </Setting>
-
-      <Setting Id="roy" Label="Roy, the Raccoon" State="false">
-        <Setting Id="iQuest_Side_JunkShop-1" Label="quest start" State="false" />
-        <Setting Id="iQuest_Side_JunkShop-2" Label="collect 10 pieces of litter" State="false" />
-        <Setting Id="iQuest_Side_JunkShop-3" Label="report back to Roy" State="false" />
-        <Setting Id="iQuest_Side_JunkShop-4" Label="buy everything" State="false" />
-      </Setting>
-
-      <Setting Id="bQuest_Directions" Label="esther, the deer" State="false" />
-      <Setting Id="bQuest_Choice_Invisible" Label="trish, the invisible horse" State="false" />
-      <Setting Id="bQuest_Rescue_Robin" Label="robin, the robin" State="false" />
-      <Setting Id="bQuest_WannaBe" Label="joe, the hawk" State="false" />
-      <Setting Id="iSide_Chess-1" Label="Tony, the eagle" State="false" />
-      <Setting Id="bQuest_Destroy_AppreciationCost" Label="leeland, the rabbit" State="false" />
-      <Setting Id="bQuest_Destroy_HotShot" Label="viraj, the elephant" State="false" />
-      <Setting Id="bQuest_ScaredOfHeights" Label="mochi, the bear" State="false" />
-      <Setting Id="bQuest_AwkwardFriendly" Label="madeline, the mouse" State="false" />
-      <Setting Id="iQuest_Side_TripLizard-1" Label="luisa, the lizard" State="false" />
-    </Setting>
+  <Setting Id="ingame" Label="in-game splits" State="true">
+    <Setting Id="tutorialEnd" Label="end of small island" State="false" />
+    <Setting Id="jillQuest" Label="jill quest completed" State="false" />
+    <Setting Id="martinQuest" Label="martin quest completed" State="false" />
+    <Setting Id="averyQuest" Label="avery quest completed" State="false" />
+    <Setting Id="showTown" Label="show town to big sis" State="false" />
+    <Setting Id="flashback" Label="end of flashback sequence" State="true" />
+    <Setting Id="credits" Label="credits" State="false" />
+    <Setting Id="goHome" Label="go home" State="false" />
   </Setting>
 
-  <Setting Id="items" Label="items" State="false">
-    <Setting Id="hats" Label="hats" State="false">
-      <Setting Id="pointyFloppyThing" Label="pointy floppy thing" State="false">
-        <Setting Id="bShop_Item_17" Label="unlock" State="false" />
-        <Setting Id="bItem_17" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="slimeCap" Label="slime cap" State="false">
-        <Setting Id="bShop_Item_10" Label="unlock" State="false" />
-        <Setting Id="bItem_10" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="artsyBeret" Label="artsy beret" State="false">
-        <Setting Id="bShop_Item_48" Label="unlock" State="false" />
-        <Setting Id="bItem_48" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="spaceDome" Label="space dome" State="false">
-        <Setting Id="bShop_Item_23" Label="unlock" State="false" />
-        <Setting Id="bItem_23" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="bItem_27" Label="plastic fangs" State="false" />
-
-      <Setting Id="westernWideBrim" Label="western wide brim" State="false">
-        <Setting Id="bShop_Item_22" Label="unlock" State="false" />
-        <Setting Id="bItem_22" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="bItem_26" Label="bucket helm" State="false" />
-
-      <Setting Id="detectiveCowl" Label="detective cowl" State="false">
-        <Setting Id="bShop_Item_2" Label="unlock" State="false" />
-        <Setting Id="bItem_2" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="skaterHelmet" Label="skater helmet" State="false">
-        <Setting Id="bShop_Item_43" Label="unlock" State="false" />
-        <Setting Id="bItem_43" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="princessTiara" Label="princess tiara" State="false">
-        <Setting Id="bShop_Item_51" Label="unlock" State="false" />
-        <Setting Id="bItem_51" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="ninjaHeadband" Label="ninja headband" State="false">
-        <Setting Id="bShop_Item_52" Label="unlock" State="false" />
-        <Setting Id="bItem_52" Label="craft" State="false" />
-      </Setting>
+  <Setting Id="friends" Label="Friends" State="false">
+    <Setting Id="tutIsland" Label="Tutorial Island" State="false">
+      <Setting Id="NPC_TutIsland_Giraffe" Label="gerald, the Giraffe" State="false" />
+      <Setting Id="NPC_TutIsland_Duck" Label="franny, the Duck" State="false" />
+      <Setting Id="NPC_TutIsland_Bear" Label="simon, the Bear" State="false" />
     </Setting>
 
-    <Setting Id="weapons" Label="weapons" State="false">
-      <Setting Id="b_Item_7" Label="stick" State="false" />
-
-      <Setting Id="woodenSword" Label="wooden sword" State="false">
-        <Setting Id="bShop_Item_8" Label="unlock" State="false" />
-        <Setting Id="bItem_8" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="paintbrush" Label="paintbrush" State="false">
-        <Setting Id="bShop_Item_13" Label="unlock" State="false" />
-        <Setting Id="bItem_13" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="cardboardSpear" Label="cardboard spear" State="false">
-        <Setting Id="bShop_Item_19" Label="unlock" State="false" />
-        <Setting Id="bItem_19" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="bItem_5" Label="grabby hand" State="false" />
-
-      <Setting Id="laserSword" Label="laser sword" State="false">
-        <Setting Id="bShop_Item_25" Label="unlock" State="false" />
-        <Setting Id="bItem_25" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="bItem_24" Label="bug net" State="false" />
-      <Setting Id="bItem_14" Label="nunchaku" State="false" />
-
-      <Setting Id="oversizedPencil" Label="oversized pencil" State="false">
-        <Setting Id="bShop_Item_0" Label="unlock" State="false" />
-        <Setting Id="bItem_0" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="bItem_4" Label="wrench" State="false" />
-      <Setting Id="bItem_29" Label="paleolithic tool" State="false" />
-
-      <Setting Id="princessWand" Label="princess wand" State="false">
-        <Setting Id="bShop_Item_40" Label="unlock" State="false" />
-        <Setting Id="bItem_40" Label="craft" State="false" />
-      </Setting>
+    <Setting Id="picnic" Label="Picnic" State="false">
+      <Setting Id="NPC_LunchSwapCardinal" Label="sorin, the Cardinal" State="false" />
+      <Setting Id="NPC_Bee" Label="beeritney, the Bee" State="false" />
+      <Setting Id="NPC_LunchSwapSkink" Label="roe, the Skink" State="false" />
     </Setting>
 
-    <Setting Id="shields" Label="shields" State="false">
-      <Setting Id="bItem_9" Label="pot lid" State="false" />
-
-      <Setting Id="artPalette" Label="art palette" State="false">
-        <Setting Id="bShop_Item_18" Label="unlock" State="false" />
-        <Setting Id="bItem_18" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="innerTube" Label="inner tube" State="false">
-        <Setting Id="bShop_Item_46" Label="unlock" State="false" />
-        <Setting Id="bItem_46" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="bItem_30" Label="platter" State="false" />
-
-      <Setting Id="skateboard" Label="skateboard" State="false">
-        <Setting Id="bShop_Item_28" Label="unlock" State="false" />
-        <Setting Id="bItem_28" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="bItem_31" Label="martin" State="false" />
-
-      <Setting Id="chessboard" Label="chessboard" State="false">
-        <Setting Id="bShop_Item_47" Label="unlock" State="false" />
-        <Setting Id="bItem_47" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="bItem_38" Label="big leaf" State="false" />
-      <Setting Id="bItem_39" Label="trampoline" State="false" />
-
-      <Setting Id="towerShield" Label="tower shield" State="false">
-        <Setting Id="bShop_Item_44" Label="unlock" State="false" />
-        <Setting Id="bItem_44" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="bItem_45" Label="trash can lid" State="false" />
-
-      <Setting Id="greenScooterBoard" Label="green scooter board" State="false">
-        <Setting Id="bShop_Item_16" Label="unlock" State="false" />
-        <Setting Id="bItem_16" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="blueScooterBoard" Label="blue scooter board" State="false">
-        <Setting Id="bShop_Item_12" Label="unlock" State="false" />
-        <Setting Id="bItem_12" Label="craft" State="false" />
-      </Setting>
+    <Setting Id="ninjas" Label="Ninja Village" State="false">
+      <Setting Id="NPC_Ninja_Crane" Label="sierra, the Crane" State="false" />
+      <Setting Id="NPC_Ninja_Anteater" Label="romeo, the Anteater" State="false" />
+      <Setting Id="NPC_Ninja_Tiger" Label="oscar, the Tiger" State="false" />
     </Setting>
 
-    <Setting Id="utility" Label="utility items" State="false">
-      <Setting Id="ragdoll" Label="ragdoll" State="false">
-        <Setting Id="bShop_Item_11" Label="unlock" State="false" />
-        <Setting Id="bItem_11" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="bItem_1" Label="balloon" State="false" />
-      <Setting Id="bItem_15" Label="rock" State="false" />
-      <Setting Id="bItem_32" Label="space blaster" State="false" />
-      <Setting Id="bItem_36" Label="shuriken" State="false" />
-      <Setting Id="bItem_33" Label="bowling bomb" State="false" />
-      <Setting Id="bItem_34" Label="bubble gum" State="false" />
-      <Setting Id="bItem_37" Label="sticky hand" State="false" />
-      <Setting Id="bItem_35" Label="paint blaster" State="false" />
-      <Setting Id="bItem_49" Label="megaphone" State="false" />
-
-      <Setting Id="camera" Label="an actual digital camera" State="false">
-        <Setting Id="bShop_Item_41" Label="unlock" State="false" />
-        <Setting Id="bItem_41" Label="craft" State="false" />
-      </Setting>
-
-      <Setting Id="bItem_42" Label="ask Jill" State="false" />
+    <Setting Id="jillQuestP" Label="Jill's Quest" State="false">
+      <Setting Id="NPC_Susanne" Label="Susanne, the Antelope" State="false" />
+      <Setting Id="NPC_Antone" Label="Antone, the Iguana" State="false" />
+      <Setting Id="NPC_Gene" Label="Gene, the Chipmunk" State="false" />
     </Setting>
 
-    <Setting Id="bracelets" Label="bracelets" State="false">
-      <Setting Id="iBracelets-1" Label="Blue" State="false" />
-      <Setting Id="iBracelets-2" Label="Red" State="false" />
-      <Setting Id="iBracelets-3" Label="Purple" State="false" />
-      <Setting Id="iBracelets-4" Label="Yellow" State="false" />
+    <Setting Id="martinQuestP" Label="martin's Quest" State="false">
+      <Setting Id="NPC_Cool_Boar" Label="jada, the Boar" State="false" />
+      <Setting Id="NPC_Cool_Goose" Label="duke, the Goose" State="false" />
+      <Setting Id="NPC_Cool_Wolf" Label="lucas, the Wolf" State="false" />
     </Setting>
 
-    <Setting Id="misc" Label="miscellaneous" State="false">
-      <Setting Id="bItem_Shirt" Label="glider?" State="false" />
-      <Setting Id="iQuest_BabyMode-2" Label="baby mode" State="false" />
+    <Setting Id="averyQuestP" Label="avery!'s Quest" State="false">
+      <Setting Id="NPC_Theatre_Bat" Label="esme, the Bat" State="false" />
+      <Setting Id="NPC_Theatre_Cow3" Label="velma, the Cow" State="false" />
+      <Setting Id="NPC_Theatre_Space" Label="andromeda, the Golden Eagle" State="false" />
     </Setting>
+
+    <Setting Id="NPC_Directions_Deer" Label="esther, the Deer" State="false" />
+    <Setting Id="NPC_Rock_Fox" Label="zhu, the Fox" State="false" />
+    <Setting Id="NPC_Warrior_Beaver" Label="penelope, the Beaver" State="false" />
+    <Setting Id="NPC_Sidekick_Hippo" Label="gunther, the Hippo" State="false" />
+    <Setting Id="NPC_BigWhale" Label="billy, the Whale" State="false" />
+    <Setting Id="NPC_Invisible_Horse" Label="trish, the Horse" State="false" />
+    <Setting Id="NPC_Pot_Armadillo" Label="pot kid, the Armadillo" State="false" />
+    <Setting Id="NPC_TutuCat" Label="tiffany, the Siamese Cat" State="false" />
+    <Setting Id="NPC_TutuCatMom" Label="Carol, the Siamese Cat" State="false" />
+    <Setting Id="NPC_Obstacle_Ostrich" Label="pepperoni, the Ostrich" State="false" />
+    <Setting Id="NPC_Chess_Eagle" Label="Tony, the Eagle" State="false" />
+    <Setting Id="NPC_Rescue_Robin" Label="robin, the Robin" State="false" />
+    <Setting Id="NPC_WannaBeHawk" Label="joe, the Hawk" State="false" />
+    <Setting Id="NPC_Old_Man_Sloth" Label="Mr. Doddler, the Sloth" State="false" />
+    <Setting Id="NPC_SwimSheep" Label="marlow, the Sheep" State="false" />
+    <Setting Id="NPC_SwimBull" Label="cade, the Bull" State="false" />
+    <Setting Id="NPC_Fetch_Shark" Label="becca, the Shark" State="false" />
+    <Setting Id="NPC_Destroy_Elephant" Label="viraj, the Elephant" State="false" />
+    <Setting Id="NPC_Skate_Pug" Label="skate pug, the Pug" State="false" />
+    <Setting Id="NPC_Clumsy_Jackal" Label="sam, the Jackal" State="false" />
+    <Setting Id="NPC_AwkwardFriendly" Label="madeline, the Mouse" State="false" />
+    <Setting Id="NPC_Mistakes_Rat" Label="neil, the Rat" State="false" />
+    <Setting Id="NPC_Part-Timer" Label="Part-Timer, the Hyena" State="false" />
+    <Setting Id="NPC_Pomeranian" Label="twig, the Pomeranian" State="false" />
+    <Setting Id="NPC_TripLizard" Label="luisa, the Lizard" State="false" />
+    <Setting Id="NPC_Confused_Elk" Label="tanner, the Elk" State="false" />
+    <Setting Id="NPC_BombBowlMole" Label="flint, the Mole" State="false" />
+    <Setting Id="NPC_Balloon_Owl" Label="darcie, the Owl" State="false" />
+    <Setting Id="NPC_FetchVulture" Label="kasen, the Vulture" State="false" />
+    <Setting Id="NPC_ScaredOfHeightsBear" Label="mochi, the Bear" State="false" />
+    <Setting Id="NPC_SurfOpossum" Label="ssumantha, the Opossum" State="false" />
+    <Setting Id="NPC_ScaredPots_Cougar" Label="scooter, the Cougar" State="false" />
+    <Setting Id="NPC_Destroy_Rabbit" Label="leeland, the Rabbit" State="false" />
+    <Setting Id="NPC_TrashPanda" Label="Roy, the Raccoon" State="false" />
+    <Setting Id="NPC_BraceletMonkey" Label="???, the Monkey" State="false" />
   </Setting>
 
-  <Setting Id="other" Label="other" State="true">
-    <Setting Id="iWorldState-1" Label="Finish Intro Sequence" State="false" />
+  <Setting Id="items" Label="Items" State="false">
+    <Setting Id="hats" Label="Hats" State="false">
+      <Setting Id="POINTY FLOPPY THING" Label="Pointy Floppy Thing" State="false" />
+      <Setting Id="SLIME CAP" Label="Slime Cap" State="false" />
+      <Setting Id="SPACE DOME" Label="Space Dome" State="false" />
+      <Setting Id="SKATER HELMET" Label="Skater Helmet" State="false" />
+      <Setting Id="PRINCESS TIARA" Label="Princess Tiara" State="false" />
+      <Setting Id="NINJA HEADBAND" Label="Ninja Headband" State="false" />
+      <Setting Id="BUCKET HELM" Label="Bucket Helm" State="false" />
+      <Setting Id="BERET" Label="Beret" State="false" />
+      <Setting Id="WESTERN WIDE BRIM" Label="Western Wide Brim" State="false" />
+      <Setting Id="DETECTIVE COWL" Label="Detective Cowl" State="false" />
+    </Setting>
 
-    <Setting Id="bBuilding_Castle" Label="build the castle" State="false" />
-    <Setting Id="bBuilding_Bar" Label="build the bar" State="false" />
-    <Setting Id="bBuilding_Cathedral" Label="build the cathedral" State="false" />
-    <Setting Id="bBuilding_Market" Label="build the market" State="false" />
+    <Setting Id="weapons" Label="Weapons" State="false">
+      <Setting Id="STICK" Label="Stick" State="false" />
+      <Setting Id="WOODEN SWORD" Label="Wooden Sword" State="false" />
+      <Setting Id="GRABBY HAND" Label="Grabby Hand" State="false" />
+      <Setting Id="BUG NET" Label="Bug Net" State="false" />
+      <Setting Id="NUNCHAKU" Label="Nunchaku" State="false" />
+      <Setting Id="PALEOLITHIC TOOL" Label="Paleolithic Tool" State="false" />
+      <Setting Id="WRENCH" Label="Wrench" State="false" />
+      <Setting Id="PAINTBRUSH" Label="Paintbrush" State="false" />
+      <Setting Id="CARDBOARD SPEAR" Label="Cardboard Spear" State="false" />
+      <Setting Id="LASER SWORD" Label="Laser Sword" State="false" />
+      <Setting Id="OVERSIZED PENIL" Label="Oversized Pencil" State="false" />
+      <Setting Id="PRINCESS WAND" Label="Princess Wand" State="false" />
+    </Setting>
 
-    <Setting Id="epilogue" Label="epilogue" State="true">
-      <Setting Id="iEndOfAct2GivenChoice-1" Label="show big sis!" State="false" />
+    <Setting Id="shields" Label="Shields" State="false">
+      <Setting Id="POT LID" Label="Pot Lid" State="false" />
+      <Setting Id="ART PALETTE" Label="Art Palette" State="false" />
+      <Setting Id="TOWER SHIELD" Label="Tower Shield" State="false" />
+      <Setting Id="PLATTER" Label="Platter" State="false" />
+      <Setting Id="CHESSBOARD" Label="Chess Board" State="false" />
+      <Setting Id="BIG LEAF" Label="Big Leaf" State="false" />
+      <Setting Id="TRASH CAN LID" Label="Trash Can Lid" State="false" />
+      <Setting Id="INNER TUBE" Label="Inner Tube" State="false" />
+      <Setting Id="SKATEBOARD" Label="Skateboard" State="false" />
+      <Setting Id="SCOOTER BOARD" Label="Scooter Board" State="false" />
+      <Setting Id="TRAMPOLINE" Label="Trampoline" State="false" />
+    </Setting>
 
-      <Setting Id="goodFlashback" Label="good flashback" State="false">
-        <!-- <Setting Id="iQuest_FlashbackSequence-0" Label="start" State="false" /> -->
-        <Setting Id="iQuest_FlashbackSequence-1" Label="first monster" State="false" />
-        <Setting Id="iQuest_FlashbackSequence-2" Label="second monster" State="false" />
-        <Setting Id="iQuest_FlashbackSequence-3" Label="third monster" State="false" />
-      </Setting>
+    <Setting Id="utility" Label="Utility Items" State="false">
+      <Setting Id="RAGDOLL" Label="Ragdoll" State="false" />
+      <Setting Id="ROCK" Label="Rock" State="false" />
+      <Setting Id="SHURIKEN" Label="Shuriken" State="false" />
+      <Setting Id="BUBBLE GUM" Label="Bubble Gum" State="false" />
+      <Setting Id="SPACE BLASTER" Label="Space Blaster" State="false" />
+      <Setting Id="BOWLING BOMB" Label="Bowling Bomb" State="false" />
+      <Setting Id="BALLOON" Label="Balloon" State="false" />
+      <Setting Id="PAINT BLASTER" Label="Paint Blaster" State="false" />
+      <Setting Id="STICKY HAND" Label="Sticky Hand" State="false" />
+      <Setting Id="AN ACTUAL DIGITAL CAMERA" Label="Digital Camera" State="false" />
+    </Setting>
 
-      <Setting Id="badFlashback" Label="bad flashback" State="true">
-        <!-- <Setting Id="iQuest_FlashbackSequence-4" Label="start" State="false" /> -->
-        <Setting Id="iQuest_FlashbackSequence-5" Label="first monster" State="false" />
-        <Setting Id="iQuest_FlashbackSequence-6" Label="second monster" State="false" />
-        <Setting Id="any%End" Label="final monster (any% end)" State="true" />
-      </Setting>
+    <!-- <Setting Id="bracelets" Label="Bracelets" State="false">
+
+    </Setting> -->
+
+    <Setting Id="miscItems" Label="Miscellaneous Items" State="false">
+      <Setting Id="GLIDER?" Label="Glider?" State="false" />
     </Setting>
   </Setting>
 </Settings>

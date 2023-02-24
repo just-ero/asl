@@ -4,109 +4,103 @@ startup
 {
   Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
   vars.Helper.GameName = "lil gator game";
-  vars.Helper.Settings.CreateFromXml("Components/lilgatorgame.Settings.xml");
-
-  vars.CompletedBools = new HashSet<int>();
-  vars.CompletedInts = new HashSet<int>();
-
-  vars.IgnoredKeys = new HashSet<string>
-  {
-    "CraftingMaterials", "PrologueCameraRotation",
-    "CameraRotation" , "PlayerRotation" , "PlayerPosition_X" , "PlayerPosition_Y" , "PlayerPosition_Z",
-    "CameraFBRotation" , "PlayerFBRotation" , "PlayerFBPosition_X" , "PlayerFBPosition_Y" , "PlayerFBPosition_Z"
-  };
-
-  vars.Helper.AlertRealTime();
-}
-
-onStart
-{
-  vars.CompletedBools.Clear();
-  vars.CompletedInts.Clear();
+  vars.Helper.Settings.CreateFromXml(@"D:\Code\Projects\LiveSplit.Ero\asl\lil gator game\lilgatorgame-beta.Settings.xml");
+  vars.Helper.AlertGameTime();
 }
 
 init
 {
+  current.Flashback = false;
+  current.Item = null;
+  current.Friend = null;
+
   vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
   {
-    vars.Helper["Playing"] = mono.Make<bool>("GameData", "instance", "save");
+    var srd = mono["SpeedrunData"];
+    if (srd.Static == IntPtr.Zero)
+      return false;
 
-    var dict = mono["mscorlib", "Dictionary_2"];
+    vars.Helper["State"] = srd.Make<int>("state");
+    vars.Helper["IGT"] = srd.Make<double>("inGameTime");
 
-    vars.Helper["BoolsCount"] = mono.Make<int>("GameData", "instance", "gameSaveData", "bools", dict["count"]);
-    vars.Helper["BoolsEntries"] = mono.Make<IntPtr>("GameData", "instance", "gameSaveData", "bools", dict["entries"]);
-
-    vars.Helper["IntsCount"] = mono.Make<int>("GameData", "instance", "gameSaveData", "ints", dict["count"]);
-    vars.Helper["IntsEntries"] = mono.Make<IntPtr>("GameData", "instance", "gameSaveData", "ints", dict["entries"]);
+    vars.Helper["TutorialEnd"] = srd.Make<bool>("tutorialEnd_LastInput");
+    vars.Helper["JillQuest"] = srd.Make<bool>("jillQuestComplete");
+    vars.Helper["MartinQuest"] = srd.Make<bool>("martinQuestComplete");
+    vars.Helper["AveryQuest"] = srd.Make<bool>("averyQuestComplete");
+    vars.Helper["Town"] = srd.Make<bool>("showTownToSis");
+    vars.Helper["Credits"] = srd.Make<bool>("credits");
+    vars.Helper["Home"] = srd.Make<bool>("thanksForPlaying");
 
     vars.Helper["ObjectStates"] = mono.Make<IntPtr>("GameData", "instance", "gameSaveData", "objectStates");
+
+    // handling collectibles
+    var list = mono["mscorlib", "List_1"];
+
+    var itemPtr = srd.Make<int>("unlockedItems", list["_size"]);
+    vars.GetMostRecentItem = (Func<string>)(() =>
+    {
+      itemPtr.Update(game);
+      return vars.Helper.ReadString(srd.Static + srd["unlockedItems"], list["_items"], (itemPtr.Current + 3) * 0x8);
+    });
+
+    var friendPtr = srd.Make<int>("unlockedFriends", list["_size"]);
+    vars.GetMostRecentFriend = (Func<string>)(() =>
+    {
+      friendPtr.Update(game);
+      return vars.Helper.ReadString(srd.Static + srd["unlockedFriends"], list["_items"], (friendPtr.Current + 3) * 0x8);
+    });
 
     return true;
   });
 }
 
+update
+{
+  current.Item = vars.GetMostRecentItem();
+  current.Friend = vars.GetMostRecentFriend();
+}
+
 start
 {
-  return !old.Playing && current.Playing;
+  return old.State == 0 && current.State == 1;
 }
 
 split
 {
-  var ps = vars.Helper.PtrSize;
-
-  for (int i = 0; i < current.BoolsCount; i++)
+  if (settings["flashback"])
   {
-    if (vars.CompletedBools.Contains(i)) continue;
-
-    var addr = current.BoolsEntries + (ps * 4) + (ps * 3 * i);
-    var value = vars.Helper.Read<bool>(addr + (ps * 2));
-
-    if (!value) continue;
-
-    vars.CompletedBools.Add(i);
-
-    var key = "b" + vars.Helper.ReadString(addr + (ps * 1));
-    if (vars.IgnoredKeys.Contains(key)) continue;
-
-    if (settings.ContainsKey(key) && settings[key])
+    var count = current.ObjectStates + (vars.Helper.PtrSize * 3);
+    if (vars.Helper.Read<int>(count) >= 965)
     {
-      return true;
+      var finalObj = current.ObjectStates + (vars.Helper.PtrSize * 4) + 965;
+      current.Flashback = vars.Helper.Read<bool>(finalObj);
+
+      if (!old.Flashback && current.Flashback)
+        return true;
     }
   }
 
-  for (int i = 0; i < current.IntsCount; i++)
-  {
-    var addr = current.IntsEntries + (ps * 4) + (ps * 3 * i);
-    var value = vars.Helper.Read<int>(addr + (ps * 2));
-    var id = i * 1000 + value;
-
-    if (value <= 0 || !vars.CompletedInts.Add(id)) continue;
-
-    var key = vars.Helper.ReadString(addr + (ps * 1));
-    if (vars.IgnoredKeys.Contains(key)) continue;
-
-    key = "i" + key + "-" + value;
-    if (settings.ContainsKey(key) && settings[key])
-    {
-      vars.CompletedInts.Add(id);
-      return true;
-    }
-  }
-
-  if (settings["any%End"])
-  {
-    var count = current.ObjectStates + (ps * 3);
-    if (vars.Helper.Read<int>(count) < 965)
-      return;
-
-    var finalObj = current.ObjectStates + (ps * 4) + 965;
-    current.AnyPercentComplete = vars.Helper.Read<bool>(finalObj);
-
-    return !old.AnyPercentComplete && current.AnyPercentComplete;
-  }
+  return old.Item != current.Item && settings[current.Item] || old.Friend != current.Friend && settings[current.Friend]
+         || !old.TutorialEnd && current.TutorialEnd && settings["tutorialEnd"]
+         || !old.JillQuest && current.JillQuest && settings["jillQuest"]
+         || !old.MartinQuest && current.MartinQuest && settings["martinQuest"]
+         || !old.AveryQuest && current.AveryQuest && settings["averyQuest"]
+         || !old.Town && current.Town && settings["showTown"]
+         || !old.Credits && current.Credits && settings["credits"]
+         || !old.Home && current.Home && settings["goHome"];
 }
 
 reset
 {
-  return old.Playing && !current.Playing;
+  return old.State != 0 && current.State == 0;
+}
+
+gameTime
+{
+  return TimeSpan.FromSeconds(current.IGT);
+}
+
+isLoading
+{
+  return true;
 }
