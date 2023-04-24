@@ -1,6 +1,6 @@
 # Auto Splitter for ***Sonic Project '06***
 ## Features
-Starts the timer with an offset when the loading screen begins.  
+Starts the timer when the loading screen begins.  
 Splits upon completing an act.  
 Does not reset the timer.  
 Removes loading times.
