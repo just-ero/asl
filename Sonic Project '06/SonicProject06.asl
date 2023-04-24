@@ -9,6 +9,11 @@ startup
   vars.Helper.AlertLoadless();
 }
 
+onStart
+{
+  timer.IsGameTimePaused = true;
+}
+
 init
 {
   current.State = -1;
@@ -45,7 +50,7 @@ start
 split
 {
   return old.State == 2 && current.State == 5
-      /* || old.CheckPoint != current.CheckPoint && settings[current.CheckPoint] */;
+    /* || old.CheckPoint != current.CheckPoint && settings[current.CheckPoint] */;
 }
 
 reset
@@ -53,5 +58,17 @@ reset
 
 isLoading
 {
-  return current.State == 1;
+  return current.State == 0 || current.State == 1 || current.State == 3;
 }
+
+/*
+public enum State
+{
+  Menu,
+  Loading,
+  Playing,
+  Hub,
+  Paused,
+  Result,
+}
+*/
