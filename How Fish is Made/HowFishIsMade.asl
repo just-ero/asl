@@ -2,78 +2,48 @@ state("How Fish is Made") {}
 
 startup
 {
-	vars.Log = (Action<object>)(output => print("[How Fish is Made] " + output));
-	vars.Unity = Assembly.Load(File.ReadAllBytes(@"Components\UnityASL.bin")).CreateInstance("UnityASL.Unity");
-	vars.TimerModel = new TimerModel { CurrentState = timer };
+  Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
 }
 
 onStart
 {
-	vars.HasSplitForEnd = false;
-	vars.Ragdolls = 0;
+  vars.HasSplitForEnd = false;
+  vars.Ragdolls = 0;
 }
 
 init
 {
-	vars.Unity.TryOnLoad = (Func<dynamic, bool>)(helper =>
-	{
-		Thread.Sleep(3000);
+  vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
+  {
+    vars.Helper["OnMainMenu"] = mono.Make<bool>("MainMenuManager", "instance", "start");
+    vars.Helper["EndDialogRunning"] = mono.Make<bool>("MainMenuManager", "instance", "manager", "endCutsceneConvoRenderer", "dialogRunning");
+    vars.Helper["IsRagdoll"] = mono.Make<bool>("MainMenuManager", "instance", "manager", "player", "isRagdoll");
 
-		var mmm = helper.GetClass("Assembly-CSharp", "MainMenuManager");
-		if (mmm.Static == IntPtr.Zero) return false;
+    return true;
+  });
 
-		var gm = helper.GetClass("Assembly-CSharp", "GameManager");
-		var dr = helper.GetClass("Assembly-CSharp", "DialogRenderer");
-		var pfc = helper.GetClass("Assembly-CSharp", "PlayerFishController");
-
-		vars.Unity.Make<bool>(mmm.Static, mmm["instance"], mmm["start"]).Name = "onMainMenu";
-		vars.Unity.Make<bool>(mmm.Static, mmm["instance"], mmm["manager"], gm["endCutsceneConvoRenderer"], dr["dialogRunning"]).Name = "endDialogRunning";
-		vars.Unity.Make<bool>(mmm.Static, mmm["instance"], mmm["manager"], gm["player"], pfc["isRagdoll"]).Name = "isRagdoll";
-
-		return true;
-	});
-
-	vars.Unity.Load(game);
-	vars.HasSplitForEnd = false;
-	vars.Ragdolls = 0;
-}
-
-update
-{
-	if (!vars.Unity.Loaded) return false;
-
-	vars.Unity.UpdateAll(game);
-
-	current.OnMainMenu = vars.Unity["onMainMenu"].Current;
-	current.EndDialogRunning = vars.Unity["endDialogRunning"].Current;
-	current.IsRagdoll = vars.Unity["isRagdoll"].Current;
+  vars.HasSplitForEnd = false;
+  vars.Ragdolls = 0;
 }
 
 start
 {
-	return old.OnMainMenu && !current.OnMainMenu;
+  return old.OnMainMenu && !current.OnMainMenu;
 }
 
 split
 {
-	return old.IsRagdoll && !current.IsRagdoll ||
-	       !old.EndDialogRunning && current.EndDialogRunning;
+  return old.IsRagdoll && !current.IsRagdoll
+    || !old.EndDialogRunning && current.EndDialogRunning;
 }
 
 reset
 {
-	return false;
+  return false;
 }
 
 exit
 {
-	if (settings.ResetEnabled && timer.CurrentPhase != TimerPhase.Ended)
-		vars.TimerModel.Reset();
-
-	vars.Unity.Reset();
-}
-
-shutdown
-{
-	vars.Unity.Reset();
+  if (settings.ResetEnabled && timer.CurrentPhase != TimerPhase.Ended)
+    vars.Helper.Timer.Reset();
 }
