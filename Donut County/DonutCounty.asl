@@ -2,14 +2,9 @@ state("DonutCounty") {}
 
 startup
 {
-	vars.Log = (Action<object>)(output => print("[Donut County] " + output));
-
-	#region Helper Setup
-	var bytes = File.ReadAllBytes(@"Components\LiveSplit.ASLHelper.bin");
-	var type = Assembly.Load(bytes).GetType("ASLHelper.Unity");
-	vars.Helper = Activator.CreateInstance(type, timer, settings, this);
+	Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
+	vars.Helper.GameName = "Donut County";
 	vars.Helper.LoadSceneManager = true;
-	#endregion
 
 	dynamic[,] _settings =
 	{
@@ -42,7 +37,7 @@ startup
 	settings.Add("splits", true, "Split after completing levels:");
 
 	vars.Helper.Settings.CreateCustom(_settings, 4, 1, 3, 2);
-	vars.Helper.AlertLoadless("Donut County");
+	vars.Helper.AlertLoadless();
 
 	vars.CompletedSplits = new HashSet<int>();
 }
@@ -54,36 +49,18 @@ onStart
 
 init
 {
-	vars.Helper.TryOnLoad = (Func<dynamic, bool>)(mono =>
+	vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
 	{
-		var rm = mono.GetClass("RM");
-		var sm = mono.GetClass("SceneManager");
-		var ls = mono.GetClass("LevelSettings");
-		var d = mono.GetClass("OS1Delivery");
-		var t = mono.GetClass("Tornado");
+		Thread.Sleep(3000);
 
-		vars.Helper["nextLevel"] = rm.MakeString("sceneManager", "nextLevel");
-		vars.Helper["loading"] = rm.Make<bool>("sceneManager", "loading");
-		vars.Helper["loadingScene"] = rm.Make<bool>("sceneManager", "_isLoadingScene");
-		vars.Helper["levelIndex"] = rm.Make<int>("levelSettings", "deliveryData", "index");
-		vars.Helper["tornadoDestructables"] = rm.Make<int>("tornado", "_numDestructables");
+		vars.Helper["Scene"] = mono.MakeString("RM", "sceneManager", "nextLevel");
+		vars.Helper["Loading"] = mono.Make<bool>("RM", "sceneManager", "loading");
+		vars.Helper["LoadingScene"] = mono.Make<bool>("RM", "sceneManager", "_isLoadingScene");
+		vars.Helper["LevelIndex"] = mono.Make<int>("RM", "levelSettings", "deliveryData", "index");
+		vars.Helper["TornadoDestructables"] = mono.Make<int>("RM", "tornado", "_numDestructables");
 
 		return true;
 	});
-
-	vars.Helper.Load(game);
-}
-
-update
-{
-	if (!vars.Helper.Update())
-		return false;
-
-	current.Scene = vars.Helper["nextLevel"].Current;
-	current.Loading = vars.Helper["loading"].Current;
-	current.LoadingScene = vars.Helper["loadingScene"].Current;
-	current.LevelIndex = vars.Helper["levelIndex"].Current;
-	current.TornadoDestructables = vars.Helper["tornadoDestructables"].Current;
 }
 
 start
@@ -107,14 +84,4 @@ split
 isLoading
 {
 	return current.Loading || current.LoadingScene;
-}
-
-exit
-{
-	vars.Helper.Dispose();
-}
-
-shutdown
-{
-	vars.Helper.Dispose();
 }
