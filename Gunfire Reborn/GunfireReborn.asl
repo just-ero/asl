@@ -2,128 +2,104 @@ state("Gunfire Reborn") {}
 
 startup
 {
-	vars.Log = (Action<object>)((output) => print("[Gunfire Reborn] " + output));
-	vars.Unity = Assembly.Load(File.ReadAllBytes(@"Components\UnityASL.bin")).CreateInstance("UnityASL.Unity");
-	vars.TimerModel = new TimerModel { CurrentState = timer };
+    Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
+    vars.Helper.GameName = "Gunfire Reborn";
 
-	vars.Stages = new List<Tuple<string, int, bool>>
-	{
-		Tuple.Create("Longling Tomb", 5, false),
-		Tuple.Create("Anxi Tomb", 4, false),
-		Tuple.Create("Duo Fjord", 4, true),
-		Tuple.Create("Hyperborean", 3, true)
-	};
+    settings.Add("area-1", true, "Split after completing a stage in Longling Tomb:");
+        settings.Add("1-1->1-2", true, "Stage 1", "area-1");
+        settings.Add("1-2->1-3", true, "Stage 2", "area-1");
+        settings.Add("1-3->1-4", true, "Stage 3", "area-1");
+        settings.Add("1-4->1-5", true, "Stage 4", "area-1");
+        settings.Add("1-5->2-0", true, "Boss", "area-1");
+    settings.Add("area-2", true, "Split after completing a stage in Anxi Tomb:");
+        settings.Add("2-0->2-1", false, "Entrance", "area-2");
+        settings.Add("2-1->2-2", true, "Stage 1", "area-2");
+        settings.Add("2-2->2-3", true, "Stage 2", "area-2");
+        settings.Add("2-3->2-4", true, "Stage 3", "area-2");
+        settings.Add("2-4->3-0", true, "Boss", "area-2");
+    settings.Add("area-3", true, "Split after completing a stage in Duo Fjord:");
+        settings.Add("3-0->3-1", false, "Entrance", "area-3");
+        settings.Add("3-1->3-2", true, "Stage 1", "area-3");
+        settings.Add("3-2->3-3", true, "Stage 2", "area-3");
+        settings.Add("3-3->3-4", true, "Stage 3", "area-3");
+        settings.Add("3-4->4-0", true, "Boss", "area-3");
+    settings.Add("area-4", true, "Split after completing a stage in Hyperborean:");
+        settings.Add("4-0->4-1", false, "Entrance", "area-4");
+        settings.Add("4-1->4-2", true, "Stage 1", "area-4");
+        settings.Add("4-2->4-3", true, "Stage 2", "area-4");
+        settings.Add("4-3->5-0", true, "Boss", "area-4");
 
-	var count = vars.Stages.Count;
-	for (int stage = 1; stage <= count; ++stage)
-	{
-		var name = vars.Stages[stage - 1].Item1;
-		var levels = vars.Stages[stage - 1].Item2;
-
-		settings.Add("layer" + stage, true, "Split after completing a stage in " + name + ":");
-
-		for (int level = 0; level <= levels; ++level)
-		{
-			if (level == 0 && stage != 0)
-				settings.Add(string.Format("{0}-0to{0}-1", stage), false, name + " Entrance", "layer" + stage);
-			else if (level > 0 && level < levels)
-				settings.Add(string.Format("{0}-{1}to{0}-{2}", stage, level, level + 1), true, "Stage " + level, "layer" + stage);
-			else if (level == levels)
-				settings.Add(string.Format("{0}-{1}to{2}-0", stage, level, stage + 1), true, name + " Boss", "layer" + stage);
-		}
-	}
-
-	if (timer.CurrentTimingMethod == TimingMethod.RealTime)
-	{
-		var mbox = MessageBox.Show(
-			"Gunfire Reborn uses in-game time.\nWould you like to switch to it?",
-			"LiveSplit | Gunfire Reborn",
-			MessageBoxButtons.YesNo);
-
-		if (mbox == DialogResult.Yes)
-			timer.CurrentTimingMethod = TimingMethod.GameTime;
-	}
+    vars.Helper.AlertGameTime();
 }
 
 init
 {
-	vars.Unity.TryOnLoad = (Func<dynamic, bool>)(helper =>
-	{
-		var wc = helper.GetClass("Assembly-CSharp", "WarCache");
-		var wli = helper.GetClass("Assembly-CSharp", "WarLevelInfo");
-		var gsm = helper.GetClass("Assembly-CSharp", "GameSceneManager");
-		var gu = helper.GetClass("Assembly-CSharp", "GameUtility");
-		var fw = helper.GetClass("Assembly-CSharp", "netwarreward_GS2CRewardFinishWarClass");
+    vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
+    {
+        var wc = mono["WarCache"];
+        var wli = mono["WarLevelInfo"];
 
-		vars.Unity.Make<int>(wc.Static, fw["Type"] - wc["ReportData"]).Name = "EndType";
-		vars.Unity.Make<byte>(wc.Static, wc["LevelInfo"], wli["CurLevel"]).Name = "Level";
-		vars.Unity.Make<byte>(wc.Static, wc["LevelInfo"], wli["CurLayer"]).Name = "Layer";
-		vars.Unity.Make<bool>(gsm.Static, gsm["isInWar"]).Name = "InWar";
-		vars.Unity.Make<int>(gu.Static, gu["ClientChallengeFrame"]).Name = "Time";
+        vars.Helper["EndType"] = wc.Make<int>("ReportData");
+        vars.Helper["Level"] = wc.Make<byte>("LevelInfo", wli["CurLevel"]);
+        vars.Helper["Layer"] = wc.Make<byte>("LevelInfo", wli["CurLayer"]);
 
-		return true;
-	});
+        var gsm = mono["GameSceneManager"];
+        var gu = mono["GameUtility"];
 
-	vars.Unity.Load(game);
+        vars.Helper["IsInWar"] = gsm.Make<bool>("isInWar");
+        vars.Helper["Frame"] = gu.Make<int>("ClientChallengeFrame");
+
+        return true;
+    });
 }
 
 update
 {
-	if (!vars.Unity.Loaded) return false;
-
-	vars.Unity.Update();
-	current.EndType = vars.Unity["EndType"].Current;
-	current.Level = vars.Unity["Level"].Current;
-	current.Layer = vars.Unity["Layer"].Current;
-	current.IsInWar = vars.Unity["InWar"].Current;
-	current.HalfTime = vars.Unity["Time"].Current;
-
-	if (old.EndType == 0 && current.EndType == 2)
-		vars.TimerModel.Pause();
+    if (old.EndType == 0 && current.EndType == 2)
+        vars.Helper.Timer.Pause();
 }
 
 start
 {
-	return current.Layer == 1 && current.Level == 1 && old.HalfTime == 0 && current.HalfTime > 0;
+    return current.Layer == 1 && current.Level == 1 && old.Frame == 0 && current.Frame > 0;
 }
 
 split
 {
-	if (old.EndType == 0 && current.EndType == 3)
-	{
-		var layer = current.Layer;
-		var stageInfo = vars.Stages[layer - 1];
-		if (stageInfo.Item3)
-			return settings[string.Format("{0}-{1}to{2}-0", layer, current.Level, layer + 1)];
-	}
+    if (old.EndType == 0 && current.EndType == 3)
+    {
+        byte layer = current.Layer, level = current.Level;
+        string setting = string.Format("{0}-{1}->{2}-{3}", layer, level, layer, level + 1);
 
-	if (old.Level != current.Level)
-		return settings[string.Format("{0}-{1}to{2}-{3}", old.Layer, old.Level, current.Layer, current.Level)];
+        return settings[setting];
+    }
+
+    if (old.Level != current.Level)
+    {
+        string setting = string.Format("{0}-{1}->{2}-{3}", old.Layer, old.Level, current.Layer, current.Level);
+
+        return settings[setting];
+    }
 }
 
 reset
 {
-	return old.EndType == 0 && current.EndType == 1 || old.Layer != 0 && current.Layer == 0;
+    return old.EndType == 0 && current.EndType == 1
+        || old.Layer != 0 && current.Layer == 0;
 }
 
 gameTime
 {
-	if (current.EndType == 0)
-		return TimeSpan.FromMilliseconds(current.HalfTime * 20);
+    if (current.EndType == 0)
+        return TimeSpan.FromMilliseconds(current.Frame * 20);
 }
 
 isLoading
 {
-	return true;
+    return true;
 }
 
 exit
 {
-	timer.IsGameTimePaused = true;
-	vars.Unity.Reset();
-}
-
-shutdown
-{
-	vars.Unity.Reset();
+    timer.IsGameTimePaused = true;
 }
