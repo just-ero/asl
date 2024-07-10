@@ -34,6 +34,8 @@ startup
 
 init
 {
+    vars.Helper.ModuleLoadTimeout = 5000;
+
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
         var wc = mono["WarCache"];
