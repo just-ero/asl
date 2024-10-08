@@ -4,6 +4,8 @@ startup
 {
     Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
 
+    settings.Add("worlds", true, "Split when finishing a stage:");
+
     string[] worldNames =
     {
         "Hello, Pico Park 2",
@@ -22,8 +24,6 @@ startup
         "Handy Gadgets",
         "Last Park"
     };
-
-    settings.Add("worlds", true, "Split when finishing a stage:");
 
     for (int i = 0, world = 1; i < worldNames.Length; i++, world++)
     {
@@ -54,20 +54,17 @@ init
 
         return true;
     });
-
-    vars.Helper.TryLoadTimeout = 500;
 }
 
 update
 {
-    if (current.GameMode != 0)
+    if (current.GameMode != 0 || current.GameMode != 3) // World, Black
         return false;
 }
 
 start
 {
-    return old.Phase == 2      // Prepare3
-        && current.Phase == 3; // Func
+    return old.Phase != 3 && current.Phase == 3; // Func
 }
 
 split
@@ -79,7 +76,7 @@ split
 
 reset
 {
-    return old.Result != current.Result && old.Result == 0 // None
+    return old.Result == 0 && current.Result != 0 // None
         && settings["reset" + current.Result];
 }
 
