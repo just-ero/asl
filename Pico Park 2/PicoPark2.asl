@@ -58,8 +58,8 @@ init
 
 update
 {
-    if (current.GameMode != 0 || current.GameMode != 3) // World, Black
-        return false;
+    return current.GameMode == 0  // World
+        || current.GameMode == 3; // Black
 }
 
 start
