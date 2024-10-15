@@ -4,7 +4,7 @@ startup
 {
     Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
     vars.Helper.Settings.CreateFromXml("Components/SpongeBobSquarePants_ThePatrickStarGame.Settings.xml");
-    vars.Helper.StartFileLogger("SpongeBobSquarePants_ThePatrickStarGame.log");
+    vars.Helper.StartFileLogger("SpongeBobSquarePants_ThePatrickStarGame.log", 16384);
 
     // Game sets the applicationState to 3 (Game) ~0.91 seconds before removing the loading UI.
     vars.TargetOffset = TimeSpan.FromSeconds(-0.91);
