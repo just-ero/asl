@@ -28,58 +28,88 @@ init
         vars.Helper["GameState"] = mono.Make<int>("ApplicationManager", "instance", "applicationState");
         vars.Helper["CameraPosition"] = mono.Make<Vector3f>("CameraManager", "cameraPosition3D");
 
-        var sm = mono["SavingManager"];
-        var sf = mono["SaveFile_Game"];
-        var miss = mono["SaveableMission"];
-        var task = mono["SaveableMissionTask"];
+        var dbo = mono["DatabaseObject"];
+        var tso = mono["Texto_SO"];
+        var tl = mono["TextoLine"];
 
-        // SavingManager needs to be initialized.
-        if (sm.Static == IntPtr.Zero)
+        var fm = mono["FeatsManager"];
+        if (fm.Static == IntPtr.Zero)
             return false;
 
-        // Complicated logic to get completed feats from a `List<string>`.
+        var fso = mono["Feat_SO"];
+
         vars.GetCompletedFeats = (Func<List<string>>)(() =>
         {
             var feats = new List<string>();
-            foreach (var feat in vars.Helper.ReadList<IntPtr>(sm.Static + sm["instance"], sm["gameFile"], sf["feats"]))
+
+            var count = vars.Helper.Read<int>(fm.Static + fm["instance"], fm["completedFeats"], 0x40);
+            for (int i = 0; i < count; i++)
             {
-                var length = vars.Helper.Read<int>(feat + 0x10); // String._stringLength
-                feats.Add(vars.Helper.ReadString(length * sizeof(char), ReadStringType.UTF16, feat + 0x14)); // String._firstChar
+                var feat = vars.Helper.Deref(fm.Static + fm["instance"], fm["completedFeats"], 0x18, 0x20 + (0x18 * i) + 0x8);
+
+                if (vars.Helper.Read<bool>(feat + 0x8))
+                {
+                    var id = vars.Helper.ReadString(feat + 0x0, dbo["id"]);
+                    var desc = vars.Helper.ReadString(feat + 0x0, fso["description"], tso["lines"], 0x10, 0x20, tl["text"]);
+
+                    feats.Add(id + " (\"" + desc + "\")");
+                }
             }
 
             return feats;
         });
 
-        // Complicated logic to get completed tasks from a `List<SaveableMission>`.
-        // Each `SaveableMission` contains a `SaveableMissionTask[]`.
-        // We only care about the `SaveableMissionTask` IDs that are completed.
+        var mm = mono["PHL_MissionManager"];
+        if (mm.Static == IntPtr.Zero)
+            return false;
+
+        var mle = mono["MissionLogEntry"];
+        var mtle = mono["MissionTaskLogEntry"];
+
+        var mtso = mono["PHL_MissionTask_SO"];
+
         vars.GetCompletedTasks = (Func<List<string>>)(() =>
         {
             var tasks = new List<string>();
 
-            // `SaveableMission` is a struct, so we need to iterate the list manually.
-            var mLength = vars.Helper.Read<int>(sm.Static + sm["instance"], sm["gameFile"], sf["missions"], 0x18); // List<T>._size
-            for (int i = 0; i < mLength; i++)
+            foreach (var mission in vars.Helper.ReadList<IntPtr>(mm.Static + mm["instance"], mm["missionLog"]))
             {
-                var m = vars.Helper.Deref(sm.Static + sm["instance"], sm["gameFile"], sf["missions"], 0x10, 0x20 + (i * 0x10)); // List<T>._items[i]
-
-                // `SaveableMissionTask` is a struct, so we need to iterate the array manually.
-                var tLength = vars.Helper.Read<int>(m + miss["tasks"], 0x18); // Array.Length
-                for (int j = 0; j < tLength; j++)
+                foreach (var task in vars.Helper.ReadList<IntPtr>(mission + mle["tasks"]))
                 {
-                    var t = vars.Helper.Deref(m + miss["tasks"], 0x20 + (j * 0x10)); // Array[j]
+                    if (vars.Helper.Read<bool>(task + mtle["completed"]))
+                    {
+                        var id = vars.Helper.ReadString(task + mtle["missionTaskSO"], dbo["id"]);
+                        var desc = vars.Helper.ReadString(task + mtle["missionTaskSO"], mtso["taskTexto"], tso["lines"], 0x10, 0x20, tl["text"]);
 
-                    if (!vars.Helper.Read<bool>(t + task["completed"]))
-                        continue;
-
-                    var tNameLength = vars.Helper.Read<int>(t + task["id"], 0x10); // String._stringLength
-                    var tName = vars.Helper.ReadString(tNameLength * sizeof(char), ReadStringType.UTF16, t + task["id"], 0x14); // String._firstChar
-
-                    tasks.Add(tName);
+                        tasks.Add(id + " (\"" + desc + "\")");
+                    }
                 }
             }
 
             return tasks;
+        });
+
+        var com = mono["CollectableObjectManager"];
+        if (com.Static == IntPtr.Zero)
+            return false;
+
+        vars.GetCollectedObjects = (Func<List<string>>)(() =>
+        {
+            var objects = new List<string>();
+
+            var count = vars.Helper.Read<int>(com.Static + com["instance"], com["collectedObjects"], 0x40);
+            for (int i = 0; i < count; i++)
+            {
+                var objGroup = vars.Helper.Deref(com.Static + com["instance"], com["collectedObjects"], 0x18, 0x20 + (0x18 * i) + 0x8);
+
+                foreach (var obj in vars.Helper.ReadList<IntPtr>(objGroup + 0x8))
+                {
+                    var id = vars.Helper.ReadString(obj + dbo["id"]);
+                    objects.Add(id);
+                }
+            }
+
+            return objects;
         });
 
         return true;
@@ -87,6 +117,7 @@ init
 
     current.Feats = new List<string>();
     current.Tasks = new List<string>();
+    current.Objects = new List<string>();
 }
 
 start
@@ -104,10 +135,11 @@ split
 {
     current.Feats = vars.GetCompletedFeats();
     current.Tasks = vars.GetCompletedTasks();
+    current.Objects = vars.GetCollectedObjects();
 
     for (int i = old.Feats.Count; i < current.Feats.Count; i++)
     {
-        vars.Log("Completed feat: " + current.Feats[i]);
+        vars.Log("[FEAT] " + current.Feats[i]);
 
         if (settings[current.Feats[i]])
             vars.PendingSplits++;
@@ -115,9 +147,17 @@ split
 
     for (int i = old.Tasks.Count; i < current.Tasks.Count; i++)
     {
-        vars.Log("Completed task: " + current.Tasks[i]);
+        vars.Log("[QEST] " + current.Tasks[i]);
 
         if (settings[current.Tasks[i]])
+            vars.PendingSplits++;
+    }
+
+    for (int i = old.Objects.Count; i < current.Objects.Count; i++)
+    {
+        vars.Log("[OBJT] " + current.Objects[i]);
+
+        if (settings[current.Objects[i]])
             vars.PendingSplits++;
     }
 
