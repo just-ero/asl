@@ -147,7 +147,7 @@ split
 
     for (int i = old.Tasks.Count; i < current.Tasks.Count; i++)
     {
-        vars.Log("[QEST] " + current.Tasks[i]);
+        vars.Log("[TASK] " + current.Tasks[i]);
 
         if (settings[current.Tasks[i]])
             vars.PendingSplits++;
@@ -155,7 +155,7 @@ split
 
     for (int i = old.Objects.Count; i < current.Objects.Count; i++)
     {
-        vars.Log("[OBJT] " + current.Objects[i]);
+        vars.Log("[OBJ ] " + current.Objects[i]);
 
         if (settings[current.Objects[i]])
             vars.PendingSplits++;
