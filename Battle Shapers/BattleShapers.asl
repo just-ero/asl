@@ -6,8 +6,7 @@ startup
     vars.Helper.GameName = "Battle Shapers";
     vars.Helper.AlertGameTime();
 
-    settings.Add("boss-split", false, "Split after defeating a boss");
-    settings.Add("floor-split", false, "Split after completing a floor");
+    settings.Add("floor-split", false, "Split when completing a floor");
 }
 
 init
@@ -26,9 +25,6 @@ init
         var sm = mono["ProtoRogue", "StageManager", 1];
         vars.Helper["DefeatedFinalBoss"] = mono.Make<bool>(sm, "_instance", "HasCompletedB90");
 
-        var pb = mono["ProtoRogue", "PlayerBrain", 2];
-        vars.Helper["DefeatedCurrentBoss"] = mono.Make<bool>(pm, "_instance", "_currentBossRoom", "IsBossDefeated");
-
         return true;
     });
 }
@@ -41,7 +37,6 @@ start
 split
 {
     return !old.DefeatedFinalBoss && current.DefeatedFinalBoss
-        || settings["boss-split"] && !old.DefeatedCurrentBoss && current.DefeatedCurrentBoss
         || settings["floor-split"] && old.Floor < current.Floor;
 }
 
