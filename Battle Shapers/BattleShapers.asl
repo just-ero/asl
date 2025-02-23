@@ -17,11 +17,13 @@ init
         vars.Helper["RunTime"] = mono.Make<float>(rt, "_instance", "RunTime");
 
         var pm = mono["ProtoRogue", "PersistenceManager", 2];
-        vars.Helper["RunEndedReason"] = mono.Make<int>(pm, "_instance", "_saveData", "lastRunEndedReason");
         vars.Helper["InRun"] = mono.Make<bool>(pm, "_instance", "_saveData", "hasStartedRun");
 
         var lm = mono["ProtoRogue", "LvlManager", 2];
         vars.Helper["Floor"] = mono.Make<int>(lm, "_instance", "towerCurrentLevelIndex");
+
+        var sm = mono["ProtoRogue", "StageManager", 1];
+        vars.Helper["DefeatedFinalBoss"] = mono.Make<bool>(sm, "_instance", "HasCompletedB90");
 
         return true;
     });
@@ -34,7 +36,7 @@ start
 
 split
 {
-    return old.RunEndedReason != 1 && current.RunEndedReason == 1
+    return !old.DefeatedFinalBoss && current.DefeatedFinalBoss
         || settings["floor-split"] && old.Floor < current.Floor;
 }
 
