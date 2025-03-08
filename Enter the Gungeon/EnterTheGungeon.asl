@@ -21,8 +21,6 @@ startup
 
 init
 {
-    Thread.Sleep(1000);
-
     vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
     {
         vars.Helper["Level"] = mono.Make<int>("GameManager", "mr_manager", "nextLevelIndex");
